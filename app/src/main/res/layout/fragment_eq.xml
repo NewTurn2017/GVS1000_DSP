@@ -1,0 +1,2298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    tools:context=".fragment.eq.GEQFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="스피커 선택"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/sp_eqSpeakerList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_geqSpeakerSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/select_spk"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_geqReset"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/eq_reset"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_geqBypass"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/bypass"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/darker_gray"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/black"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_loadTuning"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="튜닝값\n불러오기"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layout_border_text"
+        android:orientation="horizontal">
+
+        <HorizontalScrollView
+            android:id="@+id/lay_eq"
+            android:visibility="gone"
+            style="@style/CustomTheme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false"
+            android:scrollIndicators="top"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarSize="30dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="30dp">
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq1_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textAlignment="center" />
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq1_bypass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq2_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="25"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq2_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq3_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="31.5"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq3_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq4_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="40"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq4_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq5_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="50"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq5_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq6_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq6"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="63"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq6_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq7_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq7"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="80"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq7_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq8_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq8"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq8_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq9_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq9"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="125"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq9_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq10_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq10"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="160"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq10_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq11_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq11"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="200"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq11_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq12_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq12"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="250"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq12_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq13_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq13"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="315"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq13_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq14_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq14"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="400"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq14_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq15_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq15"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="500"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq15_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq16_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq16"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="630"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq16_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq17_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq17"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="800"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq17_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq18_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq18"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq18_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq19"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq19_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq19"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1.25k"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq19_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq20_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq20"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1.6 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq20_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq21"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq21_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq21"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq21_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq22"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq22_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq22"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2.5 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq22_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq23"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq23_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq23"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="3.15k"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq23_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq24_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq24"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="4 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq24_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq25"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq25_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq25"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="5 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq25_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq26"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq26_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq26"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="6.3 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq26_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq27"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq27_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq27"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="8 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq27_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq28_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq28"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="10 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq28_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq29"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq29_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq29"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="12.5k"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq29_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq30"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq30_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq30"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="16 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq30_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/layout_border_text"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_input_eq31"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:splitMotionEvents="false">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/sb_input_eq31_wp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/sb_input_eq31"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_ruler"
+                                android:backgroundTintMode="multiply"
+                                android:max="60"
+                                android:maxHeight="5dp"
+                                android:minHeight="5dp"
+                                android:progress="30"
+                                android:progressDrawable="@drawable/sb_wrapper"
+                                android:splitTrack="false"
+                                android:thumb="@drawable/fader_ss"
+                                app:seekBarRotation="CW270" />
+
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="20 k"
+                        android:textAlignment="center" />
+
+
+                    <com.manojbhadane.QButton
+                        android:id="@+id/btn_input_eq31_bypass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="B.P"
+                        android:textColor="@android:color/white"
+                        app:qb_backgroundColor="@android:color/darker_gray"
+                        app:qb_radius="10"
+                        app:qb_strokeColor="@android:color/black"
+                        app:qb_strokeWidth="3" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

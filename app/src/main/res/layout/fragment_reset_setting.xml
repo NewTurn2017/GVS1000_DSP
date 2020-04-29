@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".fragment.settings.view.reset.ResetSettingFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_settings"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/menu_text_size"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="스피커 선택"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <Spinner
+            android:id="@+id/sp_resetSpeakerList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_resetSpeakerSelect"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="선택"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_reset"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_resetSettingAll"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:text="RESET"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_blue_bright"
+            app:qb_radius="40"
+            app:qb_strokeColor="@android:color/holo_blue_dark"
+            app:qb_strokeWidth="5" />
+
+    </LinearLayout>
+
+</LinearLayout>

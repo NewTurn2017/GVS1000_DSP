@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".fragment.settings.view.sync.SyncFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sync"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/menu_text_size"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="스피커 선택"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <Spinner
+            android:id="@+id/sp_syncSpeakerList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_syncSpeakerSelect"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/sync"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView_sync"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/layout_border_text_black"
+        android:padding="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_syncReceived"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="1dp"
+                android:textSize="@dimen/sync_text_size"
+                android:text="선택된 스피커의 상세 내역을 출력합니다. 동기화를 눌러주세요."
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold"
+                android:verticalScrollbarPosition="right" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

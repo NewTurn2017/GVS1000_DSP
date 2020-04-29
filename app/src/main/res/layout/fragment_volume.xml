@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    tools:context=".fragment.volume.VolumeFragment">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/lay_spk1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_spk1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 dB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/sb_spk1_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/sb_spk1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_ruler"
+                        android:backgroundTintMode="multiply"
+                        android:max="55"
+                        android:maxHeight="5dp"
+                        android:minHeight="5dp"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/sb_wrapper"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/fader_ss"
+                        app:seekBarRotation="CW270" />
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk1_mute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/mute"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/darker_gray"
+                    app:qb_radius="5"
+                    app:qb_strokeColor="@android:color/black"
+                    app:qb_strokeWidth="2" />
+
+                <TextView
+                    android:id="@+id/tv_spk1_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="name"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_spk2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_spk2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 dB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/sb_spk2_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/sb_spk2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_ruler"
+                        android:backgroundTintMode="multiply"
+                        android:max="55"
+                        android:maxHeight="5dp"
+                        android:minHeight="5dp"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/sb_wrapper"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/fader_ss"
+                        app:seekBarRotation="CW270" />
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk2_mute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/mute"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/darker_gray"
+                    app:qb_radius="5"
+                    app:qb_strokeColor="@android:color/black"
+                    app:qb_strokeWidth="2" />
+
+                <TextView
+                    android:id="@+id/tv_spk2_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="name"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_spk3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_spk3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 dB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/sb_spk3_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/sb_spk3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_ruler"
+                        android:backgroundTintMode="multiply"
+                        android:max="55"
+                        android:maxHeight="5dp"
+                        android:minHeight="5dp"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/sb_wrapper"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/fader_ss"
+                        app:seekBarRotation="CW270" />
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk3_mute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/mute"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/darker_gray"
+                    app:qb_radius="5"
+                    app:qb_strokeColor="@android:color/black"
+                    app:qb_strokeWidth="2" />
+
+                <TextView
+                    android:id="@+id/tv_spk3_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="name"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_spk4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_spk4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 dB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/sb_spk4_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/sb_spk4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_ruler"
+                        android:backgroundTintMode="multiply"
+                        android:max="55"
+                        android:maxHeight="5dp"
+                        android:minHeight="5dp"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/sb_wrapper"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/fader_ss"
+                        app:seekBarRotation="CW270" />
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk4_mute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/mute"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/darker_gray"
+                    app:qb_radius="5"
+                    app:qb_strokeColor="@android:color/black"
+                    app:qb_strokeWidth="2" />
+
+                <TextView
+                    android:id="@+id/tv_spk4_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="name"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_spk5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_spk5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 dB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/sb_spk5_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/sb_spk5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_ruler"
+                        android:backgroundTintMode="multiply"
+                        android:max="55"
+                        android:maxHeight="5dp"
+                        android:minHeight="5dp"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/sb_wrapper"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/fader_ss"
+                        app:seekBarRotation="CW270" />
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk5_mute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/mute"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/darker_gray"
+                    app:qb_radius="5"
+                    app:qb_strokeColor="@android:color/black"
+                    app:qb_strokeWidth="2" />
+
+                <TextView
+                    android:id="@+id/tv_spk5_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="name"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_spk6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_spk6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 dB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/sb_spk6_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/sb_spk6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_ruler"
+                        android:backgroundTintMode="multiply"
+                        android:max="55"
+                        android:maxHeight="5dp"
+                        android:minHeight="5dp"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/sb_wrapper"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/fader_ss"
+                        app:seekBarRotation="CW270" />
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk6_mute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/mute"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/darker_gray"
+                    app:qb_radius="5"
+                    app:qb_strokeColor="@android:color/black"
+                    app:qb_strokeWidth="2" />
+
+                <TextView
+                    android:id="@+id/tv_spk6_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="name"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_spk7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_spk7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 dB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/sb_spk7_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/sb_spk7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_ruler"
+                        android:backgroundTintMode="multiply"
+                        android:max="55"
+                        android:maxHeight="5dp"
+                        android:minHeight="5dp"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/sb_wrapper"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/fader_ss"
+                        app:seekBarRotation="CW270" />
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk7_mute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/mute"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/darker_gray"
+                    app:qb_radius="5"
+                    app:qb_strokeColor="@android:color/black"
+                    app:qb_strokeWidth="2" />
+
+                <TextView
+                    android:id="@+id/tv_spk7_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="name"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_spk8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_spk8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 dB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/sb_spk8_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/sb_spk8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_ruler"
+                        android:backgroundTintMode="multiply"
+                        android:max="55"
+                        android:maxHeight="5dp"
+                        android:minHeight="5dp"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/sb_wrapper"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/fader_ss"
+                        app:seekBarRotation="CW270" />
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk8_mute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/mute"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/darker_gray"
+                    app:qb_radius="5"
+                    app:qb_strokeColor="@android:color/black"
+                    app:qb_strokeWidth="2" />
+
+                <TextView
+                    android:id="@+id/tv_spk8_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="name"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </HorizontalScrollView>
+
+
+
+
+</LinearLayout>

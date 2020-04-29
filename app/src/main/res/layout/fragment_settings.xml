@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    tools:context=".fragment.settings.SettingsFragment">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_ID_setting"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="ID 설정"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/darker_gray"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/black"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_spk_setting"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="스피커 설정"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/darker_gray"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/black"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_setMode"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Bridge/2-Way"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/darker_gray"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/black"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_sync"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="동기화"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/darker_gray"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/black"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_resetSettings"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="설정 초기화"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/darker_gray"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/black"
+            app:qb_strokeWidth="3" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/container_settings"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:layout_margin="5dp"
+        android:background="@drawable/layout_border_text"
+        android:orientation="vertical">
+
+    </FrameLayout>
+
+
+</LinearLayout>

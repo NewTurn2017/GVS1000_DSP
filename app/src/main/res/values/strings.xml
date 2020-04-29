@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">GVS1000_DSP</string>
+    <string name="connect">접속</string>
+    <string name="disconnect">해제</string>
+    <string name="app_description">GVS-1000</string>
+    <string name="version">Version: v1.0.0</string>
+    <string name="volumeControl">볼륨 제어</string>
+    <string name="eqcontrol">EQ 제어</string>
+    <string name="musicplayer">뮤직 플레이어</string>
+    <string name="settings">설정</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wifi_settings">Wifi 설정</string>
+    <string name="spk_setting">스피커 설정</string>
+    <string name="save">저장</string>
+    <string name="select_name">이름 선택</string>
+    <string name="select_mode">모드 선택</string>
+    <string name="select_model">모델 선택</string>
+    <string name="select_spk">스피커 선택</string>
+    <string name="complete">완료</string>
+    <string name="mute">MUTE</string>
+    <string name="reset_settings">설정 초기화</string>
+    <string name="setid">ID 설정</string>
+    <string name="mode_select">모드 선택(2-WAY/BRIDGE)</string>
+    <string name="sync">동기화</string>
+    <string name="eq_reset">EQ RESET</string>
+    <string name="bypass">BYPASS</string>
+</resources>
