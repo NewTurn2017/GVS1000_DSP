@@ -46,7 +46,7 @@ class GEQFragment : Fragment() {
 
     private fun addEQBypassButtonListener() {
         val FIRST_EQ = 1
-        val LAST_EQ = 30
+        val LAST_EQ = 31
         for(i in FIRST_EQ..LAST_EQ){
             val button = activity?.findViewById<Button>(
                 activity?.resources?.getIdentifier(
@@ -55,13 +55,13 @@ class GEQFragment : Fragment() {
                     activity?.packageName
                 )!!
             )
-            button?.setOnClickListener(GEQBypassButtonListener(presenter))
+            button?.setOnClickListener(GEQBypassButtonListener(this, presenter))
         }
     }
 
     private fun addEQSeekBarListener() {
         val FIRST_EQ = 1
-        val LAST_EQ = 30
+        val LAST_EQ = 31
         for(i in FIRST_EQ..LAST_EQ){
             val seekBar = activity?.findViewById<SeekBar>(
                 activity?.resources?.getIdentifier(
@@ -73,7 +73,4 @@ class GEQFragment : Fragment() {
             seekBar?.setOnSeekBarChangeListener(GEQSeekBarChangeListener(this, presenter))
         }
     }
-
-
-
 }

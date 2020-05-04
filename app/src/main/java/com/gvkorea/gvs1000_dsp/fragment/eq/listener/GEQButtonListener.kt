@@ -9,6 +9,7 @@ class GEQButtonListener(val presenter: GEQPresenter) : View.OnClickListener {
         when(v?.id){
             R.id.btn_geqSpeakerSelect -> presenter.showGEQ()
             R.id.btn_geqReset -> presenter.eqReset()
+            R.id.btn_geqBypass -> presenter.geqAllBypass()
         }
     }
 }

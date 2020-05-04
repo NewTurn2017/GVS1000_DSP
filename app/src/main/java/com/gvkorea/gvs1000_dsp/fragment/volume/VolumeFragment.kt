@@ -33,7 +33,6 @@ class VolumeFragment : Fragment() {
         initView()
         presenter = VolumePresenter(this)
         initListener()
-
     }
 
     private fun initListener() {
