@@ -27,6 +27,7 @@ import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spk5Client
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spk6Client
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spk7Client
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spk8Client
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.settings.view.setid.SetIdFragment
 import com.gvkorea.gvs1000_dsp.fragment.settings.view.setid.SetIdFragment.Companion.listAllClient
@@ -175,13 +176,12 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
 
     fun findDeviceName(infoArray: List<String>): String {
         var hexStr = ""
-        for (i in 23..infoArray.size) {
+        for (i in 25..infoArray.size) {
             if (infoArray[i] != "0x00") {
                 hexStr += infoArray[i].substring(2, 4)
             } else {
                 break
             }
-
         }
         return hexStr
     }
@@ -938,18 +938,18 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
     }
 
     private fun speakerIdSetting() {
-        MainActivity.spkList = ArrayList()
+        spkList = ArrayList()
         for(socketId in listUsedId){
             val id = socketId
             val idPosition = socketId.toInt() - 1
             if(isMode2Way(id)){
                 val CH1_NAME = loadSetting(socketId).name + "$id-1"
                 val CH2_NAME = loadSetting(socketId).name + "$id-2"
-                MainActivity.spkList.add(SpeakerInfo(listAllClient[idPosition], CMD_PARA2_CH1, CH1_NAME))
-                MainActivity.spkList.add(SpeakerInfo(listAllClient[idPosition], CMD_PARA2_CH2, CH2_NAME))
+                spkList.add(SpeakerInfo(listAllClient[idPosition], CMD_PARA2_CH1, CH1_NAME))
+                spkList.add(SpeakerInfo(listAllClient[idPosition], CMD_PARA2_CH2, CH2_NAME))
             }else{
                 val CH1_NAME = loadSetting(socketId).name + id
-                MainActivity.spkList.add(SpeakerInfo(listAllClient[idPosition], CMD_PARA2_CH1, CH1_NAME))
+                spkList.add(SpeakerInfo(listAllClient[idPosition], CMD_PARA2_CH1, CH1_NAME))
             }
 
         }
@@ -1003,6 +1003,15 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
             view.lay_admin.visibility = View.GONE
             isShowAdminBar = false
         }
+    }
+
+    fun saveFirmwareVersion(spkNo: Int, majorVersion: Int, minorVersion: Int) {
+        val firmwareVersion = "V$majorVersion.$minorVersion"
+        prefSetting.saveFirmware(spkNo, firmwareVersion)
+    }
+
+    fun hexStringToInt(hexString: String): Int {
+        return hexString.substring(2, 4).toInt()
     }
 
 }

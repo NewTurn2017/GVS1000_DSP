@@ -22,6 +22,7 @@ class PrefSetting {
     private val NONSETTING = "미지정"
     private val ISSETTING = "ISSETTING"
 
+
     init {
         defaultSetting = gson.toJson(initializeSettingData())
     }
@@ -89,6 +90,15 @@ class PrefSetting {
     fun saveIsSetting(boolean: Boolean) {
         editor.putBoolean(ISSETTING, boolean)
         editor.apply()
+    }
+
+    fun saveFirmware(spkNo: Int, firmwareVersion: String) {
+        editor.putString("firmware$spkNo", firmwareVersion)
+        editor.apply()
+    }
+
+    fun loadFirmware(spkNo: Int): String{
+        return pref.getString("firmware$spkNo", "No Saved")
     }
 
 

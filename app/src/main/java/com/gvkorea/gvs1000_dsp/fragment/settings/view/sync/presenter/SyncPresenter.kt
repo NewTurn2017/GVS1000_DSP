@@ -8,6 +8,7 @@ import android.widget.Spinner
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.arrGEQ
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.arrPEQ
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.prefSetting
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.fragment.settings.view.sync.SyncFragment
 import com.gvkorea.gvs1000_dsp.util.*
@@ -122,16 +123,15 @@ class SyncPresenter(val view: SyncFragment, val handler: Handler) {
         handler.postDelayed({
             appendtext(receivedData(speakerInfo))
         }, 1500L)
-
     }
 
     fun appendtext(msg: String) {
         view.tv_syncReceived.append(msg)
-
     }
 
     private fun receivedData(speakerInfo: SpeakerInfo): String {
         val spkNo = speakerInfo.name
+        val spkFirmWareVersion = prefSetting.loadFirmware(loadIdFromName(spkNo))
         val source_gain = pref.getFloat(KEY_SOURCE_GAIN, -40f)
         val input_delay = pref.getInt(KEY_INPUT_DELAY, 0)
         val input_delay_bypass = pref.getBoolean(KEY_INPUT_DELAY_BYPASS, true)
@@ -195,6 +195,7 @@ class SyncPresenter(val view: SyncFragment, val handler: Handler) {
         val line = "----------------------------------------------------------" + "\n"
         val receivedData = "\t\t<현재 SPEAKER $spkNo 의 동기화 데이터>" + "\n\n" +
                 "\tSPEAKER NAME : $spkNo" + "\n" +
+                "\tSPEAKER FIRMWARE : $spkFirmWareVersion" + "\n" +
                 line +
                 "\tINPUT GAIN : $input_gain dB, INPUT MUTE : $input_mute" + "\n" +
                 line +
@@ -262,5 +263,15 @@ class SyncPresenter(val view: SyncFragment, val handler: Handler) {
 
 
         return receivedData
+    }
+
+    private fun loadIdFromName(spkNo: String): Int {
+        val id : Int
+        if(spkNo.contains("Main")){
+            id = spkNo.substring(4,5).toInt()
+        }else{
+            id = spkNo.substring(3,4).toInt()
+        }
+        return id
     }
 }

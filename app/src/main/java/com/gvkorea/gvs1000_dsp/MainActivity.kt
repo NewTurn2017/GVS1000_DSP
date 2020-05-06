@@ -313,10 +313,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         if (msg.contains("0x52 0x43 0x64 0x00")) {
                             val infoArray = msg.split(" ")
                             val spkNo = presenter.hexToAscii(infoArray)
+                            val firmwareMajorVersion = presenter.hexStringToInt(infoArray[23])
+                            val firmwareMinorVersion = presenter.hexStringToInt(infoArray[24])
                             if (spkNo.length > 1) {
                                 curSpkNo = "0"
                             } else {
                                 curSpkNo = spkNo
+                                presenter.saveFirmwareVersion(spkNo.toInt(), firmwareMajorVersion, firmwareMinorVersion)
                             }
 
                         }
@@ -486,12 +489,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     disconnect()
                 }
             }
-
         }
-
     }
-
-
 
     fun wifi_refresh() {
         unregisterReceiver(wifiStateReceiver)
@@ -534,7 +533,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             super.onBackPressed()
         }
     }
-
 
     companion object {
         var no: Int = 0
