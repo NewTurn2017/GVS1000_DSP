@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
+import android.widget.Toast
 
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.eq.listener.GEQButtonListener
@@ -40,6 +41,9 @@ class GEQFragment : Fragment() {
         btn_geqSpeakerSelect.setOnClickListener(GEQButtonListener(presenter))
         btn_geqReset.setOnClickListener(GEQButtonListener(presenter))
         btn_geqBypass.setOnClickListener(GEQButtonListener(presenter))
+        btn_loadTuning.setOnClickListener {
+            Toast.makeText(view?.context!!, "추후 구현 예정", Toast.LENGTH_SHORT).show()
+        }
         addEQBypassButtonListener()
         addEQSeekBarListener()
     }

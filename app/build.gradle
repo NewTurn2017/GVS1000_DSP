@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.gvkorea.gvs1000_dsp"
-        minSdkVersion 25
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -48,6 +48,10 @@ dependencies {
     implementation 'com.github.manojbhadane:QButton:v1.3'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0'
+    implementation 'com.mtechviral.mplaylib:mplaylib:1.0.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
+    implementation 'com.andrognito.pinlockview:pinlockview:2.1.0'
 
 
 }

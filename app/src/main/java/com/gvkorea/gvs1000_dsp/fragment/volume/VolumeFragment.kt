@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.prefSetting
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.volume.listener.MuteButtonListener
@@ -33,6 +34,7 @@ class VolumeFragment : Fragment() {
         initView()
         presenter = VolumePresenter(this)
         initListener()
+        presenter.updateUI()
     }
 
     private fun initListener() {
@@ -123,6 +125,8 @@ class VolumeFragment : Fragment() {
             button?.setOnClickListener(MuteButtonListener(this, presenter))
         }
     }
+
+
 
 
 }

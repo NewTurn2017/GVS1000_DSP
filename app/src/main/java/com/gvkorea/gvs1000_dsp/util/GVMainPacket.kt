@@ -17,7 +17,7 @@ class GVMainPacket(val view: MainActivity) {
 
     fun SendPacket_Connect() {
 
-        val str = getIPAddress()
+        val str = getIPAddress(true)
         val ipAddr = str.split('.')
         val commandID = protocol.CMD_SET
         val para1 = protocol.CMD_UDP_TCP_SERVER_IFNO

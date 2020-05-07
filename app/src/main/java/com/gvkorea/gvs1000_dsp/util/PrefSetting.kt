@@ -3,6 +3,7 @@ package com.gvkorea.gvs1000_dsp.util
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 
 
 class PrefSetting {
@@ -100,6 +101,5 @@ class PrefSetting {
     fun loadFirmware(spkNo: Int): String{
         return pref.getString("firmware$spkNo", "No Saved")
     }
-
 
 }

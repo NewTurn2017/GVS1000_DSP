@@ -2,6 +2,7 @@ package com.gvkorea.gvs1000_dsp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.*
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -20,6 +21,10 @@ import com.gvkorea.gvs1000_dsp.fragment.eq.GEQFragment
 import com.gvkorea.gvs1000_dsp.fragment.listener.MenuButtonListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.VolumeFragment
 import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment
+import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment.Companion.mBroadcastReceiver
+import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment.Companion.mPlayerService
+import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment.Companion.mServiceConnection
+import com.gvkorea.gvs1000_dsp.fragment.music.service.PlayerService
 import com.gvkorea.gvs1000_dsp.fragment.settings.SettingsFragment
 import com.gvkorea.gvs1000_dsp.presenter.MainPresenter
 import com.gvkorea.gvs1000_dsp.util.*
@@ -34,7 +39,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
 
     var isButtonEnable = false
     private var permission_list = arrayOf(
@@ -44,6 +49,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.CHANGE_WIFI_STATE
     )
+    private var isBind: Boolean = false
 
     var mFlag = false
     private var mHandlerBackPress: Handler? = Handler {
@@ -110,6 +116,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         presenter = MainPresenter(this, mHandler)
         initListener()
         buttonDisable()
+
+        mContentResolver = contentResolver
+        tv_ip_info.text = presenter.getIPAddress(true)
+        mHandler.postDelayed({
+            connectDSP()
+        }, 500)
+
     }
 
     private fun buttonDisable() {
@@ -132,12 +145,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             btn_settings.alpha = 1f
             isButtonEnable = true
         }
-
-
     }
 
     private fun initListener() {
-        iv_logo.setOnClickListener(MenuButtonListener(presenter))
+        iv_logo.setOnLongClickListener(this)
         btn_connect.setOnClickListener(this)
         btn_volumePannel.setOnClickListener(MenuButtonListener(presenter))
         btn_eqPannel.setOnClickListener(MenuButtonListener(presenter))
@@ -461,6 +472,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (mPlayerService == null) {
+            val bindIntent = Intent(this, PlayerService::class.java)
+            bindService(bindIntent, mServiceConnection, Context.BIND_AUTO_CREATE)
+            isBind = true
+        }
+
+        val screenIntent = Intent(this, PlayerService::class.java)
+        val screenSender = PendingIntent.getBroadcast(this, 0, screenIntent, PendingIntent.FLAG_NO_CREATE)
+        if (screenSender == null) {
+            val intentFilter = IntentFilter()
+            intentFilter.addAction(PlayerService.PLAY)
+            intentFilter.addAction(PlayerService.PAUSE)
+            intentFilter.addAction(PlayerService.RESUME)
+            intentFilter.addAction(PlayerService.UPDATE_PROGRESS)
+            intentFilter.addAction(PlayerService.PLAY_NEXT)
+            intentFilter.addAction(PlayerService.PLAY_PREVIOUS)
+            registerReceiver(mBroadcastReceiver, intentFilter)
+        }
+
+
+    }
+
 
     val wifiStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -520,6 +555,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         unregisterReceiver(wifiStateReceiver)
 
+        if (isBind) {
+            unbindService(mServiceConnection)
+        }
+        unregisterReceiver(mBroadcastReceiver)
+
+        if (mSleepLock.isHeld) {
+            mSleepLock.release()
+        }
+
+
     }
 
     override fun onBackPressed() {
@@ -558,6 +603,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         var arrPEQ = ArrayList<PEQData>(31)
         var arrGEQ = ArrayList<GEQData>(31)
+
+        lateinit var mContentResolver: ContentResolver
+
+    }
+
+    override fun onLongClick(v: View?): Boolean {
+        presenter.showHideAdminBar()
+        return true
     }
 
 }

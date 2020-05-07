@@ -51,6 +51,9 @@ class SettingsFragment(val activity: MainActivity, val mHandler: Handler) : Frag
         btn_setMode.setOnClickListener(SettingsSelectPanelListener(presenter))
         btn_sync.setOnClickListener(SettingsSelectPanelListener(presenter))
         btn_spk_setting.setOnClickListener(SettingsSelectPanelListener(presenter))
+        btn_finish.setOnClickListener {
+            activity.finish()
+        }
     }
 
 }

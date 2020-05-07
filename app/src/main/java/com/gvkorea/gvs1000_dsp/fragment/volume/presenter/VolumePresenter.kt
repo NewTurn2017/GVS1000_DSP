@@ -1,9 +1,13 @@
 package com.gvkorea.gvs1000_dsp.fragment.volume.presenter
 
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.prefSetting
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.fragment.volume.VolumeFragment
 import com.gvkorea.gvs1000_dsp.util.GVPacket
+import com.gvkorea.gvs1000_dsp.util.PrefSetting
 import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
 import com.manojbhadane.QButton
 import java.net.Socket
@@ -74,6 +78,10 @@ class VolumePresenter(val view: VolumeFragment) {
                 )
             )
         }
+    }
+
+    fun updateUI() {
+
     }
 
 
