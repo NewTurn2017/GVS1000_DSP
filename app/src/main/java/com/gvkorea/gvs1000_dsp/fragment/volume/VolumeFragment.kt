@@ -2,6 +2,7 @@ package com.gvkorea.gvs1000_dsp.fragment.volume
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +15,13 @@ import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.volume.listener.MuteButtonListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.listener.VolumeSeekBarChangeListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.presenter.VolumePresenter
+import com.manojbhadane.QButton
 import kotlinx.android.synthetic.main.fragment_volume.*
 
 class VolumeFragment : Fragment() {
 
     lateinit var presenter: VolumePresenter
+    val handler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +34,9 @@ class VolumeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        presenter = VolumePresenter(this)
+        presenter = VolumePresenter(this, handler)
         initListener()
+        presenter.loadVolume()
     }
 
     private fun initListener() {
@@ -45,6 +49,7 @@ class VolumeFragment : Fragment() {
         val numOfSpeaker = spkList.size
         makeLayout(numOfSpeaker)
         applyName()
+
     }
 
     private fun applyName() {
@@ -113,7 +118,7 @@ class VolumeFragment : Fragment() {
         val FIRST_ID = 1
         val LAST_ID = 8
         for (i in FIRST_ID..LAST_ID) {
-            val button = activity?.findViewById<Button>(
+            val button = activity?.findViewById<QButton>(
                 activity?.resources?.getIdentifier(
                     "btn_spk${i}_mute",
                     "id",

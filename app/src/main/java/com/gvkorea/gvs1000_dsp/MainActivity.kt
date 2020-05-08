@@ -2,6 +2,7 @@ package com.gvkorea.gvs1000_dsp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.*
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -20,6 +21,10 @@ import com.gvkorea.gvs1000_dsp.fragment.eq.GEQFragment
 import com.gvkorea.gvs1000_dsp.fragment.listener.MenuButtonListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.VolumeFragment
 import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment
+import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment.Companion.mBroadcastReceiver
+import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment.Companion.mPlayerService
+import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment.Companion.mServiceConnection
+import com.gvkorea.gvs1000_dsp.fragment.music.service.PlayerService
 import com.gvkorea.gvs1000_dsp.fragment.settings.SettingsFragment
 import com.gvkorea.gvs1000_dsp.presenter.MainPresenter
 import com.gvkorea.gvs1000_dsp.util.*
@@ -34,16 +39,18 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClickListener {
 
     var isButtonEnable = false
     private var permission_list = arrayOf(
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.RECORD_AUDIO,
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.CHANGE_WIFI_STATE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.CHANGE_WIFI_STATE
     )
+
+    private var isBind: Boolean = false
 
     var mFlag = false
     private var mHandlerBackPress: Handler? = Handler {
@@ -62,7 +69,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var isResigterWifi = false
 
 
-   val mHandler = @SuppressLint("HandlerLeak") object : Handler() {
+    val mHandler = @SuppressLint("HandlerLeak") object : Handler() {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 DSPMessage.MSG_RSV.value -> {
@@ -110,6 +117,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         presenter = MainPresenter(this, mHandler)
         initListener()
         buttonDisable()
+        mContentResolver = contentResolver
+
+        mHandler.postDelayed({
+            connectDSP()
+        }, 500)
     }
 
     private fun buttonDisable() {
@@ -121,7 +133,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun buttonEnable() {
-        if(!isButtonEnable){
+        if (!isButtonEnable) {
             btn_volumePannel.isEnabled = true
             btn_volumePannel.alpha = 1f
             btn_eqPannel.isEnabled = true
@@ -137,7 +149,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initListener() {
-        iv_logo.setOnClickListener(MenuButtonListener(presenter))
+        iv_logo.setOnLongClickListener(this)
         btn_connect.setOnClickListener(this)
         btn_volumePannel.setOnClickListener(MenuButtonListener(presenter))
         btn_eqPannel.setOnClickListener(MenuButtonListener(presenter))
@@ -173,7 +185,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-
     private fun connectDSP() {
         otherClientNo = 0
         if (isConnect) {
@@ -189,7 +200,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    fun reconnection(){
+    fun reconnection() {
         connectDSP()
         mHandler.postDelayed({
             connectDSP()
@@ -200,10 +211,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (isConnect) {
             btn_connect.text = "접속"
             btn_connect.setStrokeColor(
-                ContextCompat.getColor(
-                    this,
-                    android.R.color.holo_green_dark
-                )
+                    ContextCompat.getColor(
+                            this,
+                            android.R.color.holo_green_dark
+                    )
             )
         } else {
             btn_connect.text = "해제"
@@ -462,10 +473,34 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        if (mPlayerService == null) {
+            val bindIntent = Intent(this, PlayerService::class.java)
+            bindService(bindIntent, mServiceConnection, Context.BIND_AUTO_CREATE)
+            isBind = true
+        }
+
+        val screenIntent = Intent(this, PlayerService::class.java)
+        val screenSender = PendingIntent.getBroadcast(this, 0, screenIntent, PendingIntent.FLAG_NO_CREATE)
+        if (screenSender == null) {
+            val intentFilter = IntentFilter()
+            intentFilter.addAction(PlayerService.PLAY)
+            intentFilter.addAction(PlayerService.PAUSE)
+            intentFilter.addAction(PlayerService.RESUME)
+            intentFilter.addAction(PlayerService.UPDATE_PROGRESS)
+            intentFilter.addAction(PlayerService.PLAY_NEXT)
+            intentFilter.addAction(PlayerService.PLAY_PREVIOUS)
+            registerReceiver(mBroadcastReceiver, intentFilter)
+        }
+
+
+    }
+
     val wifiStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val wifiStateExtra =
-                intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN)
+                    intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN)
 
             when (wifiStateExtra) {
                 WifiManager.WIFI_STATE_ENABLED -> {
@@ -520,12 +555,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         unregisterReceiver(wifiStateReceiver)
 
+        if (isBind) {
+            unbindService(mServiceConnection)
+        }
+        unregisterReceiver(mBroadcastReceiver)
+
+        if (mSleepLock.isHeld) {
+            mSleepLock.release()
+        }
     }
 
     override fun onBackPressed() {
         if (!mFlag) {
             Toast.makeText(
-                applicationContext, "\'Back\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT
+                    applicationContext, "\'Back\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT
             ).show()
             mFlag = true
             mHandlerBackPress?.sendEmptyMessageDelayed(0, (1000 * 2).toLong())
@@ -558,6 +601,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         var arrPEQ = ArrayList<PEQData>(31)
         var arrGEQ = ArrayList<GEQData>(31)
+        var volumeArrays: ArrayList<Float>? = null
+        var muteArrays: ArrayList<Boolean>? = null
+
+        lateinit var mContentResolver: ContentResolver
+
+    }
+
+    override fun onLongClick(v: View?): Boolean {
+        presenter.showHideAdminBar()
+        return true
     }
 
 }

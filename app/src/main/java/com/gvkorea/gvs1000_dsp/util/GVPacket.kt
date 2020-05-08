@@ -9,7 +9,7 @@ import java.net.Socket
 
 class GVPacket(val view: Fragment) {
 
-    private val protocol = Protocol()
+    val protocol = Protocol()
     val CMD_PARA2_CH1 = '1'
     val CMD_PARA2_CH2 = '2'
     val CMD_PARA2_CHA = 'A'
@@ -180,7 +180,7 @@ class GVPacket(val view: Fragment) {
         SendPacket_StatusRequest_general(protocol.CMD_EQ_BYPASS, socket, channel)
     }
 
-    private fun SendPacket_StatusRequest_general(cmd: Char, socket: Socket?, channel: Char) {
+    fun SendPacket_StatusRequest_general(cmd: Char, socket: Socket?, channel: Char) {
         if (socket != null) {
 
             try {

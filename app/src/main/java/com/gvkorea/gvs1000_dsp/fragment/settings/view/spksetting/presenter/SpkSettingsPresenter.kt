@@ -31,14 +31,39 @@ import kotlinx.android.synthetic.main.fragment_spk_settings.*
 class SpkSettingsPresenter(val view: SpkSettingsFragment, val mHandler: Handler) {
 
     val MODEL_GVA200 = "GVA-200"
-    val MODEL_GVA200A = "GVA-200A"
+    val MODEL_GVA300 = "GVA-300"
+    val MODEL_GVA500 = "GVA-500"
+    val MODEL_GVA700 = "GVA-700"
+    val MODEL_GVA900 = "GVA-900"
+    val MODEL_GVS200A = "GVS-200A"
+    val MODEL_GVS500A = "GVS-500A"
+    val MODEL_GVS700A = "GVS-700A"
+    val MODEL_GVS200B = "GVS-200B"
+    val MODEL_GVS200BA = "GVS-200BA"
+    val MODEL_GVS400B = "GVS-400B"
+    val MODEL_GVS500B = "GVS-500B"
+    val MODEL_GVS500BA = "GVS-500BA"
+    val MODEL_GVAS50 = "GVAS-50"
+    val MODEL_GVS200 = "GVS-200"
+    val MODEL_GVS300 = "GVS-300"
+    val MODEL_GVS400 = "GVS-400"
+    val MODEL_GVS500 = "GVS-500"
+    val MODEL_GVS700 = "GVS-700"
+
     val MODE_2WAY = "2-WAY"
     val MODE_BRIDGE = "BRIDGE"
     val NAME_MAIN = "Main"
     val NAME_SUB = "Sub"
 
 
-    private val listModel = arrayListOf(MODEL_GVA200, MODEL_GVA200A)
+    private val listModel = arrayListOf(
+        MODEL_GVA200, MODEL_GVA300, MODEL_GVA500,
+        MODEL_GVA700, MODEL_GVA900, MODEL_GVS200A,
+        MODEL_GVS500A, MODEL_GVS700A, MODEL_GVS200B,
+        MODEL_GVS200BA, MODEL_GVS400B, MODEL_GVS500B,
+        MODEL_GVS500BA, MODEL_GVAS50, MODEL_GVS200,
+        MODEL_GVS300, MODEL_GVS400, MODEL_GVS500, MODEL_GVS700
+    )
     private val listMode = arrayListOf(MODE_2WAY, MODE_BRIDGE)
     private val listName = arrayListOf(NAME_MAIN, NAME_SUB)
     private val EMPTYLIST = "없음"

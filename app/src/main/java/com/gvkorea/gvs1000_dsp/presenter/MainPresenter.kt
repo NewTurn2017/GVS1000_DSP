@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.gvkorea.gvs1000_dsp.MainActivity
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.arrGEQ
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.arrPEQ
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.muteArrays
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.otherClient
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.otherClientNo
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
@@ -28,6 +29,7 @@ import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spk6Client
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spk7Client
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spk8Client
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.volumeArrays
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.settings.view.setid.SetIdFragment
 import com.gvkorea.gvs1000_dsp.fragment.settings.view.setid.SetIdFragment.Companion.listAllClient
@@ -42,10 +44,12 @@ import java.net.Socket
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainPresenter(val view: MainActivity, val handler: Handler) {
 
+    val infoTextLineLimit = 200
     val gvPacket = GVMainPacket(view)
     private var isShowAdminBar = false
     val CMD_PARA2_CH1 = '1'
@@ -130,7 +134,7 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
         view.scrollView_info.post {
             view.scrollView_info.fullScroll(View.FOCUS_DOWN)
         }
-        if (MainActivity.no % 500 == 0) {
+        if (MainActivity.no % infoTextLineLimit == 0) {
             view.tv_received.text = ""
         }
         if(!view.isButtonEnable){
@@ -152,7 +156,7 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
         view.scrollView_info.post {
             view.scrollView_info.fullScroll(View.FOCUS_DOWN)
         }
-        if (MainActivity.no % 500 == 0) {
+        if (MainActivity.no % infoTextLineLimit == 0) {
             view.tv_received.text = ""
         }
 
@@ -270,6 +274,11 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
                 val isMute = arr1 != 0
 
                 setupPrefBoolean(KEY_INPUT_MUTE, isMute)
+                if(muteArrays == null) {
+                    muteArrays = ArrayList()
+                }else{
+                    muteArrays?.add(isMute)
+                }
             }
 
         }
@@ -287,8 +296,8 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
                 setupPrefInt(KEY_INPUT_DELAY, delayValue)
                 setupPrefBoolean(KEY_INPUT_DELAY_BYPASS, bypass)
             }
-
         }
+
     }
 
     private fun received_geq(receivedData: String) {
@@ -737,6 +746,11 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
                 val inputgain = hexStringToFloat(arr1)
 
                 setupPrefFloat(KEY_INPUT_GAIN, inputgain)
+                if(volumeArrays == null) {
+                    volumeArrays = ArrayList()
+                }else{
+                    volumeArrays?.add(inputgain)
+                }
             }
 
         }

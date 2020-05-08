@@ -1,6 +1,7 @@
 package com.gvkorea.gvs1000_dsp.fragment.eq
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.SeekBar
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.eq.listener.GEQButtonListener
 import com.gvkorea.gvs1000_dsp.fragment.eq.listener.GEQBypassButtonListener
+import com.gvkorea.gvs1000_dsp.fragment.eq.listener.GEQItemSelectedListener
 import com.gvkorea.gvs1000_dsp.fragment.eq.listener.GEQSeekBarChangeListener
 import com.gvkorea.gvs1000_dsp.fragment.eq.presenter.GEQPresenter
 import kotlinx.android.synthetic.main.fragment_eq.*
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_eq.*
 class GEQFragment : Fragment() {
 
     lateinit var presenter: GEQPresenter
+    val handler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +34,14 @@ class GEQFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = GEQPresenter(this)
+        presenter = GEQPresenter(this, handler)
         initListener()
         presenter.initializeList()
+
     }
 
     private fun initListener() {
-        btn_geqSpeakerSelect.setOnClickListener(GEQButtonListener(presenter))
+        sp_eqSpeakerList.onItemSelectedListener = GEQItemSelectedListener(presenter)
         btn_geqReset.setOnClickListener(GEQButtonListener(presenter))
         btn_geqBypass.setOnClickListener(GEQButtonListener(presenter))
         addEQBypassButtonListener()
@@ -74,3 +78,4 @@ class GEQFragment : Fragment() {
         }
     }
 }
+

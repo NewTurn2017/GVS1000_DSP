@@ -9,8 +9,9 @@
     tools:context=".fragment.eq.GEQFragment">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -29,22 +30,8 @@
             android:textAlignment="center"/>
 
         <com.manojbhadane.QButton
-            android:id="@+id/btn_geqSpeakerSelect"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/select_spk"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/button_text_size"
-            app:qb_backgroundColor="@android:color/holo_green_light"
-            app:qb_radius="10"
-            app:qb_strokeColor="@android:color/holo_green_dark"
-            app:qb_strokeWidth="3" />
-
-        <com.manojbhadane.QButton
             android:id="@+id/btn_geqReset"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
@@ -58,7 +45,7 @@
 
         <com.manojbhadane.QButton
             android:id="@+id/btn_geqBypass"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
@@ -72,7 +59,7 @@
 
         <com.manojbhadane.QButton
             android:id="@+id/btn_loadTuning"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
@@ -88,14 +75,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="4"
         android:background="@drawable/layout_border_text"
         android:orientation="horizontal">
 
         <HorizontalScrollView
             android:id="@+id/lay_eq"
-            android:visibility="gone"
             style="@style/CustomTheme"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

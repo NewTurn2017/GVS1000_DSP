@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GVS1000_DSP</string>
+    <string name="app_name">GVS1000</string>
     <string name="connect">접속</string>
     <string name="disconnect">해제</string>
     <string name="app_description">GVS-1000</string>
@@ -26,4 +26,6 @@
     <string name="sync">동기화</string>
     <string name="eq_reset">EQ RESET</string>
     <string name="bypass">BYPASS</string>
+    <string name="music_start_time">00:00</string>
+    <string name="total_music_list">전체 뮤직 리스트</string>
 </resources>
