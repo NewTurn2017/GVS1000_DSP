@@ -73,7 +73,9 @@ class SpkSettingsPresenter(val view: SpkSettingsFragment, val mHandler: Handler)
     val CMD_PARA2_CHA = 'A'
 
     fun initializeList() {
-        WaitingDialog(view.context!!).create("잠시만 기다려 주세요..", 1200)
+        mHandler.post {
+            WaitingDialog(view.context!!).create("잠시만 기다려 주세요..", 1200)
+        }
         listAvailableId = ArrayList()
         listAllClient = ArrayList()
         listUsedId = ArrayList()

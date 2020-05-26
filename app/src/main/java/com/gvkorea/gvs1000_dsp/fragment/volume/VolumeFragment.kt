@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.volume.listener.MuteButtonListener
+import com.gvkorea.gvs1000_dsp.fragment.volume.listener.VolumeButtonListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.listener.VolumeSeekBarChangeListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.presenter.VolumePresenter
 import com.manojbhadane.QButton
@@ -40,6 +41,10 @@ class VolumeFragment : Fragment() {
     }
 
     private fun initListener() {
+        btn_volumeReset.setOnClickListener(VolumeButtonListener(presenter))
+        btn_allMute.setOnClickListener(VolumeButtonListener(presenter))
+        btn_saveVolume.setOnClickListener(VolumeButtonListener(presenter))
+        btn_loadVolume.setOnClickListener(VolumeButtonListener(presenter))
         addVolumeSeekBarListener()
         addMuteButtonListener()
     }

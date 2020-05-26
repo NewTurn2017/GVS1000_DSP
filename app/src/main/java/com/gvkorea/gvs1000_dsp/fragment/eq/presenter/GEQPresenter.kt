@@ -10,6 +10,7 @@ import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.fragment.eq.GEQFragment
 import com.gvkorea.gvs1000_dsp.util.GVPacket
+import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
 import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
 import com.manojbhadane.QButton
@@ -65,21 +66,22 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
 
     fun loadGEQ() {
         Arrays.fill(isEachBypassArray, false)
+        handler.post {
+            WaitingDialog(view.context!!).create("Loading...", 1000)
+        }
         loadGEQData()
-        WaitingDialog(view.context!!).create("Loading...", 1000)
+
         handler.postDelayed({
             updateUI()
         }, 500)
     }
 
     private fun loadGEQData() {
-        val index = view.sp_eqSpeakerList.selectedItemPosition
-        val socket = spkList[index].socket
-        val channel = spkList[index].channel
+        val spk = readSpeakerInfo()
         val cmdGEQAll = packet.protocol.CMD_INPUT_GEQ_ALL
         val cmdGEQBypass = packet.protocol.CMD_EQ_BYPASS
-        packet.SendPacket_StatusRequest_general(cmdGEQAll, socket, channel)
-        packet.SendPacket_StatusRequest_general(cmdGEQBypass, socket, channel)
+        packet.SendPacket_StatusRequest_general(cmdGEQAll, spk.socket, spk.channel)
+        packet.SendPacket_StatusRequest_general(cmdGEQBypass, spk.socket, spk.channel)
     }
 
     private fun updateUI() {
@@ -136,7 +138,6 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
     }
 
 
-
     private fun changeEachBypassButton(no: Int, isBypass: Boolean, button: QButton?) {
         if (isBypass) {
             changeButton(true, button)
@@ -150,9 +151,8 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
 
     fun eqReset() {
         resetGEQUI()
-        val index = view.sp_eqSpeakerList.selectedItemPosition
-        val speakerInfo = spkList[index]
-        packet.SendPacket_GEQ_Reset(speakerInfo.socket, speakerInfo.channel)
+        val spk = readSpeakerInfo()
+        packet.SendPacket_GEQ_Reset(spk.socket, spk.channel)
     }
 
     private fun resetGEQUI() {
@@ -182,18 +182,16 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
             )
             textView?.text = "0"
             seekBar?.progress = 30
-            changeEachBypassButton(i-1, true, button)
+            changeEachBypassButton(i - 1, true, button)
         }
     }
 
     fun geqControl(no: Int, progress: Int, textView: TextView, bypassButton: QButton) {
-        val index = view.sp_eqSpeakerList.selectedItemPosition
         val textValue = changeEQProgressToEQGainValue(progress)
         textView.text = textValue.toString()
         val gain = changeEQProgressToEQGainValue(progress)
-        val socket = spkList[index].socket
-        val channel = spkList[index].channel
-        packet.SendPacket_InputGEQ(socket, channel, frequencyArrays[no], gain, SWITCH_ON)
+        val spk = readSpeakerInfo()
+        packet.SendPacket_InputGEQ(spk.socket, spk.channel, frequencyArrays[no], gain, SWITCH_ON)
 
         if (isEachBypassArray[no]) {
             getEachBypassUIControl(no, bypassButton)
@@ -207,9 +205,7 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
     }
 
     fun geqAllBypass() {
-        val index = view.sp_eqSpeakerList.selectedItemPosition
-        val socket = spkList[index].socket
-        val channel = spkList[index].channel
+        val spk = readSpeakerInfo()
         val bypass: Int
         if (!isGEQBypass) {
             changeButton(true, view.btn_geqBypass)
@@ -221,7 +217,7 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
             bypass = SWITCH_OFF
         }
 
-        packet.SendPacket_InputGEQBypass(socket, channel, bypass)
+        packet.SendPacket_InputGEQBypass(spk.socket, spk.channel, bypass)
     }
 
 
@@ -248,14 +244,10 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
             bypassButton: QButton,
             seekBar: VerticalSeekBar
     ) {
-        val index = view.sp_eqSpeakerList.selectedItemPosition
-        val socket = spkList[index].socket
-        val channel = spkList[index].channel
+        val spk = readSpeakerInfo()
         val freq = frequencyArrays[no]
         val gain = changeEQProgressToEQGainValue(seekBar.progress)
-
-
-        applyEachBypass(socket, channel, freq, bypassButton, gain, no)
+        applyEachBypass(spk.socket, spk.channel, freq, bypassButton, gain, no)
     }
 
 
@@ -285,4 +277,32 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
     private fun changeEQGainValueToEQProgress(gain: Float): Int {
         return (2 * (gain + 15)).toInt()
     }
+
+    private fun readSpeakerInfo(): SpeakerInfo {
+        val index = view.sp_eqSpeakerList.selectedItemPosition
+        return spkList[index]
+    }
+
+    fun savePreset() {
+        val title = "PRESET01"
+        val presetNo = 0
+        val spk = readSpeakerInfo()
+        packet.savePreset(spk.socket, presetNo, title)
+        msg("저장됨")
+    }
+
+    fun loadPreset() {
+        val spk = readSpeakerInfo()
+        packet.SendPacket_Preset_Load(spk.socket, 0)
+        handler.postDelayed({
+            loadGEQ()
+            msg("로드됨")
+        }, 300)
+    }
+
+    private fun msg(msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_SHORT).show()
+    }
+
+
 }

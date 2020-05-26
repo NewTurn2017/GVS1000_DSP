@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    tools:context=".fragment.tune.fragment.calib.CalibFragment">
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart_calib"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="1">
+
+    </com.github.mikephil.charting.charts.BarChart>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_autoCalib"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/set_auto"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="20"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="10" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_calibReset"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/reset"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_red_light"
+            app:qb_radius="20"
+            app:qb_strokeColor="@android:color/holo_red_dark"
+            app:qb_strokeWidth="10" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@drawable/layout_border_text_select"
         android:orientation="horizontal">
 
         <TextView
@@ -46,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@drawable/layout_border_text_select"
         android:orientation="horizontal">
 
         <TextView
@@ -78,6 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@drawable/layout_border_text_select"
         android:orientation="horizontal">
 
         <TextView
@@ -110,6 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@drawable/layout_border_text_select"
         android:orientation="horizontal">
 
         <TextView

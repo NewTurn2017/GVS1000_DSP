@@ -21,9 +21,19 @@ class SetModePresenter(val view: SetModeFragment) {
 
     val SETUP_2WAY = 0
     val SETUP_BRIDGE = 1
+    var nameList = ArrayList<String>()
 
     fun initializeList() {
-        registerAdapter(view.context!!, listUsedId, view.sp_setModeSpeakerList)
+        makeNameList()
+        registerAdapter(view.context!!, nameList, view.sp_setModeSpeakerList)
+    }
+
+
+    private fun makeNameList() {
+        nameList = ArrayList()
+        for(i in spkList.indices){
+            nameList.add(spkList[i].name)
+        }
     }
 
 
@@ -45,9 +55,20 @@ class SetModePresenter(val view: SetModeFragment) {
     }
 
     private fun loadModeAndSelect() {
-        val speakerId = view.sp_setModeSpeakerList.selectedItem.toString()
+        val spkName = view.sp_setModeSpeakerList.selectedItem.toString()
+        val speakerId = loadIdFromName(spkName).toString()
         val settingData = prefSetting.loadSpeakerSettings(speakerId)
         selectMode(settingData.mode)
+    }
+
+    private fun loadIdFromName(spkNo: String): Int {
+        val id : Int
+        if(spkNo.contains("Main")){
+            id = spkNo.substring(4,5).toInt()
+        }else{
+            id = spkNo.substring(3,4).toInt()
+        }
+        return id
     }
 
     private fun selectMode(mode: String) {
@@ -58,7 +79,8 @@ class SetModePresenter(val view: SetModeFragment) {
     }
 
     fun applyModeAndHideSelect() {
-        val spkID = view.sp_setModeSpeakerList.selectedItem.toString()
+        val spkName = view.sp_setModeSpeakerList.selectedItem.toString()
+        val spkID = loadIdFromName(spkName).toString()
         val index = view.sp_setModeSpeakerList.selectedItemPosition
         val selectedMode =
             view.activity?.findViewById<RadioButton>(view.rg_setup.checkedRadioButtonId)?.text.toString()

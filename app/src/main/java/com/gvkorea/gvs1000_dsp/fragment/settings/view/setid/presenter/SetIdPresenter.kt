@@ -145,7 +145,10 @@ class SetIdPresenter(
     }
 
     fun initializeList() {
-        WaitingDialog(view.context!!).create("잠시만 기다려 주세요..", 1200)
+        mHandler.post {
+            WaitingDialog(view.context!!).create("잠시만 기다려 주세요..", 1200)
+
+        }
         listOtherClientId = ArrayList()
         listAvailableId = ArrayList()
         listAllClient = ArrayList()

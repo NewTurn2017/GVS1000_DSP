@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".fragment.tts.TTSFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="볼륨"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/button_text_size" />
+
+        <SeekBar
+            android:id="@+id/sb_ttsVolume"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="4" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_selectLang"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/select_language"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="20"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="음 높이"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/button_text_size" />
+
+        <SeekBar
+            android:id="@+id/sb_pitch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="4"
+            android:max="20"
+            android:progress="10" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_resetPitch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/reset"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="20"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="속도"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/button_text_size" />
+
+        <SeekBar
+            android:id="@+id/sb_rate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="4"
+            android:max="20"
+            android:progress="10" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_resetRate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/reset"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="20"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal">
+
+        <ScrollView
+            android:id="@+id/mScrollView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="5"
+            android:background="@drawable/layout_border_text"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="textMultiLine"
+                    android:padding="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp"
+                    android:verticalScrollbarPosition="right" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_text_clear"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:text="@string/delete_text"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_blue_bright"
+                app:qb_radius="20"
+                app:qb_strokeColor="@android:color/holo_blue_dark"
+                app:qb_strokeWidth="3" />
+
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_text_save"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:text="@string/save_text"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_blue_bright"
+                app:qb_radius="20"
+                app:qb_strokeColor="@android:color/holo_blue_dark"
+                app:qb_strokeWidth="3" />
+
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_text_load"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:text="@string/load_text"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_blue_bright"
+                app:qb_radius="20"
+                app:qb_strokeColor="@android:color/holo_blue_dark"
+                app:qb_strokeWidth="3" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_STT"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/main_button_top_margin"
+            android:layout_marginRight="5dp"
+            android:drawableLeft="@drawable/ic_mic_white_24dp"
+            android:padding="5dp"
+            android:text="@string/sst"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_TTS"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/main_button_top_margin"
+            android:layout_marginRight="5dp"
+            android:drawableLeft="@drawable/ic_volume_white_24dp"
+            android:padding="5dp"
+            android:text="@string/tts_apply"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "504616742328",
+    "firebase_url": "https://gvs1000-dsp.firebaseio.com",
+    "project_id": "gvs1000-dsp",
+    "storage_bucket": "gvs1000-dsp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504616742328:android:b82ba6cb5853884961f34d",
+        "android_client_info": {
+          "package_name": "com.gvkorea.gvs1000_dsp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504616742328-2lsqdtmjfqhhq4ev32rav52o7u8pt916.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj70QIl79F6rpVN_jgMcq_JFE5HCA_8kE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504616742328-2lsqdtmjfqhhq4ev32rav52o7u8pt916.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

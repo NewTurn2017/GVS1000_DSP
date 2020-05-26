@@ -2,6 +2,7 @@ package com.gvkorea.gvs1000_dsp.util
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.presetSavedList
 import java.io.DataOutputStream
 import java.io.IOException
 import java.io.OutputStream
@@ -13,7 +14,9 @@ class GVPacket(val view: Fragment) {
     val CMD_PARA2_CH1 = '1'
     val CMD_PARA2_CH2 = '2'
     val CMD_PARA2_CHA = 'A'
+    private val WAITINTERVAL = 100L
     private val CHECKINTERVAL = 50L
+    private val LISTINTERVAL = 20L
     private lateinit var tx_buff: ByteArray
     private lateinit var outputStream: OutputStream
     private lateinit var dataOutputStream: DataOutputStream
@@ -263,7 +266,7 @@ class GVPacket(val view: Fragment) {
 
             try {
                 tx_buff = protocol.packet_InputGEQ(channel, freq, gain, switch)
-                outputStream = socket!!.getOutputStream()
+                outputStream = socket.getOutputStream()
                 dataOutputStream = DataOutputStream(outputStream)
 
             } catch (e: Exception) {
@@ -328,6 +331,447 @@ class GVPacket(val view: Fragment) {
         } else {
             msg("TCP Socket 연결 안됨")
         }
+    }
+
+    fun SendPacket_Preset_SetName(socket: Socket?, presetNo: Int, name: String) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_Preset_SetName(presetNo, name)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_Preset_Save(socket: Socket?, presetNo: Int) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_Preset_Save(presetNo)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_Preset_Save_Start(socket: Socket?) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_preset_Start()
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_Preset_Save_End(socket: Socket?) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_preset_End()
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_Preset_Select(socket: Socket?, presetNo: Int) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_Preset_Select(presetNo)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(50L)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_Preset_Request_All(socket: Socket?) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_Preset_Request_All()
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(50L)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_Preset_Load(socket: Socket?, presetNo: Int) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_Preset_Load(presetNo)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_Preset_GetName_All(socket: Socket?){
+        for(i in 0..11){
+            SendPacket_Preset_GetName(socket, i)
+        }
+    }
+
+    fun SendPacket_Preset_Delete_All(socket: Socket?) {
+        for(i in presetSavedList.indices){
+            SendPacket_Preset_Delete(socket, i)
+        }
+    }
+
+    fun SendPacket_Preset_Delete(socket: Socket?, presetNo: Int) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_Preset_Delete(presetNo)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_Preset_GetName(socket: Socket?, presetNo: Int) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_Preset_GetName(presetNo)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(LISTINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_InputGEQ_Reset(socket: Socket?, channel: Char) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_input_EQ_Reset(channel)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_NoiseGenerator(socket: Socket?, channel: Char, noise: Int, gain: Float, switch: Int) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_NoiseGenerator(
+                        channel,
+                        noise,
+                        gain,
+                        switch
+                )
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun SendPacket_EQ_All(socket: Socket?, channel: Char, eq: FloatArray) {
+        if (socket != null) {
+
+            try {
+                tx_buff = protocol.packet_InputGEQ_All(channel, eq)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+    fun savePreset(socket: Socket?, presetNo: Int, title: String) {
+        SendPacket_Preset_Save_Start(socket)
+        SendPacket_Preset_SetName(socket, presetNo, title)
+        SendPacket_Preset_Save(socket, presetNo)
+        SendPacket_Preset_Save_End(socket)
     }
 
 

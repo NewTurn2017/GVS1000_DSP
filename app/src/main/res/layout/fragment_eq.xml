@@ -14,20 +14,31 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="스피커 선택"
-            android:gravity="center"
-            android:layout_weight="1"/>
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:background="@drawable/layout_border_text_select"
+            android:layout_weight="1">
 
-        <Spinner
-            android:id="@+id/sp_eqSpeakerList"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="@string/select_speaker"
+                android:gravity="center"
+                android:textSize="@dimen/button_text_size"
+                android:layout_weight="0.5"/>
+
+            <Spinner
+                android:id="@+id/sp_eqSpeakerList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
 
         <com.manojbhadane.QButton
             android:id="@+id/btn_geqReset"
@@ -58,12 +69,26 @@
             app:qb_strokeWidth="3" />
 
         <com.manojbhadane.QButton
+            android:id="@+id/btn_saveTuning"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/save_preset"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
             android:id="@+id/btn_loadTuning"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="튜닝값\n불러오기"
+            android:text="@string/load_preset"
             android:textColor="@android:color/white"
             android:textSize="@dimen/button_text_size"
             app:qb_backgroundColor="@android:color/holo_green_light"

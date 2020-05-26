@@ -44,6 +44,8 @@ class GEQFragment : Fragment() {
         sp_eqSpeakerList.onItemSelectedListener = GEQItemSelectedListener(presenter)
         btn_geqReset.setOnClickListener(GEQButtonListener(presenter))
         btn_geqBypass.setOnClickListener(GEQButtonListener(presenter))
+        btn_saveTuning.setOnClickListener(GEQButtonListener(presenter))
+        btn_loadTuning.setOnClickListener(GEQButtonListener(presenter))
         addEQBypassButtonListener()
         addEQSeekBarListener()
     }

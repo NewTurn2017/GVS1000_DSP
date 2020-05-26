@@ -11,6 +11,7 @@ import com.gvkorea.gvs1000_dsp.MainActivity
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.settings.listener.SettingsSelectPanelListener
 import com.gvkorea.gvs1000_dsp.fragment.settings.presenter.SettingsPresenter
+import com.gvkorea.gvs1000_dsp.fragment.settings.view.preset.PresetFragment
 import com.gvkorea.gvs1000_dsp.fragment.settings.view.reset.ResetSettingFragment
 import com.gvkorea.gvs1000_dsp.fragment.settings.view.setid.SetIdFragment
 import com.gvkorea.gvs1000_dsp.fragment.settings.view.setmode.SetModeFragment
@@ -26,6 +27,7 @@ class SettingsFragment(val activity: MainActivity, val mHandler: Handler) : Frag
     val setModeFragment: SetModeFragment by lazy { SetModeFragment() }
     val spkSettingsFragment: SpkSettingsFragment by lazy { SpkSettingsFragment(mHandler) }
     val syncFragment: SyncFragment by lazy { SyncFragment() }
+    val presetFragment: PresetFragment by lazy { PresetFragment() }
 
     lateinit var presenter: SettingsPresenter
     override fun onCreateView(
@@ -51,6 +53,7 @@ class SettingsFragment(val activity: MainActivity, val mHandler: Handler) : Frag
         btn_setMode.setOnClickListener(SettingsSelectPanelListener(presenter))
         btn_sync.setOnClickListener(SettingsSelectPanelListener(presenter))
         btn_spk_setting.setOnClickListener(SettingsSelectPanelListener(presenter))
+        btn_preset.setOnClickListener(SettingsSelectPanelListener(presenter))
     }
 
 }

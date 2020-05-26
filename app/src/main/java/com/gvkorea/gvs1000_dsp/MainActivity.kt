@@ -2,21 +2,30 @@ package com.gvkorea.gvs1000_dsp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.*
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.os.PowerManager
+import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.gvkorea.gvs1000_dsp.fragment.eq.GEQFragment
 import com.gvkorea.gvs1000_dsp.fragment.listener.MenuButtonListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.VolumeFragment
@@ -26,9 +35,12 @@ import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment.Companion.mPlayerSer
 import com.gvkorea.gvs1000_dsp.fragment.music.MusicFragment.Companion.mServiceConnection
 import com.gvkorea.gvs1000_dsp.fragment.music.service.PlayerService
 import com.gvkorea.gvs1000_dsp.fragment.settings.SettingsFragment
+import com.gvkorea.gvs1000_dsp.fragment.tts.TTSFragment
+import com.gvkorea.gvs1000_dsp.fragment.tune.TuneFragment
 import com.gvkorea.gvs1000_dsp.presenter.MainPresenter
 import com.gvkorea.gvs1000_dsp.util.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_tune.*
 import java.io.DataInputStream
 import java.io.IOException
 import java.net.InetAddress
@@ -39,7 +51,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 
-class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
 
     var isButtonEnable = false
     private var permission_list = arrayOf(
@@ -95,8 +107,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
     //fragment
 
     val mainFragment: VolumeFragment by lazy { VolumeFragment() }
-    val GEQFragment: GEQFragment by lazy { GEQFragment() }
+    val geqFragment: GEQFragment by lazy { GEQFragment() }
+    val tuneFragment: TuneFragment by lazy { TuneFragment() }
     val musicFragment: MusicFragment by lazy { MusicFragment() }
+    val ttsFragment: TTSFragment by lazy { TTSFragment() }
     val settingsFragment: SettingsFragment by lazy { SettingsFragment(this, mHandler) }
 
 
@@ -104,6 +118,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
     lateinit var wifiManager: WifiManager
     private lateinit var connection: WifiInfo
     lateinit var presenter: MainPresenter
+
+    lateinit var mFirebaseRemoteConfig: FirebaseRemoteConfig
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,16 +134,119 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
         initListener()
         buttonDisable()
         mContentResolver = contentResolver
+        selectedMicName = prefSetting.loadCalibMic()
 
         mHandler.postDelayed({
             connectDSP()
+            remoteConfigInit()
+            checkGooglePlayServices()
+            showUpdate()
+
         }, 500)
+    }
+
+    private fun remoteConfigInit() {
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+        val configSettings =
+                FirebaseRemoteConfigSettings.Builder().setMinimumFetchIntervalInSeconds(3600).build()
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings)
+    }
+
+    private fun checkGooglePlayServices() {
+        val googleApiAvailability = GoogleApiAvailability.getInstance()
+        val status = googleApiAvailability.isGooglePlayServicesAvailable(this)
+
+        if (status != ConnectionResult.SUCCESS) {
+            val dialog = googleApiAvailability.getErrorDialog(this, status, -1)
+            dialog.setOnDismissListener { finish() }
+            dialog.show()
+
+            googleApiAvailability.showErrorNotification(this, status)
+        }
+    }
+
+    private fun showUpdate() {
+
+        val cacheExpiration = 3000L
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
+                .addOnCompleteListener(this, OnCompleteListener {
+                    if (it.isSuccessful) {
+                        mFirebaseRemoteConfig.activate()
+                    }
+                    showUpdateDialog()
+
+                })
+
+    }
+
+    private fun showUpdateDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("앱 업데이트 알림")
+        val versionInfo = checkVersion()
+
+        val update = loadDate()
+        builder.setMessage(" 현재 버전: ${versionInfo[1]} \n 최신 버전: ${versionInfo[0]} \n 업데이트 날짜: $update")
+        if (versionInfo[0] == versionInfo[1]) {
+            builder.setPositiveButton("확인") { dialog: DialogInterface, _: Int ->
+                dialog.dismiss()
+            }
+
+        } else {
+            builder.setPositiveButton("업데이트 바로가기") { dialog: DialogInterface, _: Int ->
+                dialog.dismiss()
+                val marketLaunch = Intent(
+                        Intent.ACTION_VIEW
+                )
+                marketLaunch.data =
+                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                startActivity(marketLaunch)
+                finish()
+
+            }
+        }
+        if (versionInfo[0] != versionInfo[1]){
+            val dialog = builder.create()
+            dialog.show()
+        }
+
+    }
+
+
+
+    private fun loadDate(): String? {
+
+        val latestUpdate = mFirebaseRemoteConfig.getString("latest_update")
+        return latestUpdate
+    }
+
+    private fun checkVersion(): Array<String> {
+
+        val latestVersion = mFirebaseRemoteConfig.getString("latest_version")
+        val currentVersion = getAppVersion(this)
+
+        return arrayOf(latestVersion, currentVersion)
+    }
+
+    private fun getAppVersion(context: Context): String {
+        var result = ""
+
+        try {
+            result = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+            result = result.replace("[a-zA-Z]|-".toRegex(), "")
+        } catch (e: PackageManager.NameNotFoundException) {
+            Log.e("getAppversion", e.message)
+        }
+
+        return result
     }
 
     private fun buttonDisable() {
         btn_volumePannel.isEnabled = false
         btn_eqPannel.isEnabled = false
+        btn_tunePanel.isEnabled = false
         btn_musicPlayer.isEnabled = false
+        btn_tts.isEnabled = false
         btn_settings.isEnabled = false
         isButtonEnable = false
     }
@@ -138,14 +257,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
             btn_volumePannel.alpha = 1f
             btn_eqPannel.isEnabled = true
             btn_eqPannel.alpha = 1f
+            btn_tunePanel.isEnabled = true
+            btn_tunePanel.alpha = 1f
             btn_musicPlayer.isEnabled = true
             btn_musicPlayer.alpha = 1f
+            btn_tts.isEnabled = true
+            btn_tts.alpha = 1f
             btn_settings.isEnabled = true
             btn_settings.alpha = 1f
             isButtonEnable = true
         }
-
-
     }
 
     private fun initListener() {
@@ -153,8 +274,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
         btn_connect.setOnClickListener(this)
         btn_volumePannel.setOnClickListener(MenuButtonListener(presenter))
         btn_eqPannel.setOnClickListener(MenuButtonListener(presenter))
+        btn_tunePanel.setOnClickListener(MenuButtonListener(presenter))
         btn_musicPlayer.setOnClickListener(MenuButtonListener(presenter))
+        btn_tts.setOnClickListener(MenuButtonListener(presenter))
         btn_settings.setOnClickListener(MenuButtonListener(presenter))
+        btn_finish.setOnClickListener(MenuButtonListener(presenter))
     }
 
 
@@ -493,8 +617,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
             intentFilter.addAction(PlayerService.PLAY_PREVIOUS)
             registerReceiver(mBroadcastReceiver, intentFilter)
         }
-
-
     }
 
     val wifiStateReceiver = object : BroadcastReceiver() {
@@ -561,6 +683,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
         unregisterReceiver(mBroadcastReceiver)
 
         if (mSleepLock.isHeld) {
+
             mSleepLock.release()
         }
     }
@@ -573,7 +696,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
             mFlag = true
             mHandlerBackPress?.sendEmptyMessageDelayed(0, (1000 * 2).toLong())
         } else {
-            super.onBackPressed()
+            presenter.finish()
         }
     }
 
@@ -605,6 +728,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , View.OnLongClic
         var muteArrays: ArrayList<Boolean>? = null
 
         lateinit var mContentResolver: ContentResolver
+        lateinit var selectedMicName: String
+        var CALIBRATION = 0F
+        var isCalib = false
+
 
     }
 

@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.fragment_sync.*
 
 class SyncPresenter(val view: SyncFragment, val handler: Handler) {
 
-
-
     val packet = GVPacket(view)
     var nameList = ArrayList<String>()
 
@@ -68,9 +66,6 @@ class SyncPresenter(val view: SyncFragment, val handler: Handler) {
     val KEY_GEQ_BYPASS = "geq_bypass"
     val KEY_PEQ_BYPASS = "peq_bypass"
 
-    private val protocol = Protocol()
-
-
     fun initializeList() {
         makeNameList()
         registerAdapter(view.context!!, nameList, view.sp_syncSpeakerList)
@@ -102,8 +97,6 @@ class SyncPresenter(val view: SyncFragment, val handler: Handler) {
         requestSyncAllAudioSettings()
     }
 
-
-
     private fun resetGeqAndPeqArrays(){
         arrPEQ = ArrayList()
         arrGEQ = ArrayList()
@@ -119,7 +112,9 @@ class SyncPresenter(val view: SyncFragment, val handler: Handler) {
         val index = view.sp_syncSpeakerList.selectedItemPosition
         val speakerInfo = spkList[index]
         packet.SendPacket_StatusRequest_All(speakerInfo.socket, speakerInfo.channel)
-        WaitingDialog(view.context!!).create("동기화 중입니다..", 1000L)
+        handler.post {
+            WaitingDialog(view.context!!).create("동기화 중입니다..", 1000L)
+        }
         handler.postDelayed({
             appendtext(receivedData(speakerInfo))
         }, 1500L)
@@ -232,17 +227,17 @@ class SyncPresenter(val view: SyncFragment, val handler: Handler) {
                 "\tOUTPUT LIMITER BYPASS    : $limiter_bypass" + "\n" +
                 line +
                 "\t<BPF CH1>" + "\n" +
-                "\tOUTPUT BPF FILTER  LOW(HPF)  : $output_bpf_filterlow_ch1" + "\n" +
+//                "\tOUTPUT BPF FILTER  LOW(HPF)  : $output_bpf_filterlow_ch1" + "\n" +
                 "\tOUTPUT BPF FILTER HIGH(LPF)  : $output_bpf_filterhigh_ch1" + "\n" +
-                "\tOUTPUT BPF FREQ.  LOW CUTOFF : $output_bpf_freq_lc_ch1 hz" + "\n" +
-                "\tOUTPUT BPF FREQ. HIGH CUTOFF : $output_bpf_freq_hc_ch1 hz" + "\n" +
+//                "\tOUTPUT BPF FREQ.  LOW CUTOFF : $output_bpf_freq_lc_ch1 hz" + "\n" +
+                "\tOUTPUT BPF FREQ. LPF : $output_bpf_freq_hc_ch1 hz" + "\n" +
                 "\tOUTPUT BPF GAIN              : $output_bpf_gain_ch1 dB" + "\n" +
                 line +
                 "\t<BPF CH2>" + "\n" +
                 "\tOUTPUT BPF FILTER  LOW(HPF)  : $output_bpf_filterlow_ch2" + "\n" +
-                "\tOUTPUT BPF FILTER HIGH(LPF)  : $output_bpf_filterhigh_ch2" + "\n" +
-                "\tOUTPUT BPF FREQ.  LOW CUTOFF : $output_bpf_freq_lc_ch2 hz" + "\n" +
-                "\tOUTPUT BPF FREQ. HIGH CUTOFF : $output_bpf_freq_hc_ch2 hz" + "\n" +
+//                "\tOUTPUT BPF FILTER HIGH(LPF)  : $output_bpf_filterhigh_ch2" + "\n" +
+                "\tOUTPUT BPF FREQ. HPF : $output_bpf_freq_lc_ch2 hz" + "\n" +
+//                "\tOUTPUT BPF FREQ. HIGH CUTOFF : $output_bpf_freq_hc_ch2 hz" + "\n" +
                 "\tOUTPUT BPF GAIN              : $output_bpf_gain_ch2 dB" + "\n" +
                 line +
                 "\t<BPF BYPASS>" + "\n" +
@@ -260,18 +255,25 @@ class SyncPresenter(val view: SyncFragment, val handler: Handler) {
                 line +
                 "\t<PEQ> : ALL BYPASS($peq_bypass)"+ "\n" +
                 out_peq
-
-
         return receivedData
     }
 
     private fun loadIdFromName(spkNo: String): Int {
         val id : Int
         if(spkNo.contains("Main")){
-            id = spkNo.substring(4,5).toInt()
+            id = extractMainID(spkNo)
         }else{
-            id = spkNo.substring(3,4).toInt()
+            id = extractSubID(spkNo)
         }
         return id
     }
+
+    private fun extractMainID(spkNo: String): Int {
+        return spkNo.substring(4, 5).toInt()
+    }
+
+    private fun extractSubID(spkNo: String): Int {
+        return spkNo.substring(3, 4).toInt()
+    }
+
 }

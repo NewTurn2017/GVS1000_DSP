@@ -9,11 +9,13 @@ import com.gvkorea.gvs1000_dsp.MainActivity.Companion.muteArrays
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.volumeArrays
+import com.gvkorea.gvs1000_dsp.fragment.settings.view.setid.SetIdFragment
 import com.gvkorea.gvs1000_dsp.fragment.volume.VolumeFragment
 import com.gvkorea.gvs1000_dsp.util.GVPacket
 import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
 import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import com.manojbhadane.QButton
+import kotlinx.android.synthetic.main.fragment_volume.*
 import java.net.Socket
 import java.util.*
 import kotlin.collections.ArrayList
@@ -26,6 +28,7 @@ class VolumePresenter(val view: VolumeFragment, val handler: Handler) {
     val SWITCH_OFF = 0
     val KEY_INPUT_GAIN = "input_gain"
     val KEY_INPUT_MUTE = "input_mute"
+    var isAllMute = true
 
     init {
         Arrays.fill(isMuteArray, false)
@@ -94,9 +97,14 @@ class VolumePresenter(val view: VolumeFragment, val handler: Handler) {
             muteArrays = ArrayList()
             for(i in 0 until spkList.size){
                 packet.SendPacket_StatusRequest_general(packet.protocol.CMD_INPUT_GAIN, spkList[i].socket, spkList[i].channel)
+            }
+            for(i in 0 until spkList.size){
                 packet.SendPacket_StatusRequest_general(packet.protocol.CMD_INPUT_MUTE, spkList[i].socket, spkList[i].channel)
             }
-            WaitingDialog(view.context!!).create("Loading...", 1200)
+
+            handler.post {
+                WaitingDialog(view.context!!).create("Loading...", 1200)
+            }
             handler.postDelayed({
                 updateVolumeUI(volumeArrays)
                 updateMuteUI(muteArrays)
@@ -144,6 +152,72 @@ class VolumePresenter(val view: VolumeFragment, val handler: Handler) {
 
     private fun changeGainToProgress(gain: Float): Int {
         return (gain + 40).toInt()
+    }
+
+    fun volumeReset() {
+        val FIRST_ID = 1
+        val LAST_ID = spkList.size
+        val RESET_VOLUME = 0f
+        for (i in FIRST_ID..LAST_ID) {
+            val seekBar = view.activity?.findViewById<SeekBar>(
+                    view.activity?.resources?.getIdentifier(
+                            "sb_spk$i",
+                            "id",
+                            view.activity?.packageName
+                    )!!
+            )
+            seekBar?.progress = changeGainToProgress(RESET_VOLUME)
+        }
+    }
+
+    fun muteAll() {
+        muteAllButtonControl()
+        val FIRST_ID = 1
+        val LAST_ID = spkList.size
+        for (i in FIRST_ID..LAST_ID) {
+            val button = view.activity?.findViewById<QButton>(
+                    view.activity?.resources?.getIdentifier(
+                            "btn_spk${i}_mute",
+                            "id",
+                            view.activity?.packageName
+                    )!!
+            )
+            mute(i-1, spkList[i-1], button!!)
+        }
+    }
+
+    private fun muteAllButtonControl() {
+        if(!isAllMute) {
+            changeMuteAllButton()
+            isAllMute = true
+
+        }else {
+            changeMuteAllButton()
+            isAllMute = false
+        }
+    }
+
+    private fun changeMuteAllButton() {
+        Arrays.fill(isMuteArray, !isAllMute)
+        changeButton(isAllMute, view.btn_allMute)
+    }
+
+    fun savePreset() {
+
+    }
+
+    private fun loadIdFromName(spkNo: String): Int {
+        val id : Int
+        if(spkNo.contains("Main")){
+            id = spkNo.substring(4,5).toInt()
+        }else{
+            id = spkNo.substring(3,4).toInt()
+        }
+        return id
+    }
+
+    fun loadPreset() {
+        TODO("Not yet implemented")
     }
 
 

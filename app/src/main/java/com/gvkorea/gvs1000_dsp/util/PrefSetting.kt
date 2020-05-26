@@ -2,6 +2,8 @@ package com.gvkorea.gvs1000_dsp.util
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.CALIBRATION
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.isCalib
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
 
 
@@ -97,8 +99,30 @@ class PrefSetting {
         editor.apply()
     }
 
-    fun loadFirmware(spkNo: Int): String{
+    fun loadFirmware(spkNo: Int): String?{
         return pref.getString("firmware$spkNo", "No Saved")
+    }
+
+    fun loadCalibMic(): String {
+        return pref.getString("selectedMic", "iSEMic725TR-3511903-freefield.csv")!!
+    }
+
+    fun loadCalib() {
+        CALIBRATION = pref.getFloat("calibration", 0f)
+    }
+
+    fun saveIsCalib(isCalib: Boolean) {
+        editor.putBoolean("isCalib", isCalib)
+        editor.apply()
+    }
+
+    fun loadIsCalib(): Boolean{
+        return pref.getBoolean("isCalib", false)
+    }
+
+    fun saveNoiseVolumePref(noiseLevel: Float) {
+        editor.putFloat("noiseLevel", noiseLevel)
+        editor.apply()
     }
 
 

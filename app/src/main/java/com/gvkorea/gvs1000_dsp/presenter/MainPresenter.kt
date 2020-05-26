@@ -107,8 +107,10 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
         resetButtonColor()
         when (panel) {
             GVSPanel.VOLUME -> replacePanel(view.mainFragment, view.btn_volumePannel)
-            GVSPanel.EQ -> replacePanel(view.GEQFragment, view.btn_eqPannel)
+            GVSPanel.EQ -> replacePanel(view.geqFragment, view.btn_eqPannel)
+            GVSPanel.TUNE -> replacePanel(view.tuneFragment, view.btn_tunePanel)
             GVSPanel.MUSIC -> replacePanel(view.musicFragment, view.btn_musicPlayer)
+            GVSPanel.TTS -> replacePanel(view.ttsFragment, view.btn_tts)
             GVSPanel.SETTINGS -> replacePanel(view.settingsFragment, view.btn_settings)
         }
     }
@@ -125,7 +127,9 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
     private fun resetButtonColor() {
         setButtonColor(view.btn_volumePannel, android.R.color.white)
         setButtonColor(view.btn_eqPannel, android.R.color.white)
+        setButtonColor(view.btn_tunePanel, android.R.color.white)
         setButtonColor(view.btn_musicPlayer, android.R.color.white)
+        setButtonColor(view.btn_tts, android.R.color.white)
         setButtonColor(view.btn_settings, android.R.color.white)
     }
 
@@ -725,6 +729,7 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
                     }
                 }
             }
+
             val th = hexStringToFloat(arr1)
             val re = hexStringToFloat(arr2)
             val att = hexStringToFloat(arr3)
@@ -752,7 +757,6 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
                     volumeArrays?.add(inputgain)
                 }
             }
-
         }
     }
 
@@ -930,7 +934,9 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
 
     fun initailizeSpeakerList() {
         if (prefSetting.isSetting()) {
-            WaitingDialog(view).create("잠시만 기다려 주세요..", 1200)
+            handler.post {
+                WaitingDialog(view).create("잠시만 기다려 주세요..", 1200)
+            }
             listAvailableId = ArrayList()
             listAllClient = ArrayList()
             listUsedId = ArrayList()
@@ -1026,6 +1032,12 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
 
     fun hexStringToInt(hexString: String): Int {
         return hexString.substring(2, 4).toInt()
+    }
+
+    fun finish() {
+        view.moveTaskToBack(true)
+        view.finishAndRemoveTask()
+        android.os.Process.killProcess(android.os.Process.myPid())
     }
 
 }

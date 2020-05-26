@@ -7,9 +7,77 @@
     android:orientation="horizontal"
     tools:context=".fragment.volume.VolumeFragment">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_volumeReset"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/volume_reset"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_allMute"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="전체 MUTE"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/darker_gray"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/black"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:visibility="gone"
+            android:id="@+id/btn_saveVolume"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="프리셋\n저장하기"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
+            android:visibility="gone"
+            android:id="@+id/btn_loadVolume"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="프리셋\n불러오기"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_green_light"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/holo_green_dark"
+            app:qb_strokeWidth="3" />
+
+
+    </LinearLayout>
+
     <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5">
 
         <LinearLayout
             android:layout_width="wrap_content"

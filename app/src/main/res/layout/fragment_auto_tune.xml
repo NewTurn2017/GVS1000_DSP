@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:orientation="vertical"
+    tools:context=".fragment.tune.fragment.autotune.AutoTuneFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/layout_border_text_select"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="@string/select_speaker"
+                android:gravity="center"
+                android:textSize="@dimen/button_text_size"
+                android:layout_weight="1"/>
+
+            <Spinner
+                android:id="@+id/sp_TuneSpeakerList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_tuneModel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="모델 : GVS-500"
+                android:gravity="center"
+                android:textSize="@dimen/menu_text_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_tune_start"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="시작"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_green_light"
+                app:qb_radius="20"
+                app:qb_strokeColor="@android:color/holo_green_dark"
+                app:qb_strokeWidth="5" />
+
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_tune_stop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:text="중지"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_green_light"
+                app:qb_radius="20"
+                app:qb_strokeColor="@android:color/holo_green_dark"
+                app:qb_strokeWidth="5" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_showTable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="SHOW TABLE"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_blue_bright"
+                app:qb_radius="20"
+                app:qb_strokeColor="@android:color/holo_blue_dark"
+                app:qb_strokeWidth="5" />
+
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_showEQ"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="Show EQ"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_blue_bright"
+                app:qb_radius="20"
+                app:qb_strokeColor="@android:color/holo_blue_dark"
+                app:qb_strokeWidth="5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="SPL"
+                android:textSize="@dimen/button_text_size" />
+
+            <SeekBar
+                android:id="@+id/sb_volume"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:max="100"
+                android:min="0"
+                android:layout_margin="2dp"
+                android:maxHeight="18dp"
+                android:minHeight="18dp"
+                android:clickable="false"
+                android:thumb="@null"
+                android:progressDrawable="@drawable/sb_drawable"/>
+
+
+            <TextView
+                android:id="@+id/tv_tune_spl"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="85dB"
+                android:textSize="@dimen/button_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal">
+
+        <ScrollView
+            android:id="@+id/sc_table"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="2dp"
+                    android:stretchColumns="0, 1">
+
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/tv_tune_curFreq"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/button_text_size"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:id="@+id/tv_tune_diff"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/button_text_size"
+                            android:gravity="center" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_tune_line"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:padding="5dp" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart_tune_bar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border_text"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

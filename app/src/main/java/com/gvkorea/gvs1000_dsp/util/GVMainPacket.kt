@@ -1,6 +1,7 @@
 package com.gvkorea.gvs1000_dsp.util
 
 import android.net.wifi.WifiManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.gvkorea.gvs1000_dsp.MainActivity
 import java.io.IOException
@@ -17,43 +18,48 @@ class GVMainPacket(val view: MainActivity) {
 
     fun SendPacket_Connect() {
 
-        val str = getIPAddress()
-        val ipAddr = str.split('.')
-        val commandID = protocol.CMD_SET
-        val para1 = protocol.CMD_UDP_TCP_SERVER_IFNO
-        val para2 = protocol.CMD_UDP_TCP_SERVER_IFNO_PARA2
-        val data0 = ipAddr[0].toInt()
-        val data1 = ipAddr[1].toInt()
-        val data2 = ipAddr[2].toInt()
-        val data3 = ipAddr[3].toInt()
+
+        val str = getIPAddress(true)
+
+        if(!str.equals("")){
+            val ipAddr = str.split('.')
+            val commandID = protocol.CMD_SET
+            val para1 = protocol.CMD_UDP_TCP_SERVER_IFNO
+            val para2 = protocol.CMD_UDP_TCP_SERVER_IFNO_PARA2
+            val data0 = ipAddr[0].toInt()
+            val data1 = ipAddr[1].toInt()
+            val data2 = ipAddr[2].toInt()
+            val data3 = ipAddr[3].toInt()
 
 
-        Thread(Runnable {
-            tx_buff = protocol.packet_Connect(commandID, para1, para2, data0, data1, data2, data3)
+            Thread(Runnable {
+                tx_buff = protocol.packet_Connect(commandID, para1, para2, data0, data1, data2, data3)
 
-            val dSocket: DatagramSocket?
-            try {
-                dSocket = DatagramSocket()
-                val dPacket = DatagramPacket(
-                    tx_buff,
-                    tx_buff.size,
-                    InetAddress.getByName("192.168.$data2.255"),
-                    uPort
-                )
+                val dSocket: DatagramSocket?
+                try {
+                    dSocket = DatagramSocket()
+                    val dPacket = DatagramPacket(
+                            tx_buff,
+                            tx_buff.size,
+                            InetAddress.getByName("192.168.$data2.255"),
+                            uPort
+                    )
 
-                dSocket.send(dPacket)
-                dSocket.close()
-            } catch (e: SocketException) {
-                e.printStackTrace()
-            } catch (e: UnknownHostException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }).start()
+                    dSocket.send(dPacket)
+                    dSocket.close()
+                } catch (e: SocketException) {
+                    e.printStackTrace()
+                } catch (e: UnknownHostException) {
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }).start()
 
-        Thread.currentThread()
-        Thread.interrupted()
+            Thread.currentThread()
+            Thread.interrupted()
+        }
+
     }
 
     fun getIPAddress(): String {

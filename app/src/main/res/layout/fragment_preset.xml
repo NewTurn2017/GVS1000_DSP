@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".fragment.settings.view.preset.PresetFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/preset"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/menu_text_size"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@drawable/layout_border_text_select"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="스피커 선택"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <Spinner
+            android:id="@+id/sp_presetSpeakerList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_presetSave"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:drawableLeft="@android:drawable/ic_menu_save"
+            android:paddingLeft="20dp"
+            android:paddingRight="30dp"
+            android:text="@string/preset_save"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:qb_backgroundColor="@android:color/holo_blue_bright"
+            app:qb_radius="50"
+            app:qb_strokeColor="@android:color/holo_blue_dark"
+            app:qb_strokeWidth="5" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_presetLoad"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:drawableLeft="@android:drawable/ic_menu_set_as"
+            android:paddingLeft="20dp"
+            android:paddingRight="30dp"
+            android:text="@string/preset_load"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:qb_backgroundColor="@android:color/holo_blue_bright"
+            app:qb_radius="50"
+            app:qb_strokeColor="@android:color/holo_blue_dark"
+            app:qb_strokeWidth="5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_presetDelete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:drawableLeft="@android:drawable/ic_menu_delete"
+            android:paddingLeft="20dp"
+            android:paddingRight="30dp"
+            android:text="@string/preset_delete"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:qb_backgroundColor="@android:color/holo_blue_bright"
+            app:qb_radius="50"
+            app:qb_strokeColor="@android:color/holo_blue_dark"
+            app:qb_strokeWidth="5" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_presetRequest"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:drawableLeft="@android:drawable/ic_menu_info_details"
+            android:paddingLeft="20dp"
+            android:paddingRight="30dp"
+            android:text="@string/preset_confirm"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:qb_backgroundColor="@android:color/holo_blue_bright"
+            app:qb_radius="50"
+            app:qb_strokeColor="@android:color/holo_blue_dark"
+            app:qb_strokeWidth="5" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

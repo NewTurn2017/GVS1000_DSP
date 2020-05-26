@@ -19,12 +19,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/layout_border_text_select"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="스피커 선택"
+            android:textSize="@dimen/button_text_size"
             android:gravity="center"
             android:layout_weight="2"/>
 

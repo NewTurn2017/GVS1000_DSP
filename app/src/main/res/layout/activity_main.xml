@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="1dp"
     tools:context=".MainActivity">
@@ -21,59 +21,75 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="@drawable/layout_border_text"
-            tools:ignore="NestedWeights">
+            android:background="@drawable/layout_border_text">
 
             <!--Logo-->
 
-            <ImageView
-                android:id="@+id/iv_logo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:src="@drawable/logo_splash" />
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/logo"
+                    android:src="@drawable/logo_splash" />
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_connect"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="@dimen/main_button_top_margin"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/connect"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/button_text_size"
+                    app:qb_backgroundColor="@android:color/holo_green_light"
+                    app:qb_radius="40"
+                    app:qb_strokeColor="@android:color/holo_green_dark"
+                    app:qb_strokeWidth="3" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="@string/app_description"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/app_description_text_size"
+                android:layout_marginStart="5dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="@string/version"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/app_description_text_size"
+                android:layout_marginStart="5dp"
                 android:textStyle="bold" />
 
-            <!--Menu Button-->
 
-            <com.manojbhadane.QButton
-                android:id="@+id/btn_connect"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="@string/connect"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/button_text_size"
-                app:qb_backgroundColor="@android:color/holo_green_light"
-                app:qb_radius="40"
-                app:qb_strokeColor="@android:color/holo_green_dark"
-                app:qb_strokeWidth="3" />
+            <!--Menu Button-->
 
             <com.manojbhadane.QButton
                 android:id="@+id/btn_volumePannel"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="@dimen/main_button_top_margin"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="@string/volumeControl"
                 android:textColor="@android:color/white"
@@ -84,12 +100,31 @@
                 app:qb_strokeWidth="3" />
 
             <com.manojbhadane.QButton
-                android:id="@+id/btn_eqPannel"
+            android:id="@+id/btn_eqPannel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/main_button_top_margin"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:text="@string/eqcontrol"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_blue_bright"
+            app:qb_radius="40"
+            app:qb_strokeColor="@android:color/holo_blue_dark"
+            app:qb_strokeWidth="3" />
+
+            <com.manojbhadane.QButton
+                android:visibility="visible"
+                android:id="@+id/btn_tunePanel"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="@dimen/main_button_top_margin"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="@string/eqcontrol"
+                android:text="@string/tunning"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/button_text_size"
                 app:qb_backgroundColor="@android:color/holo_blue_bright"
@@ -101,9 +136,27 @@
                 android:id="@+id/btn_musicPlayer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="@dimen/main_button_top_margin"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="@string/musicplayer"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_blue_bright"
+                app:qb_radius="40"
+                app:qb_strokeColor="@android:color/holo_blue_dark"
+                app:qb_strokeWidth="3" />
+
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_tts"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="@dimen/main_button_top_margin"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="@string/tts"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/button_text_size"
                 app:qb_backgroundColor="@android:color/holo_blue_bright"
@@ -115,7 +168,9 @@
                 android:id="@+id/btn_settings"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="@dimen/main_button_top_margin"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="@string/settings"
                 android:textColor="@android:color/white"
@@ -178,6 +233,22 @@
             android:background="@drawable/layout_border_text"
             android:gravity="center"
             android:textSize="@dimen/ipInfoTextSize" />
+
+        <com.manojbhadane.QButton
+            android:id="@+id/btn_finish"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="0.5"
+            android:text="@string/finish"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/holo_blue_bright"
+            app:qb_radius="40"
+            app:qb_strokeColor="@android:color/holo_blue_dark"
+            app:qb_strokeWidth="3" />
+
+
 
 
 
