@@ -60,6 +60,7 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudio
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.isMeasure
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.spldB
 import com.gvkorea.gvs1000_dsp.util.GVPacket
+import com.gvkorea.gvs1000_dsp.util.SettingData
 import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
 import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import kotlinx.android.synthetic.main.dialog_target_volume.*
@@ -180,7 +181,13 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
             val spk = readSpeakerInfo()
             curEQ = eqFloats
             val eqFloatArrays = changeEQValues(curEQ)
-            packet.SendPacket_EQ_All(spk.socket, spk.channel, eqFloatArrays)
+            if(loadModel().model == "GVS-200A"){
+                packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH1, eqFloatArrays)
+                packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH2, eqFloatArrays)
+            }else{
+                packet.SendPacket_EQ_All(spk.socket, spk.channel, eqFloatArrays)
+            }
+
         }, 1500)
 
         handler.postDelayed({
@@ -286,7 +293,13 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
         curEQ = closed.getControlEQ_Closed()
         val spk = readSpeakerInfo()
         val eqFloatArrays = changeEQValues(curEQ)
-        packet.SendPacket_EQ_All(spk.socket, spk.channel, eqFloatArrays)
+
+        if(loadModel().model == "GVS-200A"){
+            packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH1, eqFloatArrays)
+            packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH2, eqFloatArrays)
+        }else{
+            packet.SendPacket_EQ_All(spk.socket, spk.channel, eqFloatArrays)
+        }
     }
 
     private fun convertStringToFloat(freqSum: java.util.ArrayList<String>): FloatArray {
@@ -468,12 +481,17 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
 
     }
 
-    fun loadModel() {
+    fun updateModel() {
         val spkName = view.sp_TuneSpeakerList.selectedItem.toString()
-        val speakerId = loadIdFromName(spkName).toString()
-        val settingData = prefSetting.loadSpeakerSettings(speakerId)
+        val settingData = loadModel()
         val data = "MODEL: ${settingData.model}\nNAME: ${spkName}"
         view.tv_tuneModel.text = data
+    }
+
+    fun loadModel(): SettingData {
+        val spkName = view.sp_TuneSpeakerList.selectedItem.toString()
+        val speakerId = loadIdFromName(spkName).toString()
+        return prefSetting.loadSpeakerSettings(speakerId)
     }
 
     private fun loadIdFromName(spkNo: String): Int {
