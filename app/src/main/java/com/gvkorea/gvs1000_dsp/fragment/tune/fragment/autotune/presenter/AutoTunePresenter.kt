@@ -213,11 +213,11 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
             measure(false)
         }, 1100)
         handler.postDelayed({
-//            for (i in freqSum.indices) {
-//                if (i < 6) {
-//                    targetValues!![i] = freqSum[i].toFloat()
-//                }
-//            }
+            for (i in freqSum.indices) {
+                if (i < 6) {
+                    targetValues!![i] = freqSum[i].toFloat()
+                }
+            }
             lineChart.drawGraph(freqSum, "현재 측정값(dB)", Color.RED)
             barChart.initGraph(changeEQValues(curEQ))
             updateTableList()
@@ -269,7 +269,6 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
             }
             if (isCompleted) {
                 msg("튜닝이 완료되었습니다.")
-                val spkName = view.sp_TuneSpeakerList.selectedItem.toString()
                 savePreset()
                 tuneStop()
             } else {

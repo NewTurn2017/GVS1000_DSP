@@ -16,6 +16,7 @@ import com.gvkorea.gvs1000_dsp.fragment.volume.listener.MuteButtonListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.listener.VolumeButtonListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.listener.VolumeSeekBarChangeListener
 import com.gvkorea.gvs1000_dsp.fragment.volume.presenter.VolumePresenter
+import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import com.manojbhadane.QButton
 import kotlinx.android.synthetic.main.fragment_volume.*
 
@@ -35,9 +36,16 @@ class VolumeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        handler.post {
+            WaitingDialog(view.context).create("Load Volume", 1000)
+        }
         presenter = VolumePresenter(this, handler)
         initListener()
-        presenter.loadVolume()
+
+        handler.postDelayed({
+            presenter.loadVolume()
+        },100)
+
     }
 
     private fun initListener() {

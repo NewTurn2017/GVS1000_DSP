@@ -16,6 +16,7 @@ import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
 import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import com.manojbhadane.QButton
 import kotlinx.android.synthetic.main.fragment_volume.*
+import java.lang.Exception
 import java.net.Socket
 import java.util.*
 import kotlin.collections.ArrayList
@@ -95,15 +96,13 @@ class VolumePresenter(val view: VolumeFragment, val handler: Handler) {
         if(spkList.size > 0){
             volumeArrays = ArrayList()
             muteArrays = ArrayList()
+
             for(i in 0 until spkList.size){
                 packet.SendPacket_StatusRequest_general(packet.protocol.CMD_INPUT_GAIN, spkList[i].socket, spkList[i].channel)
-            }
-            for(i in 0 until spkList.size){
                 packet.SendPacket_StatusRequest_general(packet.protocol.CMD_INPUT_MUTE, spkList[i].socket, spkList[i].channel)
-            }
-
-            handler.post {
-                WaitingDialog(view.context!!).create("Loading...", 1200)
+                try {
+                    Thread.sleep(100)
+                }catch (e: Exception){}
             }
             handler.postDelayed({
                 updateVolumeUI(volumeArrays)

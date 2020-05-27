@@ -87,7 +87,7 @@ class ChartLayoutBarChartForEQGraph(var context: Context, var mBarChart: BarChar
         l.form = Legend.LegendForm.LINE
     }
 
-    fun initGraph(values: FloatArray) {
+    fun initGraph(values: FloatArray?) {
         val curModelValues: ArrayList<BarEntry> = ArrayList()
         val colors = java.util.ArrayList<Int>()
 

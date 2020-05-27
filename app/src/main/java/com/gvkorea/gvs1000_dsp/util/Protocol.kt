@@ -807,7 +807,6 @@ class Protocol {
     fun packet_StatusRequest_GEQ(para2: Char, ch: Char, freqNo: Int): ByteArray {
         val commandID = CMD_REQUEST
         val para1 = CMD_REQUEST
-        val freqNo = freqNo
         val mCmd = IntArray(7)
         val tx_buff = ByteArray(mCmd.size)
 

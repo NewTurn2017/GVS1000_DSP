@@ -135,6 +135,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
         buttonDisable()
         mContentResolver = contentResolver
         selectedMicName = prefSetting.loadCalibMic()
+        loadVersionAndUpdate()
 
         mHandler.postDelayed({
             connectDSP()
@@ -143,6 +144,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
             showUpdate()
 
         }, 500)
+    }
+
+    private fun loadVersionAndUpdate() {
+        tv_version.text = "Version: v${getAppVersion(this)}"
     }
 
     private fun remoteConfigInit() {
@@ -235,7 +240,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
             result = context.packageManager.getPackageInfo(context.packageName, 0).versionName
             result = result.replace("[a-zA-Z]|-".toRegex(), "")
         } catch (e: PackageManager.NameNotFoundException) {
-            Log.e("getAppversion", e.message)
+            Log.e("getAppversion", e.message!!)
         }
 
         return result
