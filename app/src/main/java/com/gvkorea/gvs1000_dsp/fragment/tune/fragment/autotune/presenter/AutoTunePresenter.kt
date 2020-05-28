@@ -89,7 +89,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
 
     private fun tuneStart() {
         adjustVolumeStart()
-        view.btn_tune_start.text = "음압셋팅 중.."
+        view.btn_tune_start.text = "튜닝 중.."
         view.btn_tune_stop.isEnabled = true
     }
 
@@ -97,7 +97,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
         val calib = prefSetting.loadIsCalib()
         if (calib) {
             msg("음압 셋팅 중입니다...")
-            view.btn_tune_start.text = "진행중"
+            view.btn_tune_start.text = "진행 중..."
             view.btn_tune_start.isEnabled = false
             noiseVolume = -35
             handler.postDelayed({
@@ -127,7 +127,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
                     NoiseVolumeControl(noiseVolume)
                 } else {
                     msg("마이크 캘리브레이션을 확인 바랍니다.(초기화 -> 캘리브레이션)")
-                    view.btn_tune_start.text = "자동튜닝시작"
+                    view.btn_tune_start.text = "시작"
                     handler.removeMessages(0)
                     noise(NOISE_OFF, noiseVolume)
                 }
@@ -174,28 +174,28 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
     private fun autoTuning() {
         curEQReset()
         average()
-        handler.postDelayed({
-            val open = ANN_Open(view.activity?.assets!!, targetValues!!)
-            val eqValues = open.getControlEQ_Open()
-            val eqFloats = floatToInt(eqValues)
-            val spk = readSpeakerInfo()
-            curEQ = eqFloats
-            val eqFloatArrays = changeEQValues(curEQ)
-            if(loadModel().model == "GVS-200A"){
-                packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH1, eqFloatArrays)
-                packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH2, eqFloatArrays)
-            }else{
-                packet.SendPacket_EQ_All(spk.socket, spk.channel, eqFloatArrays)
-            }
+//        handler.postDelayed({
+//            val open = ANN_Open(view.activity?.assets!!, targetValues!!)
+//            val eqValues = open.getControlEQ_Open()
+//            val eqFloats = floatToInt(eqValues)
+//            val spk = readSpeakerInfo()
+//            curEQ = eqFloats
+//            val eqFloatArrays = changeEQValues(curEQ)
+//            if(loadModel().model == "GVS-200A"){
+//                packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH1, eqFloatArrays)
+//                packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH2, eqFloatArrays)
+//            }else{
+//                packet.SendPacket_EQ_All(spk.socket, spk.channel, eqFloatArrays)
+//            }
+//
+//        }, 1500)
 
-        }, 1500)
-
-        handler.postDelayed({
-            average()
-        }, 2000)
+//        handler.postDelayed({
+////            average()
+//        }, 2000)
         handler.postDelayed({
             ANN_ClosedLoop_repeat()
-        }, 3500)
+        }, 1500)
     }
 
     private fun curEQReset() {
@@ -206,9 +206,9 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
 
     fun average() {
         measure(true)
-        handler.post {
-            WaitingDialog(view.context!!).create("평균 측정 중입니다..", 1000)
-        }
+//        handler.post {
+//            WaitingDialog(view.context!!).create("평균 측정 중입니다..", 1000)
+//        }
         handler.postDelayed({
             measure(false)
         }, 1100)
@@ -269,13 +269,13 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
             }
             if (isCompleted) {
                 msg("튜닝이 완료되었습니다.")
-                savePreset()
+//                savePreset()
                 tuneStop()
             } else {
                 msg("오차 범위 초과 갯수: $count 반복튜닝 중..")
                 ANN_ClosedLoop_repeat()
             }
-        }, 2000)
+        }, 1500)
     }
 
     private fun savePreset() {
@@ -397,11 +397,11 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
 
     fun showTable() {
         if (isShowTable) {
-            view.btn_showTable.text = "Show Table"
+            view.btn_showTable.text = view.context!!.getString(R.string.show_table)
             view.sc_table.visibility = View.GONE
             isShowTable = false
         } else {
-            view.btn_showTable.text = "Close Table"
+            view.btn_showTable.text = view.context!!.getString(R.string.close_table)
             view.sc_table.visibility = View.VISIBLE
             isShowTable = true
         }
@@ -446,12 +446,12 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
         targetdBs[21] = target
         targetdBs[22] = target
         targetdBs[23] = target
-        targetdBs[24] = target
-        targetdBs[25] = target
-        targetdBs[26] = target
-        targetdBs[27] = target
-        targetdBs[28] = target
-        targetdBs[29] = target
+        targetdBs[24] = target + 1
+        targetdBs[25] = target + 3
+        targetdBs[26] = target + 5
+        targetdBs[27] = target + 5
+        targetdBs[28] = target + 5
+        targetdBs[29] = target + 5
         targetdBs[30] = target
         return targetdBs
     }

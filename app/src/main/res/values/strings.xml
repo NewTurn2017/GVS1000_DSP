@@ -68,6 +68,8 @@
     <string name="volume_reset">전체 볼륨 \n초기화</string>
     <string name="save_preset">프리셋\n저장하기</string>
     <string name="load_preset">프리셋\n불러오기</string>
+    <string name="show_table">Show Table</string>
+    <string name="close_table">Close Table</string>
 
 
     <string-array name="preset_save_arrays">
