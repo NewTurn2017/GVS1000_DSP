@@ -2,6 +2,7 @@ package com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.presenter
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Handler
 import android.text.Spannable
@@ -11,29 +12,22 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import com.google.firebase.storage.StorageReference
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.prefSetting
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.barChart
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.curModelPath
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.isShowEQ
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.isShowTable
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.lineChart
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.noiseVolume
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.storageRef
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.targetValues
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.targetdB
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.ann.ANN_Closed
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.ann.ANN_Open
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.avgStart
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq1Sum
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq2Sum
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq3Sum
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq4Sum
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq5Sum
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq6Sum
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq7Sum
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq8Sum
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq9Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq10Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq11Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq12Sum
@@ -44,6 +38,7 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudio
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq17Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq18Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq19Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq1Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq20Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq21Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq22Sum
@@ -54,21 +49,31 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudio
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq27Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq28Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq29Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq2Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq30Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq31Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq3Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq4Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq5Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq6Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq7Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq8Sum
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq9Sum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freqSum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.isMeasure
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.spldB
 import com.gvkorea.gvs1000_dsp.util.GVPacket
+import com.gvkorea.gvs1000_dsp.util.Helper
 import com.gvkorea.gvs1000_dsp.util.SettingData
 import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
-import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import kotlinx.android.synthetic.main.dialog_target_volume.*
 import kotlinx.android.synthetic.main.fragment_auto_tune.*
-import java.net.Socket
+import java.io.File
+import java.io.IOException
 import kotlin.math.roundToInt
 
-class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
+
+class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val helper: Helper) {
 
     var curEQ = IntArray(31)
     val packet = GVPacket(view)
@@ -80,6 +85,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
     val SWITCH_OFF = 0
 
     var nameList = ArrayList<String>()
+    lateinit var pathReference: StorageReference
 
     private val hzArrays = arrayOf(
             "20", "25", "31.5", "40", "50", "63", "80", "100", "125", "160",
@@ -88,9 +94,66 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
     )
 
     private fun tuneStart() {
+
+        val model = loadModel().model
+        val file = view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}/optimized_frozen_closed_model_75.pb"
+        val filePath = File(file)
+        val fileSize = filePath.length()
+        if(filePath.exists() && fileSize > 0){
+            curModelPath = file
+            tuningStart()
+        }else{
+            pathReference = storageRef.child("models/${model}/optimized_frozen_closed_model_75.pb")
+            saveModelFromFireBaseStoreage(pathReference, model)
+        }
+
+    }
+
+    private fun tuningStart(){
         adjustVolumeStart()
         view.btn_tune_start.text = "튜닝 중.."
         view.btn_tune_stop.isEnabled = true
+    }
+
+    private fun saveModelFromFireBaseStoreage(pathReference: StorageReference, model: String) {
+
+        try {
+            val folderPath = File(view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}")
+            val file = File(folderPath, "optimized_frozen_closed_model_75.pb")
+            val filePath = view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}/optimized_frozen_closed_model_75.pb"
+            curModelPath = filePath
+            try {
+                if (!folderPath.exists()) {
+                    folderPath.mkdir()
+                }
+                file.createNewFile()
+
+                val fileDownloadTask = pathReference.getFile(file)
+
+                helper.initProgressDialog(view.context!!)
+                helper.mProgressDialog?.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel") { _, _ ->
+                    fileDownloadTask.cancel()
+                }
+                helper.mProgressDialog?.show()
+
+                fileDownloadTask.addOnSuccessListener {
+                    helper.dismissProgressDialog()
+                    msg("모델 다운로드 성공하였습니다")
+                    tuningStart()
+
+                }.addOnFailureListener {
+                    helper.dismissProgressDialog()
+                    msg("모델 다운로드 실패하였습니다. ${it.message}")
+                }.addOnProgressListener {
+                    val progress = ((100 * it.bytesTransferred) / it.totalByteCount).toInt()
+                    helper.setProgress(progress)
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun adjustVolumeStart() {
@@ -211,7 +274,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
 //        }
         handler.postDelayed({
             measure(false)
-        }, 1100)
+        }, 1200)
         handler.postDelayed({
             for (i in freqSum.indices) {
                 if (i < 6) {
@@ -221,8 +284,8 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
             lineChart.drawGraph(freqSum, "현재 측정값(dB)", Color.RED)
             barChart.initGraph(changeEQValues(curEQ))
             updateTableList()
-            msg("측정 완료")
-        }, 1300)
+//            msg("측정 완료")
+        }, 1400)
     }
 
     private fun floatToInt(results: FloatArray): IntArray {
@@ -275,7 +338,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
                 msg("오차 범위 초과 갯수: $count 반복튜닝 중..")
                 ANN_ClosedLoop_repeat()
             }
-        }, 1500)
+        }, 1700)
     }
 
     private fun savePreset() {
@@ -293,10 +356,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
         val spk = readSpeakerInfo()
         val eqFloatArrays = changeEQValues(curEQ)
 
-        if(loadModel().model == "GVS-200A"){
+        if (loadModel().model == "GVS-200A") {
             packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH1, eqFloatArrays)
             packet.SendPacket_EQ_All(spk.socket, packet.CMD_PARA2_CH2, eqFloatArrays)
-        }else{
+        } else {
             packet.SendPacket_EQ_All(spk.socket, spk.channel, eqFloatArrays)
         }
     }
@@ -409,11 +472,11 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
 
     fun showEQ() {
         if (isShowEQ) {
-            view.btn_showEQ.text = "Show EQ"
+            view.btn_showEQ.text = view.context!!.getString(R.string.show_eq)
             view.chart_tune_bar.visibility = View.GONE
             isShowEQ = false
         } else {
-            view.btn_showEQ.text = "Close EQ"
+            view.btn_showEQ.text = view.context!!.getString(R.string.close_eq)
             view.chart_tune_bar.visibility = View.VISIBLE
             isShowEQ = true
         }
@@ -494,11 +557,11 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler) {
     }
 
     private fun loadIdFromName(spkNo: String): Int {
-        val id : Int
-        if(spkNo.contains("Main")){
-            id = spkNo.substring(4,5).toInt()
-        }else{
-            id = spkNo.substring(3,4).toInt()
+        val id: Int
+        if (spkNo.contains("Main")) {
+            id = spkNo.substring(4, 5).toInt()
+        } else {
+            id = spkNo.substring(3, 4).toInt()
         }
         return id
     }
