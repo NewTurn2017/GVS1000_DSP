@@ -40,6 +40,7 @@ class WaitingDialog(val context: Context) {
                 handler.sendMessage(handler.obtainMessage())
                 if(view.progressBar.progress == view.progressBar.max){
                     dialog.dismiss()
+                    Thread.interrupted()
                 }
             }
         }.start()

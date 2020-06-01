@@ -10,6 +10,7 @@ class TuneSelectPanelListener(val presenter: TunePresenter): View.OnClickListene
         when(v?.id) {
             R.id.btn_calibration -> presenter.selectPanel(GVSTunePanel.CALIB)
             R.id.btn_autoTune -> presenter.selectPanel(GVSTunePanel.AUTO_TUNE)
+            R.id.btn_evalueation -> presenter.selectPanel(GVSTunePanel.EVAL)
         }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Handler
+import android.os.Message
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -26,6 +27,7 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.storageRef
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.targetValues
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.targetdB
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.tuningCounter
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.ann.ANN_Closed
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.avgStart
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freq10Sum
@@ -62,18 +64,16 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudio
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freqSum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.isMeasure
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.spldB
-import com.gvkorea.gvs1000_dsp.util.GVPacket
-import com.gvkorea.gvs1000_dsp.util.Helper
-import com.gvkorea.gvs1000_dsp.util.SettingData
-import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
+import com.gvkorea.gvs1000_dsp.util.*
 import kotlinx.android.synthetic.main.dialog_target_volume.*
 import kotlinx.android.synthetic.main.fragment_auto_tune.*
+import kotlinx.android.synthetic.main.fragment_tune.*
 import java.io.File
 import java.io.IOException
 import kotlin.math.roundToInt
 
 
-class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val helper: Helper) {
+class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val helper: Helper, val mHandler: Handler) {
 
     var curEQ = IntArray(31)
     val packet = GVPacket(view)
@@ -95,21 +95,26 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 
     private fun tuneStart() {
 
+        mainButtonDisable()
+        buttonDisable()
+
         val model = loadModel().model
         val file = view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}/optimized_frozen_closed_model_75.pb"
         val filePath = File(file)
         val fileSize = filePath.length()
-        if(filePath.exists() && fileSize > 0){
+        if (filePath.exists() && fileSize > 0) {
             curModelPath = file
             tuningStart()
-        }else{
+        } else {
             pathReference = storageRef.child("models/${model}/optimized_frozen_closed_model_75.pb")
             saveModelFromFireBaseStoreage(pathReference, model)
         }
 
     }
 
-    private fun tuningStart(){
+
+
+    private fun tuningStart() {
         adjustVolumeStart()
         view.btn_tune_start.text = "튜닝 중.."
         view.btn_tune_stop.isEnabled = true
@@ -144,6 +149,8 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
                 }.addOnFailureListener {
                     helper.dismissProgressDialog()
                     msg("모델 다운로드 실패하였습니다. ${it.message}")
+                    mainButtonEnable()
+                    buttonEnable()
                 }.addOnProgressListener {
                     val progress = ((100 * it.bytesTransferred) / it.totalByteCount).toInt()
                     helper.setProgress(progress)
@@ -154,6 +161,30 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun mainButtonDisable() {
+        msg(view.context!!.getString(R.string.waiting))
+        val m = Message()
+        m.what = DSPMessage.MSG_UI_UNTOUCH.value
+        mHandler.sendMessage(m)
+    }
+
+    private fun mainButtonEnable() {
+        val m = Message()
+        m.what = DSPMessage.MSG_UI_TOUCH.value
+        mHandler.sendMessage(m)
+    }
+    private fun buttonEnable() {
+        view.parentFragment?.btn_calibration?.isEnabled = true
+        view.parentFragment?.btn_calibration?.alpha = 1f
+        view.parentFragment?.btn_autoTune?.isEnabled = true
+        view.parentFragment?.btn_autoTune?.alpha = 1f
+    }
+
+    private fun buttonDisable() {
+        view.parentFragment?.btn_calibration?.isEnabled = false
+        view.parentFragment?.btn_autoTune?.isEnabled = false
     }
 
     fun adjustVolumeStart() {
@@ -189,6 +220,8 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
                 if (noiseVolume < 10) {
                     NoiseVolumeControl(noiseVolume)
                 } else {
+                    mainButtonEnable()
+                    buttonEnable()
                     msg("마이크 캘리브레이션을 확인 바랍니다.(초기화 -> 캘리브레이션)")
                     view.btn_tune_start.text = "시작"
                     handler.removeMessages(0)
@@ -257,8 +290,9 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 ////            average()
 //        }, 2000)
         handler.postDelayed({
+            tuningCounter = 0
             ANN_ClosedLoop_repeat()
-        }, 1500)
+        }, 2000)
     }
 
     private fun curEQReset() {
@@ -269,12 +303,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 
     fun average() {
         measure(true)
-//        handler.post {
-//            WaitingDialog(view.context!!).create("평균 측정 중입니다..", 1000)
-//        }
+//        WaitingDialog(view.context!!).create("평균 측정 중입니다..", 1000)
         handler.postDelayed({
             measure(false)
-        }, 1200)
+        }, 1100)
         handler.postDelayed({
             for (i in freqSum.indices) {
                 if (i < 6) {
@@ -285,7 +317,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
             barChart.initGraph(changeEQValues(curEQ))
             updateTableList()
 //            msg("측정 완료")
-        }, 1400)
+        }, 1300)
     }
 
     private fun floatToInt(results: FloatArray): IntArray {
@@ -312,6 +344,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 
     private fun ANN_ClosedLoop_repeat() {
         ANN_ClosedLoop()
+        tuningCounter++
         val diff = FloatArray(31)
         var count = 0
         handler.postDelayed({
@@ -334,11 +367,19 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
                 msg("튜닝이 완료되었습니다.")
 //                savePreset()
                 tuneStop()
+                mainButtonEnable()
+                buttonEnable()
+            } else if (tuningCounter > 15) {
+                msg("튜닝이 완료되지 않았습니다. 다시 진행바랍니다.")
+                tuneStop()
+                mainButtonEnable()
+                buttonEnable()
             } else {
-                msg("오차 범위 초과 갯수: $count 반복튜닝 중..")
+                msg("오차 범위 초과 갯수: $count " + "\n" +
+                        "${tuningCounter}번 반복튜닝 중..")
                 ANN_ClosedLoop_repeat()
             }
-        }, 1700)
+        }, 1600)
     }
 
     private fun savePreset() {
@@ -456,6 +497,9 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         view.btn_tune_start.text = "시작"
         view.btn_tune_start.isEnabled = true
         view.btn_tune_start.alpha = 1f
+
+        mainButtonEnable()
+        buttonEnable()
     }
 
     fun showTable() {

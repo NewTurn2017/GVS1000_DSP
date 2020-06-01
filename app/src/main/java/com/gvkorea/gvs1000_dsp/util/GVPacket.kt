@@ -16,6 +16,7 @@ class GVPacket(val view: Fragment) {
     val CMD_PARA2_CHA = 'A'
     private val WAITINTERVAL = 100L
     private val CHECKINTERVAL = 50L
+    private val EQINTERVAL = 100L
     private val LISTINTERVAL = 20L
     private lateinit var tx_buff: ByteArray
     private lateinit var outputStream: OutputStream
@@ -755,7 +756,7 @@ class GVPacket(val view: Fragment) {
             }.start()
 
             try {
-                Thread.sleep(CHECKINTERVAL)
+                Thread.sleep(EQINTERVAL)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }

@@ -18,10 +18,9 @@ import com.gvkorea.gvs1000_dsp.fragment.eq.presenter.GEQPresenter
 import kotlinx.android.synthetic.main.fragment_eq.*
 
 
-class GEQFragment : Fragment() {
+class GEQFragment(val handler: Handler) : Fragment() {
 
     lateinit var presenter: GEQPresenter
-    val handler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,13 +40,14 @@ class GEQFragment : Fragment() {
     }
 
     private fun initListener() {
-        sp_eqSpeakerList.onItemSelectedListener = GEQItemSelectedListener(presenter)
         btn_geqReset.setOnClickListener(GEQButtonListener(presenter))
         btn_geqBypass.setOnClickListener(GEQButtonListener(presenter))
         btn_saveTuning.setOnClickListener(GEQButtonListener(presenter))
         btn_loadTuning.setOnClickListener(GEQButtonListener(presenter))
         addEQBypassButtonListener()
         addEQSeekBarListener()
+        sp_eqSpeakerList.onItemSelectedListener = GEQItemSelectedListener(presenter)
+
     }
 
     private fun addEQBypassButtonListener() {

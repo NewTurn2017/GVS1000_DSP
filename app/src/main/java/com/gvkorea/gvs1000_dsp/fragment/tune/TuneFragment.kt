@@ -6,21 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.gvkorea.gvs1000_dsp.MainActivity
 
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.calib.CalibFragment
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.evaluation.EvalFragment
 import com.gvkorea.gvs1000_dsp.fragment.tune.listener.TuneSelectPanelListener
 import com.gvkorea.gvs1000_dsp.fragment.tune.presenter.TunePresenter
 import kotlinx.android.synthetic.main.fragment_tune.*
 
-class TuneFragment : Fragment() {
+class TuneFragment(val mHandler: Handler) : Fragment() {
 
     lateinit var presenter: TunePresenter
     val handler = Handler()
 
     val calibFragment: CalibFragment by lazy { CalibFragment() }
-    val autoTuneFragment: AutoTuneFragment by lazy { AutoTuneFragment() }
+    val autoTuneFragment: AutoTuneFragment by lazy { AutoTuneFragment(mHandler) }
+    val evalFragment: EvalFragment by lazy { EvalFragment() }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +42,7 @@ class TuneFragment : Fragment() {
     private fun initListener() {
         btn_calibration.setOnClickListener(TuneSelectPanelListener(presenter))
         btn_autoTune.setOnClickListener(TuneSelectPanelListener(presenter))
+        btn_evalueation.setOnClickListener(TuneSelectPanelListener(presenter))
     }
 
 }

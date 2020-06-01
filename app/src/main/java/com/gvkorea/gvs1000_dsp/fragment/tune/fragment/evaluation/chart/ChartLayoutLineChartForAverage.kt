@@ -1,4 +1,4 @@
-package com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.chart
+package com.gvkorea.gvs1000_dsp.fragment.tune.fragment.evaluation.chart
 
 import android.content.Context
 import android.graphics.Color
@@ -8,9 +8,11 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.targetValues
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.evaluation.EvalFragment.Companion.valuesEvalArrays
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) {
+class ChartLayoutLineChartForAverage(val view: Context, var mLineChart: LineChart) {
 
     private lateinit var xAxis: XAxis
 
@@ -44,12 +46,12 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
 
     }
 
-    fun initGraph(values: FloatArray?, label: String, color: Int) {
+    fun initGraph(values: ArrayList<String>?, label: String, color: Int) {
         val valuesArray: ArrayList<Entry> = ArrayList()
 
         if (values != null) {
             for (i in 0..30) {
-                valuesArray.add(Entry(i.toFloat(), values[i]))
+                valuesArray.add(Entry(i.toFloat(), values[i].toFloat()))
             }
         } else {
             for (i in 0..30) {
@@ -79,51 +81,36 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
         mLineChart.notifyDataSetChanged()
         mLineChart.invalidate()
 
-
     }
 
-    fun drawGraph(values: ArrayList<String>?, label: String, color: Int) {
-        val targetArray: ArrayList<Entry> = ArrayList()
-        val valuesArray: ArrayList<Entry> = ArrayList()
+    fun initGraphRepeat(values: ArrayList<ArrayList<String>>, label: ArrayList<String>) {
+        var valuesArray: ArrayList<Entry> = ArrayList()
+        valuesEvalArrays = ArrayList()
+        for (i in values.indices) {
 
-        if (values != null) {
-            for (i in 0..30) {
-                targetArray.add(Entry(i.toFloat(), targetValues!![i]))
-                valuesArray.add(Entry(i.toFloat(), values[i].toFloat()))
+            for (j in 0..30) {
+                valuesArray.add(Entry(j.toFloat(), values[i][j].toFloat()))
+
             }
-        } else {
-            for (i in 0..30) {
-                targetArray.add(Entry(i.toFloat(), 0.toFloat()))
-                valuesArray.add(Entry(i.toFloat(), 0.toFloat()))
-            }
+            valuesEvalArrays.add(valuesArray)
+            valuesArray = ArrayList()
         }
 
+        val data = LineData()
 
-        val lineDataSet1 = LineDataSet(targetArray, "타겟(dB)")
-        lineDataSet1.color = Color.argb(120, 0, 0, 255)
-        lineDataSet1.setDrawCircles(false)
-        lineDataSet1.lineWidth = 8f
+        for (i in values.indices) {
+            val lineDataSet = LineDataSet(valuesEvalArrays[i], label[i])
+            val color = randomColor()
+            lineDataSet.color = color
+            lineDataSet.setDrawCircles(false)
+            lineDataSet.lineWidth = 2f
+            lineDataSet.setDrawValues(false)
+//            lineDataSet.valueTextColor = color
+//            lineDataSet.valueTextSize = 8.0f
 
-
-//        lineDataSet.valueTextColor = color
-//        lineDataSet.valueTextSize = 8.0f
-        lineDataSet1.setDrawValues(false)
-
-        lineDataSet1.mode = LineDataSet.Mode.CUBIC_BEZIER
-
-        val lineDataSet2 = LineDataSet(valuesArray, label)
-        lineDataSet2.color = color
-        lineDataSet2.setDrawCircles(false)
-        lineDataSet2.lineWidth = 2f
-//        lineDataSet.valueTextColor = color
-//        lineDataSet.valueTextSize = 8.0f
-        lineDataSet2.setDrawValues(false)
-
-        lineDataSet2.mode = LineDataSet.Mode.LINEAR
-
-
-        val data: LineData
-        data = LineData(lineDataSet1, lineDataSet2)
+            lineDataSet.mode = LineDataSet.Mode.LINEAR
+            data.addDataSet(lineDataSet)
+        }
 
         xAxis.axisMaximum = data.xMax + 0.4f
         xAxis.axisMinimum = data.xMin - 0.4f
@@ -134,5 +121,9 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
         mLineChart.invalidate()
     }
 
+    private fun randomColor(): Int {
+        val rnd = Random()
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+    }
 
 }

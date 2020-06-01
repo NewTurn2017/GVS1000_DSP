@@ -1,19 +1,19 @@
 package com.gvkorea.gvs1000_dsp.fragment.volume.presenter
 
 import android.os.Handler
-import android.widget.Button
+import android.os.Message
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.muteArrays
-import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.volumeArrays
-import com.gvkorea.gvs1000_dsp.fragment.settings.view.setid.SetIdFragment
+import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.volume.VolumeFragment
+import com.gvkorea.gvs1000_dsp.util.DSPMessage
 import com.gvkorea.gvs1000_dsp.util.GVPacket
 import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
-import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import com.manojbhadane.QButton
 import kotlinx.android.synthetic.main.fragment_volume.*
 import java.lang.Exception
@@ -55,6 +55,23 @@ class VolumePresenter(val view: VolumeFragment, val handler: Handler) {
         packet.SendPacket_InputGain(socket, channel, gain)
     }
 
+    private fun mainButtonDisable() {
+        msg(view.context!!.getString(R.string.waiting))
+        val m = Message()
+        m.what = DSPMessage.MSG_UI_UNTOUCH.value
+        handler.sendMessage(m)
+    }
+
+    private fun msg(msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun mainButtonEnable() {
+        val m = Message()
+        m.what = DSPMessage.MSG_UI_TOUCH.value
+        handler.sendMessage(m)
+    }
+
     private fun changeVolumeValue(progress: Int, textView: TextView) {
         val value = "${progress - 40} dB"
         textView.text = value
@@ -94,6 +111,7 @@ class VolumePresenter(val view: VolumeFragment, val handler: Handler) {
 
     fun loadVolume() {
         if(spkList.size > 0){
+            mainButtonDisable()
             volumeArrays = ArrayList()
             muteArrays = ArrayList()
 
@@ -107,6 +125,7 @@ class VolumePresenter(val view: VolumeFragment, val handler: Handler) {
             handler.postDelayed({
                 updateVolumeUI(volumeArrays)
                 updateMuteUI(muteArrays)
+                mainButtonEnable()
             }, 1000)
 
         }

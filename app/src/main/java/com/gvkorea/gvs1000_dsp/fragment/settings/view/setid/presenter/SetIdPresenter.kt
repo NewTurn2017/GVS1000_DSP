@@ -30,6 +30,7 @@ import com.gvkorea.gvs1000_dsp.util.GVSubPacket
 import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import com.manojbhadane.QButton
 import kotlinx.android.synthetic.main.fragment_setid.*
+import java.net.Socket
 
 class SetIdPresenter(
     val view: SetIdFragment,
@@ -70,16 +71,28 @@ class SetIdPresenter(
 
     }
 
-    fun checkId(button: QButton) {
-        gvPacket.SendPacket_NoiseGenerator(gvPacket.CMD_PARA2_CHA, gvPacket.PINK, -40f, 1)
+    fun checkId(socket: Socket?, button: QButton) {
+
+        gvPacket.SendPacket_NoiseGenerator(socket, gvPacket.CMD_PARA2_CHA, gvPacket.PINK, -40f, 1)
         isButtonEnable(button, false)
         button.text = "체크 중...."
         mHandler.postDelayed({
-            gvPacket.SendPacket_NoiseGenerator(gvPacket.CMD_PARA2_CHA, gvPacket.PINK, -40f, 0)
+            gvPacket.SendPacket_NoiseGenerator(socket, gvPacket.CMD_PARA2_CHA, gvPacket.PINK, -40f, 0)
             button.text = "체크"
             isButtonEnable(button, true)
         }, 1000)
     }
+
+    fun loadNamedSocket(): Socket? {
+        val index = view.sp_namedSpk.selectedItemPosition
+        return listUsedClient[index]
+    }
+
+    fun loadnoNamedSocket(): Socket? {
+        val index = view.sp_noNamedSpk.selectedItemPosition
+        return otherClient[index]
+    }
+
 
     private fun isButtonEnable(button: QButton, boolean: Boolean) {
         if (boolean) {

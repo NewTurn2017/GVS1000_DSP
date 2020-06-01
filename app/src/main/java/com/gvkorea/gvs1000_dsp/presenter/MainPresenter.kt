@@ -934,9 +934,7 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
 
     fun initailizeSpeakerList() {
         if (prefSetting.isSetting()) {
-            handler.post {
-                WaitingDialog(view).create("잠시만 기다려 주세요..", 1200)
-            }
+            buttonDisable()
             listAvailableId = ArrayList()
             listAllClient = ArrayList()
             listUsedId = ArrayList()
@@ -956,6 +954,13 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
         }
 
     }
+
+
+
+    fun msg(msg: String) {
+        Toast.makeText(view.applicationContext, msg, Toast.LENGTH_SHORT).show()
+    }
+
 
     private fun speakerIdSetting() {
         spkList = ArrayList()
@@ -1038,6 +1043,31 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
         view.moveTaskToBack(true)
         view.finishAndRemoveTask()
         android.os.Process.killProcess(android.os.Process.myPid())
+    }
+
+    fun buttonDisable() {
+        msg(view.applicationContext!!.getString(R.string.waiting))
+        view.btn_volumePannel.isEnabled = false
+        view.btn_eqPannel.isEnabled = false
+        view.btn_tunePanel.isEnabled = false
+        view.btn_musicPlayer.isEnabled = false
+        view.btn_tts.isEnabled = false
+        view.btn_settings.isEnabled = false
+    }
+
+    fun buttonenable() {
+        view.btn_volumePannel.isEnabled = true
+        view.btn_volumePannel.alpha = 1f
+        view.btn_eqPannel.isEnabled = true
+        view.btn_eqPannel.alpha = 1f
+        view.btn_tunePanel.isEnabled = true
+        view.btn_tunePanel.alpha = 1f
+        view.btn_musicPlayer.isEnabled = true
+        view.btn_musicPlayer.alpha = 1f
+        view.btn_tts.isEnabled = true
+        view.btn_tts.alpha = 1f
+        view.btn_settings.isEnabled = true
+        view.btn_settings.alpha = 1f
     }
 
 }

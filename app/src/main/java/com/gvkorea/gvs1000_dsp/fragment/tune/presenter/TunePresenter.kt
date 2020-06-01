@@ -23,6 +23,7 @@ class TunePresenter(val view: TuneFragment, val handler: Handler) {
         when(panel){
             GVSTunePanel.CALIB -> replacePanel(view.calibFragment, view.btn_calibration)
             GVSTunePanel.AUTO_TUNE -> replacePanel(view.autoTuneFragment, view.btn_autoTune)
+            GVSTunePanel.EVAL -> replacePanel(view.evalFragment, view.btn_evalueation)
         }
     }
 

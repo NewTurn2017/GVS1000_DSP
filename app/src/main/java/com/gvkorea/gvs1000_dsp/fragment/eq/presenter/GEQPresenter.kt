@@ -3,12 +3,14 @@ package com.gvkorea.gvs1000_dsp.fragment.eq.presenter
 import android.R
 import android.content.Context
 import android.os.Handler
+import android.os.Message
 import android.widget.*
 import androidx.core.content.ContextCompat
 import com.gvkorea.gvs1000_dsp.MainActivity
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.fragment.eq.GEQFragment
+import com.gvkorea.gvs1000_dsp.util.DSPMessage
 import com.gvkorea.gvs1000_dsp.util.GVPacket
 import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
 import com.gvkorea.gvs1000_dsp.util.WaitingDialog
@@ -65,15 +67,28 @@ class GEQPresenter(val view: GEQFragment, val handler: Handler) {
     }
 
     fun loadGEQ() {
+        mainButtonDisable()
         Arrays.fill(isEachBypassArray, false)
-        handler.post {
-            WaitingDialog(view.context!!).create("Loading...", 1000)
-        }
         loadGEQData()
-
         handler.postDelayed({
             updateUI()
         }, 500)
+        handler.postDelayed({
+            mainButtonEnable()
+        }, 1000)
+    }
+
+    private fun mainButtonDisable() {
+        msg(view.context!!.getString(com.gvkorea.gvs1000_dsp.R.string.waiting))
+        val m = Message()
+        m.what = DSPMessage.MSG_UI_UNTOUCH.value
+        handler.sendMessage(m)
+    }
+
+    private fun mainButtonEnable() {
+        val m = Message()
+        m.what = DSPMessage.MSG_UI_TOUCH.value
+        handler.sendMessage(m)
     }
 
     private fun loadGEQData() {

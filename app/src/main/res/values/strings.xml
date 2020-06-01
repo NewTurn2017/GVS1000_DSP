@@ -99,7 +99,15 @@
     <string name="loading">서버로 부터 모델을 다운로드 중입니다…</string>
     <string name="show_eq">Show EQ</string>
     <string name="close_eq">Close EQ</string>
+    <string name="waiting">잠시만 기다려 주세요…</string>
 
+
+    <string-array name="avgTime_array">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
 
 </resources>
 

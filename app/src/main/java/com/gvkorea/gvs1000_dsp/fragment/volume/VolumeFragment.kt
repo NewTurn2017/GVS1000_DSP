@@ -20,10 +20,9 @@ import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import com.manojbhadane.QButton
 import kotlinx.android.synthetic.main.fragment_volume.*
 
-class VolumeFragment : Fragment() {
+class VolumeFragment(val handler: Handler) : Fragment() {
 
     lateinit var presenter: VolumePresenter
-    val handler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +35,7 @@ class VolumeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        handler.post {
-            WaitingDialog(view.context).create("Load Volume", 1000)
-        }
+
         presenter = VolumePresenter(this, handler)
         initListener()
 

@@ -21,6 +21,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.IntentCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.tasks.OnCompleteListener
@@ -44,6 +45,7 @@ import kotlinx.android.synthetic.main.fragment_tune.*
 import java.io.DataInputStream
 import java.io.IOException
 import java.net.InetAddress
+import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.ExecutorService
@@ -99,6 +101,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
                 DSPMessage.MSG_SOCK.value -> {
                     presenter.arrangeSockets(msg)
                 }
+                DSPMessage.MSG_UI_UNTOUCH.value -> {
+                    presenter.buttonDisable()
+                }
+                DSPMessage.MSG_UI_TOUCH.value -> {
+                    presenter.buttonenable()
+                }
             }
             super.handleMessage(msg)
         }
@@ -106,9 +114,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
 
     //fragment
 
-    val mainFragment: VolumeFragment by lazy { VolumeFragment() }
-    val geqFragment: GEQFragment by lazy { GEQFragment() }
-    val tuneFragment: TuneFragment by lazy { TuneFragment() }
+    val mainFragment: VolumeFragment by lazy { VolumeFragment(mHandler) }
+    val geqFragment: GEQFragment by lazy { GEQFragment(mHandler) }
+    val tuneFragment: TuneFragment by lazy { TuneFragment(mHandler) }
     val musicFragment: MusicFragment by lazy { MusicFragment() }
     val ttsFragment: TTSFragment by lazy { TTSFragment() }
     val settingsFragment: SettingsFragment by lazy { SettingsFragment(this, mHandler) }
@@ -210,13 +218,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
 
             }
         }
-        if (versionInfo[0] != versionInfo[1]){
+        if (versionInfo[0] != versionInfo[1]) {
             val dialog = builder.create()
             dialog.show()
         }
 
     }
-
 
 
     private fun loadDate(): String? {
@@ -366,7 +373,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
             m.what = DSPMessage.MSG_RSV.value
             m.obj = "Server Thread를 시작하지 못했습니다.$e"
             mHandler.sendMessage(m)
+            presenter.msg("이미 작동 중인 서버가 있어서 재 시작합니다.")
+            restartApp()
         }
+    }
+
+    private fun restartApp(){
+        val packageManager = applicationContext.packageManager
+        val intent = packageManager.getLaunchIntentForPackage(applicationContext.packageName)
+        val componentName = intent?.component
+        val mainIntent = Intent.makeRestartActivityTask(componentName)
+        applicationContext.startActivity(mainIntent)
+        Runtime.getRuntime().exit(0)
     }
 
     private fun disconnect() {
@@ -461,12 +479,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
                                 curSpkNo = spkNo
                                 presenter.saveFirmwareVersion(spkNo.toInt(), firmwareMajorVersion, firmwareMinorVersion)
                             }
-
                         }
+
                         val m = Message()
                         m.what = DSPMessage.MSG_RSV.value
                         m.obj = "$msg(ID: $curSpkNo)"
                         mHandler.sendMessage(m)
+
                     }
 
 
@@ -540,11 +559,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
     }
 
     inner class ServerThread @Throws(IOException::class) constructor(port: Int) : Thread() {
-        val server: ServerSocket = ServerSocket(port)
+        //        val server: ServerSocket = ServerSocket(port)
+        val server: ServerSocket = ServerSocket()
         private val pool: ExecutorService
         private val poolSize = 8
 
         init {
+            server.reuseAddress = true
+            server.bind(InetSocketAddress(port))
             pool = Executors.newFixedThreadPool(poolSize)
             loop = true
         }
@@ -736,7 +758,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
         lateinit var selectedMicName: String
         var CALIBRATION = 0F
         var isCalib = false
-
 
     }
 

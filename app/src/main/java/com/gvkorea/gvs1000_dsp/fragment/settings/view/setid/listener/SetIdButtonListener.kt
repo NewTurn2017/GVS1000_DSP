@@ -10,8 +10,8 @@ class SetIdButtonListener(val presenter: SetIdPresenter): View.OnClickListener {
         when(v?.id){
 
             R.id.btn_resetId -> presenter.resetId()
-            R.id.btn_noNamedSpkCheck -> presenter.checkId(presenter.view.btn_noNamedSpkCheck)
-            R.id.btn_namedSpkCheck -> presenter.checkId(presenter.view.btn_namedSpkCheck)
+            R.id.btn_noNamedSpkCheck -> presenter.checkId(presenter.loadnoNamedSocket(), presenter.view.btn_noNamedSpkCheck)
+            R.id.btn_namedSpkCheck -> presenter.checkId(presenter.loadNamedSocket(), presenter.view.btn_namedSpkCheck)
             R.id.btn_changeID -> presenter.setId()
         }
     }

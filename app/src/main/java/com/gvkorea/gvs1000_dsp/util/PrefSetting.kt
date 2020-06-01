@@ -23,6 +23,7 @@ class PrefSetting {
     private val EMPTYLIST = "없음"
     private val NONSETTING = "미지정"
     private val ISSETTING = "ISSETTING"
+    val NOISE_VOLUME = "noiseVolume"
 
 
     init {
@@ -121,9 +122,14 @@ class PrefSetting {
     }
 
     fun saveNoiseVolumePref(noiseLevel: Float) {
-        editor.putFloat("noiseLevel", noiseLevel)
+        editor.putFloat(NOISE_VOLUME, noiseLevel)
         editor.apply()
     }
+
+    fun getNoiseVolumePref():Float{
+        return pref.getFloat(NOISE_VOLUME, -40f)
+    }
+
 
 
 }

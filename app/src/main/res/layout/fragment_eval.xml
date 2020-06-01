@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    tools:context=".fragment.tune.fragment.evaluation.EvalFragment">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/layout_border_text_select"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="스피커 선택"
+                android:textSize="@dimen/button_text_size" />
+
+            <Spinner
+                android:id="@+id/sp_evalSpeakerList"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_border_text_select"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_eval_repeat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Append\nGraph"
+                android:textSize="@dimen/button_text_size" />
+
+            <TextView
+                android:id="@+id/tv_noiseVolume"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:text="Noise Vol: "
+                android:textColor="@android:color/holo_blue_bright"
+                android:textSize="@dimen/button_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/mChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/layout_border_text"
+            android:orientation="horizontal">
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/layout_border_text_black"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="2dp"
+                        android:stretchColumns="0, 1">
+
+                        <TableRow>
+
+                            <TextView
+                                android:id="@+id/tv_curFreq"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="@android:color/holo_green_light"
+                                android:gravity="center" />
+
+                            <TextView
+                                android:id="@+id/tv_curAvg"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="@android:color/holo_green_light"
+                                android:gravity="center" />
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <com.manojbhadane.QButton
+                            android:id="@+id/btn_noiseOn"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:text="On"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/button_text_size"
+                            app:qb_backgroundColor="@android:color/holo_green_light"
+                            app:qb_radius="20"
+                            app:qb_strokeColor="@android:color/holo_green_dark"
+                            app:qb_strokeWidth="10" />
+
+                        <com.manojbhadane.QButton
+                            android:id="@+id/btn_noiseOff"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:text="Off"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/button_text_size"
+                            app:qb_backgroundColor="@android:color/holo_green_light"
+                            app:qb_radius="20"
+                            app:qb_strokeColor="@android:color/holo_green_dark"
+                            app:qb_strokeWidth="10" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/background_green"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Avg. Time"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/button_text_size"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:id="@+id/sp_avgTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:entries="@array/avgTime_array"
+                                android:textAlignment="center" />
+
+                        </LinearLayout>
+
+                        <com.manojbhadane.QButton
+                            android:id="@+id/btn_measureAvg"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:text="Measure\nAverage"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/button_text_size"
+                            app:qb_backgroundColor="@android:color/holo_green_light"
+                            app:qb_radius="20"
+                            app:qb_strokeColor="@android:color/holo_green_dark"
+                            app:qb_strokeWidth="10" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <com.manojbhadane.QButton
+                            android:id="@+id/btn_save"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:text="Export CSV"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/button_text_size"
+                            app:qb_backgroundColor="@android:color/holo_green_light"
+                            app:qb_radius="20"
+                            app:qb_strokeColor="@android:color/holo_green_dark"
+                            app:qb_strokeWidth="10" />
+
+
+                    </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

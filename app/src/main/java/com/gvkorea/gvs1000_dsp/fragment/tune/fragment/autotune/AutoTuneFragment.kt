@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.gvkorea.gvs1000_dsp.MainActivity
 
 import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune
@@ -21,7 +22,7 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.presenter.TunePresenter
 import com.gvkorea.gvs1000_dsp.util.Helper
 import kotlinx.android.synthetic.main.fragment_auto_tune.*
 
-class AutoTuneFragment : Fragment() {
+class AutoTuneFragment(val mHandler: Handler) : Fragment() {
 
 
     lateinit var presenter: AutoTunePresenter
@@ -38,7 +39,7 @@ class AutoTuneFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = AutoTunePresenter(this, handler, helper)
+        presenter = AutoTunePresenter(this, handler, helper, mHandler)
         presenter.initializerList()
         initListener()
         init_ChartLayout()
@@ -127,6 +128,7 @@ class AutoTuneFragment : Fragment() {
 
         lateinit var storageRef: StorageReference
         var curModelPath = ""
+        var tuningCounter = 0
 
     }
 }

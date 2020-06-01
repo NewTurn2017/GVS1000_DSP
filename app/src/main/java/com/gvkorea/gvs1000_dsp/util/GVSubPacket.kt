@@ -8,6 +8,7 @@ import com.gvkorea.gvs1000_dsp.MainActivity.Companion.selectedClient
 import java.io.DataOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.net.Socket
 
 class GVSubPacket(val view: Fragment, val mHandler: Handler) {
 
@@ -24,9 +25,9 @@ class GVSubPacket(val view: Fragment, val mHandler: Handler) {
 
 
     fun SendPacket_NoiseGenerator(
-        para2: Char, data0: Int, data1: Float, data5: Int
+            socket: Socket?, para2: Char, data0: Int, data1: Float, data5: Int
     ) {
-        if (selectedClient != null) {
+        if (socket != null) {
 
             try {
                 tx_buff = protocol.packet_NoiseGenerator(
@@ -35,7 +36,7 @@ class GVSubPacket(val view: Fragment, val mHandler: Handler) {
                     data1,
                     data5
                 )
-                outputStream = selectedClient!!.getOutputStream()
+                outputStream = socket.getOutputStream()
                 dataOutputStream = DataOutputStream(outputStream)
 
             } catch (e: Exception) {
@@ -73,7 +74,7 @@ class GVSubPacket(val view: Fragment, val mHandler: Handler) {
                 dataOutputStream = DataOutputStream(outputStream)
 
             } catch (e: Exception) {
-                e.printStackTrace()
+               msg("ID변경이 원할하지 않습니다. 다시한번 시도해주세요.")
             }
             Thread {
 
