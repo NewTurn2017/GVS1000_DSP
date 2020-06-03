@@ -22,6 +22,40 @@ class GVPacket(val view: Fragment) {
     private lateinit var outputStream: OutputStream
     private lateinit var dataOutputStream: DataOutputStream
 
+    fun SendPacket_LevelmeterOutput(socket: Socket?, channel: Char, switch: Int) {
+        if (socket != null) {
+            try {
+                tx_buff = protocol.packet_LevelmeterOutput(channel, switch)
+                outputStream = socket.getOutputStream()
+                dataOutputStream = DataOutputStream(outputStream)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            Thread {
+                try {
+                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream.flush()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(CHECKINTERVAL)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            Thread.currentThread()
+            Thread.interrupted()
+        } else {
+            msg("TCP Socket 연결 안됨")
+        }
+    }
+
+
     fun SendPacket_InputGain(socket: Socket?, channel: Char, gain: Float) {
         if (socket != null) {
             try {

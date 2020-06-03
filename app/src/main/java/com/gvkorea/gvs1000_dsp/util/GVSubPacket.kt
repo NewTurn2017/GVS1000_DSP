@@ -82,7 +82,7 @@ class GVSubPacket(val view: Fragment, val mHandler: Handler) {
                     dataOutputStream.write(tx_buff, 0, tx_buff.size)
                     dataOutputStream.flush()
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    msg("ID변경이 원할하지 않습니다. 다시한번 시도해주세요.")
                 }
             }.start()
 

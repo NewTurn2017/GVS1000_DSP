@@ -57,6 +57,7 @@ class Protocol {
     val CMD_PRESET_PARA2_WRITE_START = 'W'
     val CMD_PRESET_PARA2_WRITE_END = 'w'
     val CMD_OUTPUT_PEQ_ALL = 'K'
+    val CMD_LEVEL_METER_OUTPUT_PARA1 = 'Y'
 
 
     val FREQ_20HZ = 0
@@ -743,6 +744,29 @@ class Protocol {
         mCmd[17] = bytesGain[0].toInt()
         mCmd[18] = data18
         mCmd[19] = mCmd.sum() - mCmd[0]
+
+        for (i in mCmd.indices) {
+            tx_buff[i] = mCmd[i].toByte()
+        }
+
+        return tx_buff
+    }
+
+    fun packet_LevelmeterOutput(para2: Char, data: Int): ByteArray {
+
+        val commandID = CMD_SET
+        val para1 = CMD_LEVEL_METER_OUTPUT_PARA1
+
+        val mCmd = IntArray(6)
+        val tx_buff = ByteArray(mCmd.size)
+
+
+        mCmd[0] = (mCmd.size - 1)
+        mCmd[1] = commandID.toInt()
+        mCmd[2] = para1.toInt()
+        mCmd[3] = para2.toInt()
+        mCmd[4] = data
+        mCmd[5] = mCmd.sum() - mCmd[0]
 
         for (i in mCmd.indices) {
             tx_buff[i] = mCmd[i].toByte()

@@ -344,6 +344,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 
     private fun ANN_ClosedLoop_repeat() {
         ANN_ClosedLoop()
+        var isCompleted = true
         tuningCounter++
         val diff = FloatArray(31)
         var count = 0
@@ -351,7 +352,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
             average()
         }, 200)
         handler.postDelayed({
-            var isCompleted = true
+
             for (i in freqSum.indices) {
                 diff[i] = freqSum[i].toFloat() - targetValues!![i]
             }
@@ -363,9 +364,13 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
             if (count > 0) {
                 isCompleted = false
             }
+
+        }, 1600)
+
+        handler.postDelayed({
             if (isCompleted) {
                 msg("튜닝이 완료되었습니다.")
-//                savePreset()
+                savePreset()
                 tuneStop()
                 mainButtonEnable()
                 buttonEnable()
@@ -379,7 +384,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
                         "${tuningCounter}번 반복튜닝 중..")
                 ANN_ClosedLoop_repeat()
             }
-        }, 1600)
+        }, 1800)
     }
 
     private fun savePreset() {

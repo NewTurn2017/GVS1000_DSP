@@ -134,6 +134,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
         setContentView(R.layout.activity_main)
+
         checkPermission()
         sleepLock()
         pref = applicationContext.getSharedPreferences(PREF_SETUP_KEY, Context.MODE_PRIVATE)
@@ -366,7 +367,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
             m.what = DSPMessage.MSG_RSV.value
             m.obj = "서버가 시작되었습니다."
             mHandler.sendMessage(m)
-
             presenter.connect()
         } catch (e: IOException) {
             val m = Message()
@@ -423,7 +423,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
         otherClient = ArrayList()
     }
 
-
     inner class ClientThread(private val sock: Socket) : Thread() {
 
         private val inetaddr: InetAddress = sock.inetAddress
@@ -435,7 +434,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
         var curSpkNo = ""
 
         init {
-
             val m = Message()
             m.what = DSPMessage.MSG_RSV.value
             m.obj = inetaddr.hostAddress + "로부터 접속하였습니다."
@@ -450,6 +448,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
                 while (isStarted) {
                     val lengthByte = ByteArray(1)
                     rxByteList = ArrayList()
+
                     do {
                         din!!.read(lengthByte, 0, 1)
                         rxByteList.add(lengthByte[0])

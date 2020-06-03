@@ -39,6 +39,7 @@
 <!--            android:label="STARTReceiver">-->
 
 <!--            <intent-filter >-->
+
 <!--                <action android:name="android.intent.action.BOOT_COMPLETED"/>-->
 <!--            </intent-filter>-->
 <!--        </receiver>-->
@@ -59,7 +60,6 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme"
             android:configChanges="screenSize|orientation">
-
         </activity>
 
         <service android:name=".fragment.music.service.PlayerService" />
