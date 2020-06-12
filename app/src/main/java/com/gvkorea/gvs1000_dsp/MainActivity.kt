@@ -56,6 +56,7 @@ import java.util.concurrent.locks.ReentrantLock
 class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
 
     var isButtonEnable = false
+
     private var permission_list = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -81,7 +82,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
     private var loop: Boolean = false
     private var isConnect = false
     private var isResigterWifi = false
-
 
     val mHandler = @SuppressLint("HandlerLeak") object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -120,13 +120,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
     val musicFragment: MusicFragment by lazy { MusicFragment() }
     val ttsFragment: TTSFragment by lazy { TTSFragment() }
     val settingsFragment: SettingsFragment by lazy { SettingsFragment(this, mHandler) }
-
-
     lateinit var mSleepLock: PowerManager.WakeLock
     lateinit var wifiManager: WifiManager
     private lateinit var connection: WifiInfo
     lateinit var presenter: MainPresenter
-
     lateinit var mFirebaseRemoteConfig: FirebaseRemoteConfig
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -137,6 +134,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
 
         checkPermission()
         sleepLock()
+        sInstance = this
+
         pref = applicationContext.getSharedPreferences(PREF_SETUP_KEY, Context.MODE_PRIVATE)
         prefSetting = PrefSetting()
         presenter = MainPresenter(this, mHandler)
@@ -144,13 +143,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
         buttonDisable()
         mContentResolver = contentResolver
         selectedMicName = prefSetting.loadCalibMic()
-        loadVersionAndUpdate()
+//        loadVersionAndUpdate()
 
         mHandler.postDelayed({
             connectDSP()
-            remoteConfigInit()
-            checkGooglePlayServices()
-            showUpdate()
+//            remoteConfigInit()
+//            checkGooglePlayServices()
+//            showUpdate()
 
         }, 500)
     }
@@ -757,6 +756,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
         lateinit var selectedMicName: String
         var CALIBRATION = 0F
         var isCalib = false
+        lateinit var sInstance: MainActivity
 
     }
 

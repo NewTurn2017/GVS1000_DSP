@@ -43,7 +43,7 @@ class AutoTuneFragment(val mHandler: Handler) : Fragment() {
         presenter.initializerList()
         initListener()
         init_ChartLayout()
-        connectFireBaseStorage()
+//        connectFireBaseStorage()
 
     }
 
@@ -73,7 +73,7 @@ class AutoTuneFragment(val mHandler: Handler) : Fragment() {
         lineChart = ChartLayoutLineChartForTune(this.context!!, chart_tune_line)
         targetValues = presenter.setTarget(targetdB.toInt()-15)
         lineChart.initLineChartLayout(100f, 20f)
-        lineChart.initGraph(targetValues, "Target(dB)", Color.BLUE)
+        lineChart.initGraph(targetValues, "Target(dB)", Color.argb(120, 0, 0, 255))
     }
 
     fun init_barChart(){

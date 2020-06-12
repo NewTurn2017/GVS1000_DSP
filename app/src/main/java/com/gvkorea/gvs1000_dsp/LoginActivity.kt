@@ -27,7 +27,6 @@ class LoginActivity : AppCompatActivity(), PinLockListener {
         loadPref()
         pin_lock_view.setPinLockListener(this)
         pin_lock_view.pinLength = 4
-
         indicator_dots.indicatorType = IndicatorDots.IndicatorType.FILL
         pin_lock_view.attachIndicatorDots(indicator_dots)
 
@@ -35,8 +34,6 @@ class LoginActivity : AppCompatActivity(), PinLockListener {
             finish()
             startActivity(Intent(applicationContext, MainActivity::class.java))
         }
-
-
     }
 
     private fun loadPref() {

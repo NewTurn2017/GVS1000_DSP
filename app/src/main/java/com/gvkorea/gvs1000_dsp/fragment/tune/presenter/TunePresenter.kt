@@ -22,6 +22,7 @@ class TunePresenter(val view: TuneFragment, val handler: Handler) {
         resetButtonColor()
         when(panel){
             GVSTunePanel.CALIB -> replacePanel(view.calibFragment, view.btn_calibration)
+            GVSTunePanel.REVERB -> replacePanel(view.reverbFragment, view.btn_reverb)
             GVSTunePanel.AUTO_TUNE -> replacePanel(view.autoTuneFragment, view.btn_autoTune)
             GVSTunePanel.EVAL -> replacePanel(view.evalFragment, view.btn_evalueation)
         }
@@ -29,7 +30,9 @@ class TunePresenter(val view: TuneFragment, val handler: Handler) {
 
     private fun resetButtonColor() {
         setButtonColor(view.btn_calibration, R.color.white)
+        setButtonColor(view.btn_reverb, R.color.white)
         setButtonColor(view.btn_autoTune, R.color.white)
+        setButtonColor(view.btn_evalueation, R.color.white)
     }
 
     private fun replacePanel(fragment: Fragment, button: QButton) {

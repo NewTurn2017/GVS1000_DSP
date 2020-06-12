@@ -7,8 +7,8 @@ import kotlin.math.roundToInt
 
 class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: FloatArray, assets: AssetManager) {
 
-//    private val MODEL_FILE_CLOSE = "file:///android_asset/model/optimized_frozen_closed_model_75.pb"
-    private val MODEL_FILE_CLOSE = curModelPath
+   private val MODEL_FILE_CLOSE = "file:///android_asset/model/optimized_frozen_closed_model_75.pb"
+ //   private val MODEL_FILE_CLOSE = curModelPath
     private var inferenceInterface_close: TensorFlowInferenceInterface = TensorFlowInferenceInterface()
     private val INPUT_SHAPE_CLOSE = intArrayOf(1, 62)
 

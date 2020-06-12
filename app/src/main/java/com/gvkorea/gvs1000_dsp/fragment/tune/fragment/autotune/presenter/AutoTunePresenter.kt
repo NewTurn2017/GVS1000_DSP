@@ -97,22 +97,21 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 
         mainButtonDisable()
         buttonDisable()
+        tuningStart()
 
-        val model = loadModel().model
-        val file = view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}/optimized_frozen_closed_model_75.pb"
-        val filePath = File(file)
-        val fileSize = filePath.length()
-        if (filePath.exists() && fileSize > 0) {
-            curModelPath = file
-            tuningStart()
-        } else {
-            pathReference = storageRef.child("models/${model}/optimized_frozen_closed_model_75.pb")
-            saveModelFromFireBaseStoreage(pathReference, model)
-        }
+    // val model = loadModel().model
+    //  val file = view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}/optimized_frozen_closed_model_75.pb"
+    //   val filePath = File(file)
+    //  val fileSize = filePath.length()
+    //   if (filePath.exists() && fileSize > 0) {
+    //        curModelPath = file
+    //        tuningStart()
+    //     } else {
+    //         pathReference = storageRef.child("models/${model}/optimized_frozen_closed_model_75.pb")
+    //          saveModelFromFireBaseStoreage(pathReference, model)
+    //    }
 
     }
-
-
 
     private fun tuningStart() {
         adjustVolumeStart()
@@ -120,7 +119,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         view.btn_tune_stop.isEnabled = true
     }
 
-    private fun saveModelFromFireBaseStoreage(pathReference: StorageReference, model: String) {
+    private fun saveModelFromFireBaseStorage(pathReference: StorageReference, model: String) {
 
         try {
             val folderPath = File(view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}")
@@ -292,7 +291,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         handler.postDelayed({
             tuningCounter = 0
             ANN_ClosedLoop_repeat()
-        }, 2000)
+        }, 1700)
     }
 
     private fun curEQReset() {
@@ -558,13 +557,13 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         targetdBs[21] = target
         targetdBs[22] = target
         targetdBs[23] = target
-        targetdBs[24] = target + 1
-        targetdBs[25] = target + 3
-        targetdBs[26] = target + 5
-        targetdBs[27] = target + 5
-        targetdBs[28] = target + 5
-        targetdBs[29] = target + 5
-        targetdBs[30] = target
+        targetdBs[24] = target
+        targetdBs[25] = target
+        targetdBs[26] = target
+        targetdBs[27] = target
+        targetdBs[28] = target
+        targetdBs[29] = target
+        targetdBs[30] = target - 5
         return targetdBs
     }
 

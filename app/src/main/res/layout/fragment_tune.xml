@@ -29,6 +29,20 @@
             app:qb_strokeWidth="3" />
 
         <com.manojbhadane.QButton
+            android:id="@+id/btn_reverb"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/measure_reverb"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_size"
+            app:qb_backgroundColor="@android:color/darker_gray"
+            app:qb_radius="10"
+            app:qb_strokeColor="@android:color/black"
+            app:qb_strokeWidth="3" />
+
+        <com.manojbhadane.QButton
             android:id="@+id/btn_autoTune"
             android:layout_width="match_parent"
             android:layout_height="0dp"

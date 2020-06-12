@@ -90,7 +90,6 @@ class ChartLayoutLineChartForAverage(val view: Context, var mLineChart: LineChar
 
             for (j in 0..30) {
                 valuesArray.add(Entry(j.toFloat(), values[i][j].toFloat()))
-
             }
             valuesEvalArrays.add(valuesArray)
             valuesArray = ArrayList()
