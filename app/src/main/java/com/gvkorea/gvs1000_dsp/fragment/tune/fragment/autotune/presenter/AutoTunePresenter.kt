@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import com.google.firebase.storage.StorageReference
+import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.prefSetting
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.R
@@ -308,7 +309,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         }, 1100)
         handler.postDelayed({
             for (i in freqSum.indices) {
-                if (i < 6) {
+                if (i < 5) {
+                    targetValues!![i] = freqSum[i].toFloat()
+                }
+                if(i == 30){
                     targetValues!![i] = freqSum[i].toFloat()
                 }
             }
@@ -538,8 +542,8 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         targetdBs[2] = target - 27
         targetdBs[3] = target - 16
         targetdBs[4] = target - 8
-        targetdBs[5] = target - 3
-        targetdBs[6] = target - 1
+        targetdBs[5] = target - 5
+        targetdBs[6] = target - 3
         targetdBs[7] = target
         targetdBs[8] = target
         targetdBs[9] = target
@@ -563,7 +567,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         targetdBs[27] = target
         targetdBs[28] = target
         targetdBs[29] = target
-        targetdBs[30] = target - 5
+        targetdBs[30] = target - 8
         return targetdBs
     }
 
@@ -594,8 +598,11 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
     fun updateModel() {
         val spkName = view.sp_TuneSpeakerList.selectedItem.toString()
         val settingData = loadModel()
-        val data = "MODEL: ${settingData.model}\nNAME: ${spkName}"
+        val reverbTime = prefSetting.getReverbTimePref(spkName)
+
+        val data = "MODEL: ${settingData.model}\nNAME: ${spkName}\nREVERB_TIME: $reverbTime"
         view.tv_tuneModel.text = data
+
     }
 
     fun loadModel(): SettingData {

@@ -132,14 +132,14 @@ class PrefSetting {
         return pref.getFloat(NOISE_VOLUME, -40f)
     }
 
-    fun setReverbTimePref(value: String){
+    fun setReverbTimePref(model: String, value: String){
         val editor = pref.edit()
-        editor.putString(REVERB_TIME, value)
+        editor.putString(model, value)
         editor.apply()
     }
 
-    fun getReverbTimePref(): String?{
-        return pref.getString(REVERB_TIME, "Not measured yet")
+    fun getReverbTimePref(model: String): String?{
+        return pref.getString(model, "Not measured yet")
     }
 
 

@@ -65,7 +65,7 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
 //        lineDataSet.valueTextSize = 8.0f
         lineDataSet.setDrawValues(false)
 
-        lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        lineDataSet.mode = LineDataSet.Mode.LINEAR
 
 
         val data: LineData
@@ -109,7 +109,7 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
 //        lineDataSet.valueTextSize = 8.0f
         lineDataSet1.setDrawValues(false)
 
-        lineDataSet1.mode = LineDataSet.Mode.CUBIC_BEZIER
+        lineDataSet1.mode = LineDataSet.Mode.LINEAR
 
         val lineDataSet2 = LineDataSet(valuesArray, label)
         lineDataSet2.color = color

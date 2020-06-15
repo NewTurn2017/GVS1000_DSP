@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.mikephil.charting.data.Entry
 import com.gvkorea.gvs1000_dsp.R
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.listener.CheckChangeListener
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.listener.TuneSpeakerItemSelectedListener
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.listener.ReverbButtonListener
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.listener.ReverbSpeakerItemSelectedListener
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.presenter.ReverbPresenter
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.util.chart.ChartLayoutLineChartForRT
+import kotlinx.android.synthetic.main.fragment_auto_tune.*
 import kotlinx.android.synthetic.main.fragment_reverb.*
 
 class ReverbFragment(val handler: Handler) : Fragment() {
@@ -29,25 +29,16 @@ class ReverbFragment(val handler: Handler) : Fragment() {
 
         presenter = ReverbPresenter(this, handler)
         initListener()
-        initChartLayout()
-    }
-
-    private fun initChartLayout() {
-        chart = ChartLayoutLineChartForRT(this.context!!, mLineChart)
-        chart.initLineChartLayout()
+        presenter.initializerList()
     }
 
     private fun initListener() {
         btn_noiseClap.setOnClickListener(ReverbButtonListener(presenter))
-        cb_repeat.setOnCheckedChangeListener(CheckChangeListener())
+        btn_testReset.setOnClickListener(ReverbButtonListener(presenter))
+        sp_ReverbSpeakerList.onItemSelectedListener = ReverbSpeakerItemSelectedListener(presenter)
     }
 
     companion object {
-        lateinit var chart: ChartLayoutLineChartForRT
-        var isRepeat = false
-        var repeatCount = 0
-        lateinit var arrList: ArrayList<FloatArray?>
-        lateinit var valuesArrays: ArrayList<ArrayList<Entry>>
-        lateinit var labelList: ArrayList<String>
+        var reverbCount = 0
     }
 }
