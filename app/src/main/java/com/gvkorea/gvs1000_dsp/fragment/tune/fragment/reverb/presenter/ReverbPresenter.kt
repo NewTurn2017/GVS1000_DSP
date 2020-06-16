@@ -68,7 +68,6 @@ class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
     fun stopRecord() {
         msg("잠시만 기다려 주세요...")
         audioRecord.stopRecord()
-        eqReset()
     }
 
 
@@ -145,6 +144,7 @@ class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
         impulseButtonEnable()
         buttonEnable()
         mainButtonEnable()
+        eqReset()
     }
 
     fun eqReset() {
