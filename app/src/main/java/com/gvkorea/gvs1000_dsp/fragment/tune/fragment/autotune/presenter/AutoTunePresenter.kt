@@ -74,7 +74,7 @@ import java.io.IOException
 import kotlin.math.roundToInt
 
 
-class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val helper: Helper, val mHandler: Handler) {
+class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHandler: Handler) {
 
     var curEQ = IntArray(31)
     val packet = GVPacket(view)
@@ -180,11 +180,17 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         view.parentFragment?.btn_calibration?.alpha = 1f
         view.parentFragment?.btn_autoTune?.isEnabled = true
         view.parentFragment?.btn_autoTune?.alpha = 1f
+        view.parentFragment?.btn_reverb?.isEnabled = true
+        view.parentFragment?.btn_reverb?.alpha = 1f
+        view.parentFragment?.btn_evalueation?.isEnabled = true
+        view.parentFragment?.btn_evalueation?.alpha = 1f
     }
 
     private fun buttonDisable() {
         view.parentFragment?.btn_calibration?.isEnabled = false
         view.parentFragment?.btn_autoTune?.isEnabled = false
+        view.parentFragment?.btn_reverb?.isEnabled = false
+        view.parentFragment?.btn_evalueation?.isEnabled = false
     }
 
     fun adjustVolumeStart() {
@@ -194,10 +200,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
             view.btn_tune_start.text = "진행 중..."
             view.btn_tune_start.isEnabled = false
             noiseVolume = -35
-            handler.postDelayed({
+            mHandler.postDelayed({
                 eqReset()
             }, 200)
-            handler.postDelayed({
+            mHandler.postDelayed({
                 NoiseVolumeControl(noiseVolume)
             }, 500)
         } else {
@@ -214,7 +220,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
     private fun NoiseVolumeControl(progress: Int) {
 
         noise(PINK, progress)
-        handler.postDelayed({
+        mHandler.postDelayed({
             if (spldB.toInt() < targetdB) {
                 noiseVolume++
                 if (noiseVolume < 10) {
@@ -224,7 +230,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
                     buttonEnable()
                     msg("마이크 캘리브레이션을 확인 바랍니다.(초기화 -> 캘리브레이션)")
                     view.btn_tune_start.text = "시작"
-                    handler.removeMessages(0)
+                    mHandler.removeMessages(0)
                     noise(NOISE_OFF, noiseVolume)
                 }
             } else {
@@ -289,7 +295,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 //        handler.postDelayed({
 ////            average()
 //        }, 2000)
-        handler.postDelayed({
+        mHandler.postDelayed({
             tuningCounter = 0
             ANN_ClosedLoop_repeat()
         }, 1700)
@@ -304,10 +310,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
     fun average() {
         measure(true)
 //        WaitingDialog(view.context!!).create("평균 측정 중입니다..", 1000)
-        handler.postDelayed({
+        mHandler.postDelayed({
             measure(false)
         }, 1100)
-        handler.postDelayed({
+        mHandler.postDelayed({
             for (i in freqSum.indices) {
                 if (i < 5) {
                     targetValues!![i] = freqSum[i].toFloat()
@@ -351,10 +357,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
         tuningCounter++
         val diff = FloatArray(31)
         var count = 0
-        handler.postDelayed({
+        mHandler.postDelayed({
             average()
         }, 200)
-        handler.postDelayed({
+        mHandler.postDelayed({
 
             for (i in freqSum.indices) {
                 diff[i] = freqSum[i].toFloat() - targetValues!![i]
@@ -370,7 +376,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 
         }, 1600)
 
-        handler.postDelayed({
+        mHandler.postDelayed({
             if (isCompleted) {
                 msg("튜닝이 완료되었습니다.")
                 savePreset()
@@ -423,7 +429,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 
     fun measure(isStart: Boolean) {
         if (isStart) {
-            handler.postDelayed({
+            mHandler.postDelayed({
                 freq1Sum = ArrayList()
                 freq2Sum = ArrayList()
                 freq3Sum = ArrayList()
@@ -501,7 +507,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val handler: Handler, val he
 
     fun tuneStop() {
         noise(NOISE_OFF, noiseVolume)
-        handler.removeMessages(0)
+        mHandler.removeMessages(0)
         view.btn_tune_start.text = "시작"
         view.btn_tune_start.isEnabled = true
         view.btn_tune_start.alpha = 1f

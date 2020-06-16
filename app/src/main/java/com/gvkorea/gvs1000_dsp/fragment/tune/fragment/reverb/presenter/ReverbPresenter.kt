@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Environment
 import android.os.Handler
+import android.os.Message
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -20,9 +21,10 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.ReverbFragment
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.ReverbFragment.Companion.reverbCount
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.util.GVAudioRecord
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.reverb.util.GVPath
+import com.gvkorea.gvs1000_dsp.util.DSPMessage
 import com.gvkorea.gvs1000_dsp.util.GVPacket
-import kotlinx.android.synthetic.main.fragment_auto_tune.*
 import kotlinx.android.synthetic.main.fragment_reverb.*
+import kotlinx.android.synthetic.main.fragment_tune.*
 
 class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
     var audioRecord: GVAudioRecord
@@ -93,13 +95,13 @@ class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
         view.iv_spectrogram.invalidate()
 //        drawLineChart(arr)
         val reverbTime_500hz = arr[0]
-        view.tv_reverb.text = "RT60\n$reverbTime_500hz\n(sec)"
+        view.tv_reverb.text = "RT60: $reverbTime_500hz (sec)"
         rt60Arrays.add(reverbTime_500hz)
         var testResult = ""
         for(i in rt60Arrays.indices){
             testResult += "${i+1}회차 결과: ${rt60Arrays[i]} sec\n"
         }
-        if(reverbCount < 6){
+        if(reverbCount < 5){
             view.tv_Reverb_result.text = testResult
             noiseClap()
         }else{
@@ -108,6 +110,9 @@ class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
             view.tv_Reverb_result.text = testResult
             prefSetting.setReverbTimePref(view.sp_ReverbSpeakerList.selectedItem.toString(), saveReverb)
             rt60Arrays = ArrayList()
+            impulseButtonEnable()
+            mainButtonEnable()
+            buttonEnable()
 
         }
     }
@@ -128,7 +133,6 @@ class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
     }
 
     fun clapPlay() {
-//        val afd = view.activity?.assets?.openFd("ir_clap.wav")
         play = MediaPlayer.create(view.context, R.raw.ir_clap)
         play?.start()
     }
@@ -138,6 +142,9 @@ class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
         reverbCount = 0
         rt60Arrays = ArrayList()
         handler.removeMessages(0)
+        impulseButtonEnable()
+        buttonEnable()
+        mainButtonEnable()
     }
 
     fun eqReset() {
@@ -156,8 +163,8 @@ class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
 
     private fun makeNameList() {
         nameList = ArrayList()
-        for (i in MainActivity.spkList.indices) {
-            nameList.add(MainActivity.spkList[i].name)
+        for (i in spkList.indices) {
+            nameList.add(spkList[i].name)
         }
     }
     private fun registerAdapter(
@@ -176,6 +183,45 @@ class ReverbPresenter(val view: ReverbFragment, val handler: Handler) {
         val selectedItem = view.sp_ReverbSpeakerList.selectedItem.toString()
         val reverbTime =  "스피커 : $selectedItem 잔향시간: ${prefSetting.getReverbTimePref(selectedItem)}"
         view.tv_Reverb_result.text = reverbTime
+    }
+
+    fun impulseButtonDisenable() {
+        view.btn_noiseClap.isEnabled = false
+    }
+
+    fun impulseButtonEnable(){
+        view.btn_noiseClap.isEnabled = true
+        view.btn_noiseClap.alpha = 1f
+    }
+
+    fun mainButtonDisable() {
+        msg(view.context!!.getString(R.string.waiting))
+        val m = Message()
+        m.what = DSPMessage.MSG_UI_UNTOUCH.value
+        handler.sendMessage(m)
+    }
+
+    fun mainButtonEnable() {
+        val m = Message()
+        m.what = DSPMessage.MSG_UI_TOUCH.value
+        handler.sendMessage(m)
+    }
+    fun buttonEnable() {
+        view.parentFragment?.btn_calibration?.isEnabled = true
+        view.parentFragment?.btn_calibration?.alpha = 1f
+        view.parentFragment?.btn_autoTune?.isEnabled = true
+        view.parentFragment?.btn_autoTune?.alpha = 1f
+        view.parentFragment?.btn_reverb?.isEnabled = true
+        view.parentFragment?.btn_reverb?.alpha = 1f
+        view.parentFragment?.btn_evalueation?.isEnabled = true
+        view.parentFragment?.btn_evalueation?.alpha = 1f
+    }
+
+    fun buttonDisable() {
+        view.parentFragment?.btn_calibration?.isEnabled = false
+        view.parentFragment?.btn_autoTune?.isEnabled = false
+        view.parentFragment?.btn_reverb?.isEnabled = false
+        view.parentFragment?.btn_evalueation?.isEnabled = false
     }
 
 

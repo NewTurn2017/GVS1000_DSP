@@ -28,7 +28,6 @@ class RecordAudioTune(val view: View) :
     private val transformer = RealDoubleFFT(blockSize)
     private var toTransformAvg = DoubleArray(blockSize)
     private var chartValue = ArrayList<BarEntry>()
-    private var barDataSet = BarDataSet(chartValue, null)
 
     private val calib_data = CSVRead(view.context!!).readCalibCsv(view.context.assets, selectedMicName)
 
@@ -131,8 +130,6 @@ class RecordAudioTune(val view: View) :
     private val HIGH_12500HZ = 5295
     private val HIGH_16000HZ = 6672
     private val HIGH_20000HZ = 8191
-
-
 
     override fun doInBackground(vararg p0: Unit?): Unit? {
         try {
@@ -606,7 +603,6 @@ class RecordAudioTune(val view: View) :
         var freq30Sum = ArrayList<Double>()
         var freq31Sum = ArrayList<Double>()
         var freqSum = ArrayList<String>()
-
 
     }
 

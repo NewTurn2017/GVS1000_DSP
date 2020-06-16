@@ -9,6 +9,9 @@ class ReverbButtonListener (val presenter: ReverbPresenter): View.OnClickListene
     override fun onClick(p0: View?) {
         when(p0?.id){
             R.id.btn_noiseClap -> {
+                presenter.mainButtonDisable()
+                presenter.buttonDisable()
+                presenter.impulseButtonDisenable()
                 reverbCount = 0
                 presenter.noiseClap()
             }

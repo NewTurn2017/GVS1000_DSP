@@ -26,7 +26,6 @@ class AutoTuneFragment(val mHandler: Handler) : Fragment() {
 
 
     lateinit var presenter: AutoTunePresenter
-    val handler = Handler()
     lateinit var recordAudioTune: RecordAudioTune
     val helper = Helper()
 
@@ -39,7 +38,7 @@ class AutoTuneFragment(val mHandler: Handler) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = AutoTunePresenter(this, handler, helper, mHandler)
+        presenter = AutoTunePresenter(this, helper, mHandler)
         presenter.initializerList()
         initListener()
         init_ChartLayout()
@@ -94,7 +93,7 @@ class AutoTuneFragment(val mHandler: Handler) : Fragment() {
     }
 
     fun recordTaskStart() {
-        handler.postDelayed({
+        mHandler.postDelayed({
             if (!isStarted) {
                 isStarted = true
                 recordAudioTune = RecordAudioTune(this.view!!)
