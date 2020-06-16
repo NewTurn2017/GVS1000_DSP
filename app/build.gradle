@@ -34,7 +34,7 @@ android {
             // buildPython "C:/Python36/python.exe"
 
             pip {
-                install "acoustics"
+//                install "acoustics"
                 install "numpy"
                 install "matplotlib"
                 install "scipy"
