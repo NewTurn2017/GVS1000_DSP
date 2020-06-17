@@ -8,6 +8,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.initialValues
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.targetValues
 
 class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) {
@@ -31,7 +32,7 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
 
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
-        xAxis.textSize = 10.0f
+        xAxis.textSize = 8.0f
         xAxis.labelCount = 31
         xAxis.valueFormatter = IndexAxisValueFormatter(freqArray)
 
@@ -61,9 +62,9 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
         lineDataSet.color = color
         lineDataSet.setDrawCircles(false)
         lineDataSet.lineWidth = 8f
-//        lineDataSet.valueTextColor = color
-//        lineDataSet.valueTextSize = 8.0f
-        lineDataSet.setDrawValues(false)
+        lineDataSet.valueTextColor = color
+        lineDataSet.valueTextSize = 10.0f
+        lineDataSet.setDrawValues(true)
 
         lineDataSet.mode = LineDataSet.Mode.LINEAR
 
@@ -85,16 +86,19 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
     fun drawGraph(values: ArrayList<String>?, label: String, color: Int) {
         val targetArray: ArrayList<Entry> = ArrayList()
         val valuesArray: ArrayList<Entry> = ArrayList()
+        val initialArray: ArrayList<Entry> = ArrayList()
 
         if (values != null) {
             for (i in 0..30) {
                 targetArray.add(Entry(i.toFloat(), targetValues!![i]))
                 valuesArray.add(Entry(i.toFloat(), values[i].toFloat()))
+                initialArray.add(Entry(i.toFloat(), initialValues!![i]))
             }
         } else {
             for (i in 0..30) {
                 targetArray.add(Entry(i.toFloat(), 0.toFloat()))
                 valuesArray.add(Entry(i.toFloat(), 0.toFloat()))
+                initialArray.add(Entry(i.toFloat(), 0.toFloat()))
             }
         }
 
@@ -121,9 +125,19 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
 
         lineDataSet2.mode = LineDataSet.Mode.LINEAR
 
+        val lineDataSet3 = LineDataSet(initialArray, "초기측정값(dB)")
+        lineDataSet3.color = Color.GREEN
+        lineDataSet3.setDrawCircles(false)
+        lineDataSet3.lineWidth = 2f
+        lineDataSet3.valueTextColor = Color.GREEN
+        lineDataSet3.valueTextSize = 8.0f
+        lineDataSet3.setDrawValues(false)
+
+        lineDataSet3.mode = LineDataSet.Mode.LINEAR
+
 
         val data: LineData
-        data = LineData(lineDataSet1, lineDataSet2)
+        data = LineData(lineDataSet1, lineDataSet2, lineDataSet3)
 
         xAxis.axisMaximum = data.xMax + 0.4f
         xAxis.axisMinimum = data.xMin - 0.4f

@@ -94,6 +94,7 @@
         <item>85</item>
         <item>90</item>
         <item>95</item>
+        <item>100</item>
     </string-array>
 
     <string name="loading">서버로 부터 모델을 다운로드 중입니다…</string>

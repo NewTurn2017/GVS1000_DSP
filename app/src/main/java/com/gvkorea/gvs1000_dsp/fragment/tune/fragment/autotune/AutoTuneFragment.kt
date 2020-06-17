@@ -122,6 +122,7 @@ class AutoTuneFragment(val mHandler: Handler) : Fragment() {
         lateinit var lineChart: ChartLayoutLineChartForTune
         lateinit var barChart: ChartLayoutBarChartForEQGraph
         var targetValues:FloatArray? = null
+        var initialValues:FloatArray? = null
         var isShowTable = false
         var isShowEQ = false
 

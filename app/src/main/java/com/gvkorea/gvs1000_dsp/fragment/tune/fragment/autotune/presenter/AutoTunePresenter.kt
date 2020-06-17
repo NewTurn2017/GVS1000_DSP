@@ -21,6 +21,7 @@ import com.gvkorea.gvs1000_dsp.R
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.barChart
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.curModelPath
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.initialValues
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.isShowEQ
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.isShowTable
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.lineChart
@@ -100,17 +101,17 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         buttonDisable()
         tuningStart()
 
-    // val model = loadModel().model
-    //  val file = view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}/optimized_frozen_closed_model_75.pb"
-    //   val filePath = File(file)
-    //  val fileSize = filePath.length()
-    //   if (filePath.exists() && fileSize > 0) {
-    //        curModelPath = file
-    //        tuningStart()
-    //     } else {
-    //         pathReference = storageRef.child("models/${model}/optimized_frozen_closed_model_75.pb")
-    //          saveModelFromFireBaseStoreage(pathReference, model)
-    //    }
+        // val model = loadModel().model
+        //  val file = view.context?.getExternalFilesDir(null)?.absolutePath + "/gvkorea/${model}/optimized_frozen_closed_model_75.pb"
+        //   val filePath = File(file)
+        //  val fileSize = filePath.length()
+        //   if (filePath.exists() && fileSize > 0) {
+        //        curModelPath = file
+        //        tuningStart()
+        //     } else {
+        //         pathReference = storageRef.child("models/${model}/optimized_frozen_closed_model_75.pb")
+        //          saveModelFromFireBaseStoreage(pathReference, model)
+        //    }
 
     }
 
@@ -274,6 +275,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
     }
 
     private fun autoTuning() {
+        msg("서버로부터 모델을 다운로드 중입니다...")
         curEQReset()
         average()
 //        handler.postDelayed({
@@ -295,10 +297,19 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 //        handler.postDelayed({
 ////            average()
 //        }, 2000)
+
+        mHandler.postDelayed({
+            initialValues = FloatArray(31)
+
+            for(i in initialValues!!.indices){
+                initialValues!![i] = freqSum[i].toFloat()
+            }
+            lineChart.drawGraph(freqSum, "현재 측정값(dB)", Color.RED)
+        }, 1700)
         mHandler.postDelayed({
             tuningCounter = 0
             ANN_ClosedLoop_repeat()
-        }, 1700)
+        }, 2000)
     }
 
     private fun curEQReset() {
@@ -314,17 +325,21 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
             measure(false)
         }, 1100)
         mHandler.postDelayed({
-            for (i in freqSum.indices) {
-                if (i < 5) {
-                    targetValues!![i] = freqSum[i].toFloat()
-                }
-                if(i == 30){
-                    targetValues!![i] = freqSum[i].toFloat()
-                }
+//            for (i in freqSum.indices) {
+//                if (i < 6) {
+//                    targetValues!![i] = freqSum[i].toFloat()
+//                }
+//                if(i == 30){
+//                    targetValues!![i] = freqSum[i].toFloat()
+//                }
+//            }
+
+            if(initialValues != null){
+                lineChart.drawGraph(freqSum, "현재 측정값(dB)", Color.RED)
+                barChart.initGraph(changeEQValues(curEQ))
+                updateTableList()
             }
-            lineChart.drawGraph(freqSum, "현재 측정값(dB)", Color.RED)
-            barChart.initGraph(changeEQValues(curEQ))
-            updateTableList()
+
 //            msg("측정 완료")
         }, 1300)
     }
@@ -573,7 +588,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         targetdBs[27] = target
         targetdBs[28] = target
         targetdBs[29] = target
-        targetdBs[30] = target - 8
+        targetdBs[30] = target
         return targetdBs
     }
 
