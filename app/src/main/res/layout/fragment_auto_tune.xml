@@ -186,7 +186,7 @@
             android:id="@+id/sc_table"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_weight="1">
 
             <LinearLayout
@@ -218,6 +218,14 @@
                             android:textSize="@dimen/button_text_size"
                             android:gravity="center" />
 
+                        <TextView
+                            android:id="@+id/tv_tune_target"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/button_text_size"
+                            android:gravity="center" />
+
                     </TableRow>
 
                 </TableLayout>
@@ -229,7 +237,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <com.github.mikephil.charting.charts.LineChart

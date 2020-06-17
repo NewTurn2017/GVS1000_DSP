@@ -489,10 +489,12 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
     private fun updateTableList() {
         if (freqSum.size > 0) {
             var freq = "Freq\n"
+            var target = "Target\n"
             val diff = "Diff\n"
             val builder = SpannableStringBuilder(diff)
             for (i in 0 until 31) {
                 freq += hzArrays[i] + "\n"
+                target += initialValues!![i].toString()
                 val diffFloat = targetValues!![i] - freqSum[i].toFloat()
                 if (diffFloat > 2 || diffFloat < -2) {
                     val str = "${String.format("%.2f", diffFloat)}\n"
