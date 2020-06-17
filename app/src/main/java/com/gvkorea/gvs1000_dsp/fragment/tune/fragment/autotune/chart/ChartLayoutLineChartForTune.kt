@@ -64,7 +64,7 @@ class ChartLayoutLineChartForTune(val view: Context, var mLineChart: LineChart) 
         lineDataSet.lineWidth = 8f
         lineDataSet.valueTextColor = color
         lineDataSet.valueTextSize = 10.0f
-        lineDataSet.setDrawValues(true)
+        lineDataSet.setDrawValues(false)
 
         lineDataSet.mode = LineDataSet.Mode.LINEAR
 

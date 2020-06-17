@@ -209,6 +209,21 @@
                             android:layout_weight="1"
                             android:textSize="@dimen/button_text_size"
                             android:gravity="center" />
+                        <TextView
+                            android:id="@+id/tv_tune_target"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/button_text_size"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:id="@+id/tv_tune_result"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/button_text_size"
+                            android:gravity="center" />
 
                         <TextView
                             android:id="@+id/tv_tune_diff"
@@ -218,13 +233,7 @@
                             android:textSize="@dimen/button_text_size"
                             android:gravity="center" />
 
-                        <TextView
-                            android:id="@+id/tv_tune_target"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/button_text_size"
-                            android:gravity="center" />
+
 
                     </TableRow>
 
