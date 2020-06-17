@@ -41,7 +41,12 @@ class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: 
 
         for (i in resultsToInt.indices) {
 
-            deltaEQ[i] = resultsToInt[i]
+            if(i < 6){
+                deltaEQ[i] = (targetValues[i] - curRMS[i]).toInt()
+            }else{
+                deltaEQ[i] = resultsToInt[i]
+            }
+
             curEQ[i] += deltaEQ[i]
             if (curEQ[i] < 0) {
                 curEQ[i] = 0
