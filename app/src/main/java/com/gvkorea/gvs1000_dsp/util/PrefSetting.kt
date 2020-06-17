@@ -114,6 +114,11 @@ class PrefSetting {
         CALIBRATION = pref.getFloat("calibration", 0f)
     }
 
+    fun saveCalib() {
+        editor.putFloat("calibration", CALIBRATION)
+        editor.apply()
+    }
+
     fun saveIsCalib(isCalib: Boolean) {
         editor.putBoolean("isCalib", isCalib)
         editor.apply()

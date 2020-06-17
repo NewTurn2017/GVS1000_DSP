@@ -14,6 +14,7 @@ class CalibPresenter(val view: CalibFragment) {
         prefSetting.loadCalib()
         CALIBRATION += (94 - rmsValue).toFloat()
         prefSetting.saveIsCalib(true)
+        prefSetting.saveCalib()
         msg("설정이 완료되었습니다.")
     }
 

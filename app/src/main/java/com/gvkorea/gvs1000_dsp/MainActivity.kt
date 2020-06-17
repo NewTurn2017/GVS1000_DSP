@@ -138,6 +138,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
 
         pref = applicationContext.getSharedPreferences(PREF_SETUP_KEY, Context.MODE_PRIVATE)
         prefSetting = PrefSetting()
+        prefSetting.loadCalib()
         presenter = MainPresenter(this, mHandler)
         initListener()
         buttonDisable()
