@@ -305,11 +305,11 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 initialValues!![i] = freqSum[i].toFloat()
             }
             lineChart.drawGraph(freqSum, "현재 측정값(dB)", Color.RED)
-        }, 1700)
+        }, 2300)
         mHandler.postDelayed({
             tuningCounter = 0
             ANN_ClosedLoop_repeat()
-        }, 2000)
+        }, 2500)
     }
 
     private fun curEQReset() {
@@ -323,7 +323,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 //        WaitingDialog(view.context!!).create("평균 측정 중입니다..", 1000)
         mHandler.postDelayed({
             measure(false)
-        }, 1100)
+        }, 1600)
         mHandler.postDelayed({
 //            for (i in freqSum.indices) {
 //                if (i < 6) {
@@ -341,7 +341,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
             }
 
 //            msg("측정 완료")
-        }, 1300)
+        }, 1800)
     }
 
     private fun floatToInt(results: FloatArray): IntArray {
@@ -389,7 +389,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 isCompleted = false
             }
 
-        }, 1600)
+        }, 2100)
 
         mHandler.postDelayed({
             if (isCompleted) {
@@ -398,7 +398,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 tuneStop()
                 mainButtonEnable()
                 buttonEnable()
-            } else if (tuningCounter > 15) {
+            } else if (tuningCounter > 20) {
                 msg("튜닝이 완료되지 않았습니다. 다시 진행바랍니다.")
                 tuneStop()
                 mainButtonEnable()
@@ -408,7 +408,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                         "${tuningCounter}번 반복튜닝 중..")
                 ANN_ClosedLoop_repeat()
             }
-        }, 1800)
+        }, 2300)
     }
 
     private fun savePreset() {
