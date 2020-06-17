@@ -561,13 +561,13 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
     fun setTarget(targetdB: Int): FloatArray? {
         val target = targetdB.toFloat()
         val targetdBs = FloatArray(31)
-        targetdBs[0] = target - 34
-        targetdBs[1] = target - 35
-        targetdBs[2] = target - 30
-        targetdBs[3] = target - 25
-        targetdBs[4] = target - 12
+        targetdBs[0] = target - 30
+        targetdBs[1] = target - 31
+        targetdBs[2] = target - 29
+        targetdBs[3] = target - 21
+        targetdBs[4] = target - 11
         targetdBs[5] = target - 13
-        targetdBs[6] = target - 3
+        targetdBs[6] = target - 8
         targetdBs[7] = target
         targetdBs[8] = target
         targetdBs[9] = target

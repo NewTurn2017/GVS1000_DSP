@@ -60,9 +60,9 @@
     <string name="korean">한국어</string>
     <string name="english">영어</string>
     <string name="logo">Logo</string>
-    <string name="tunning">튜닝</string>
+    <string name="tunning">자동음향조율</string>
     <string name="calibration">Calibration</string>
-    <string name="auto_tune">자동 튜닝</string>
+    <string name="auto_tune">자동음향조율</string>
     <string name="select_speaker">스피커 선택</string>
     <string name="set_auto">자동설정</string>
     <string name="volume_reset">전체 볼륨 \n초기화</string>
