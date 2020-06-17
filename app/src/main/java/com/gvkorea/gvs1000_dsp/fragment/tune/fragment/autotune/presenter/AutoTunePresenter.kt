@@ -494,7 +494,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
             val builder = SpannableStringBuilder(diff)
             for (i in 0 until 31) {
                 freq += hzArrays[i] + "\n"
-                target += initialValues!![i].toString()
+                target += initialValues!![i].toString() + "\n"
                 val diffFloat = targetValues!![i] - freqSum[i].toFloat()
                 if (diffFloat > 2 || diffFloat < -2) {
                     val str = "${String.format("%.2f", diffFloat)}\n"
@@ -513,6 +513,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 
             view.tv_tune_curFreq.text = freq
             view.tv_tune_diff.text = builder
+            view.tv_tune_target.text = target
         } else {
             msg("데이터가 없습니다.")
         }
@@ -560,12 +561,12 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
     fun setTarget(targetdB: Int): FloatArray? {
         val target = targetdB.toFloat()
         val targetdBs = FloatArray(31)
-        targetdBs[0] = target - 36
-        targetdBs[1] = target - 34
-        targetdBs[2] = target - 27
-        targetdBs[3] = target - 16
-        targetdBs[4] = target - 8
-        targetdBs[5] = target - 5
+        targetdBs[0] = target - 34
+        targetdBs[1] = target - 35
+        targetdBs[2] = target - 30
+        targetdBs[3] = target - 25
+        targetdBs[4] = target - 12
+        targetdBs[5] = target - 13
         targetdBs[6] = target - 3
         targetdBs[7] = target
         targetdBs[8] = target
