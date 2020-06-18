@@ -7,8 +7,9 @@ import kotlin.math.roundToInt
 
 class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: FloatArray, assets: AssetManager) {
 
-   private val MODEL_FILE_CLOSE = "file:///android_asset/model/optimized_frozen_closed_model_75.pb"
- //   private val MODEL_FILE_CLOSE = curModelPath
+    private val MODEL_FILE_CLOSE = "file:///android_asset/model/optimized_frozen_closed_model_75.pb"
+
+    //   private val MODEL_FILE_CLOSE = curModelPath
     private var inferenceInterface_close: TensorFlowInferenceInterface = TensorFlowInferenceInterface()
     private val INPUT_SHAPE_CLOSE = intArrayOf(1, 62)
 
@@ -25,11 +26,11 @@ class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: 
         val input = FloatArray(62)
 
 
-        for (i in input.indices){
-            if(i < 31){
+        for (i in input.indices) {
+            if (i < 31) {
                 input[i] = curRMS[i]
-            }else{
-                input[i] = targetValues[i-31]
+            } else {
+                input[i] = targetValues[i - 31]
             }
         }
 
@@ -41,9 +42,14 @@ class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: 
 
         for (i in resultsToInt.indices) {
 
-            if(i < 6){
-                deltaEQ[i] = (targetValues[i] - curRMS[i]).toInt()
-            }else{
+            if (i < 6) {
+                val delta = (targetValues[i] - curRMS[i]).toInt()
+                if (delta > 2) {
+                    deltaEQ[i] = delta
+                } else {
+                    deltaEQ[i] = 0
+                }
+            } else {
                 deltaEQ[i] = resultsToInt[i]
             }
 
@@ -60,13 +66,13 @@ class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: 
 
     private fun FloatToInt(results: FloatArray): IntArray {
         val resultsToInt = IntArray(31)
-        for (i in results.indices){
+        for (i in results.indices) {
             resultsToInt[i] = results[i].roundToInt()
         }
         return resultsToInt
     }
 
-    companion object{
+    companion object {
         val deltaEQ = IntArray(31)
     }
 }
