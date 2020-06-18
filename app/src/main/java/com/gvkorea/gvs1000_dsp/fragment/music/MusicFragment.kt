@@ -60,7 +60,7 @@ class MusicFragment : Fragment() {
             activity?.startService(startPlayIntent)
             init_Listener()
 
-        }, 50)
+        }, 500)
     }
 
     private fun createPlayer() {
