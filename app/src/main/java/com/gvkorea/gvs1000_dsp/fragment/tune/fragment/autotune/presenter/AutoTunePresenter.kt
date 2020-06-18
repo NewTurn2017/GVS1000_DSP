@@ -304,7 +304,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
             for(i in initialValues!!.indices){
                 initialValues!![i] = freqSum[i].toFloat()
             }
-            lineChart.drawGraph(freqSum, "현재 측정값(dB)", Color.RED)
+            lineChart.drawGraph(freqSum, "현재 측정값(dB) 반복횟수: $tuningCounter 회", Color.RED)
         }, 1700)
         mHandler.postDelayed({
             tuningCounter = 0
