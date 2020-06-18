@@ -394,10 +394,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         mHandler.postDelayed({
             if (isCompleted) {
                 msg("튜닝이 완료되었습니다.")
-                savePreset()
                 tuneStop()
                 mainButtonEnable()
                 buttonEnable()
+                savePreset()
             } else if (tuningCounter > 15) {
                 msg("튜닝이 완료되지 않았습니다. 다시 진행바랍니다.")
                 tuneStop()
