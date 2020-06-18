@@ -83,7 +83,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="2-WAY"
+                android:text="STEREO"
                 android:textAlignment="center"
                 android:textSize="@dimen/button_text_size"
                 android:textStyle="italic" />
@@ -94,7 +94,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="BRIDGE"
+                android:text="BTL"
                 android:textAlignment="center"
                 android:textSize="@dimen/button_text_size"
                 android:textStyle="italic" />

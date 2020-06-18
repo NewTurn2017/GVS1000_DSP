@@ -22,7 +22,7 @@
     <string name="mute">MUTE</string>
     <string name="reset_settings">설정 초기화</string>
     <string name="setid">ID 설정</string>
-    <string name="mode_select">모드 선택(2-WAY/BRIDGE)</string>
+    <string name="mode_select">모드 선택(STEREO/BTL)</string>
     <string name="sync">동기화</string>
     <string name="eq_reset">EQ RESET</string>
     <string name="bypass">BYPASS</string>
