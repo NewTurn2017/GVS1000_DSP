@@ -66,12 +66,17 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudio
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freqSum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.isMeasure
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.spldB
+import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.evaluation.audio.RecordAudioRta
 import com.gvkorea.gvs1000_dsp.util.*
+import com.opencsv.CSVWriter
 import kotlinx.android.synthetic.main.dialog_target_volume.*
 import kotlinx.android.synthetic.main.fragment_auto_tune.*
 import kotlinx.android.synthetic.main.fragment_tune.*
 import java.io.File
+import java.io.FileWriter
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
 
@@ -87,7 +92,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
     val SWITCH_OFF = 0
 
     var nameList = ArrayList<String>()
-    lateinit var pathReference: StorageReference
+
+    private var writer: CSVWriter? = null
+    private var tuningResultArray = ArrayList<String>()
+
 
     private val hzArrays = arrayOf(
             "20", "25", "31.5", "40", "50", "63", "80", "100", "125", "160",
@@ -398,6 +406,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 mainButtonEnable()
                 buttonEnable()
                 savePreset()
+                CVS_Save()
             } else if (tuningCounter > 20) {
                 msg("튜닝이 완료되지 않았습니다. 다시 진행바랍니다.")
                 tuneStop()
@@ -517,6 +526,12 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
             view.tv_tune_diff.text = builder
             view.tv_tune_target.text = target
             view.tv_tune_result.text = curRms
+            tuningResultArray = ArrayList()
+            tuningResultArray.add(freq)
+            tuningResultArray.add(target)
+            tuningResultArray.add(curRms)
+            tuningResultArray.add(builder.toString())
+
         } else {
             msg("데이터가 없습니다.")
         }
@@ -653,5 +668,56 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         return SpeakerInfo(spkList[index].socket, spkList[index].channel, spkList[index].name)
     }
 
+
+    private fun CVS_Save() {
+        // 파일 생성
+        if (writer == null) {
+            val baseDir = android.os.Environment.getExternalStorageDirectory().absolutePath
+            val date = LocalDateTime.now()
+            val time = LocalDateTime.now()
+            val formatter_date = DateTimeFormatter.ofPattern("yyMMdd")
+            val formatter_time = DateTimeFormatter.ofPattern("HHmmss")
+            val formatted_date = date.format(formatter_date)
+            val formatted_time = date.format(formatter_time)
+
+
+            val filename = "${formatted_date}_${formatted_time}_TuningResult.csv"
+            val filePath = baseDir + File.separator + filename
+            try {
+                writer = CSVWriter(FileWriter(filePath, true))
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+
+            CSV_recordForData()
+        }
+
+    }
+
+    fun CSV_SaveForData() {
+        try {
+            writer?.close()
+            writer = null
+            msg("자동 음향 조율 결과를 저장합니다.")
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+    }
+
+    private fun CSV_recordForData() {
+        val datafile = arrayOfNulls<String>(4)
+
+        for (i in 0..3) {
+            datafile[i] = tuningResultArray[i]
+        }
+        if (writer != null) {
+
+            writer!!.writeNext(datafile)
+        }
+        CSV_SaveForData()
+    }
 
 }

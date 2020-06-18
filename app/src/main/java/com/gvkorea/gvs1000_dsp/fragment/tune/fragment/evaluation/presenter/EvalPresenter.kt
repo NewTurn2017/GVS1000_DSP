@@ -236,6 +236,7 @@ class EvalPresenter(val view: EvalFragment, val handler: Handler) {
             datafile[i] = freqSum[i]
         }
         if (writer != null) {
+
             writer!!.writeNext(datafile)
         }
     }
