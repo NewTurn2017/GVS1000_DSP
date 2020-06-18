@@ -698,7 +698,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
     private fun CSV_recordForData() {
 
         val data = splitArrays(tuningResultArray)
-        val datafile = arrayOfNulls<String>(data[0].size)
+        val datafile = arrayOfNulls<String>(data.size)
 
         for(i in data[0].indices){
             for (j in 0..3) {
