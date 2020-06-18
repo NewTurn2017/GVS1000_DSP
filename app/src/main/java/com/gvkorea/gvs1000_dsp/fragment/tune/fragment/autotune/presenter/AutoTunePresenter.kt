@@ -702,8 +702,9 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 
         for(i in data[0].indices){
             for (j in 0..3) {
-                datafile[i] = data[j][i]
+                datafile[j] = data[j][i]
             }
+
             if (writer != null) {
                 writer!!.writeNext(datafile)
             }
