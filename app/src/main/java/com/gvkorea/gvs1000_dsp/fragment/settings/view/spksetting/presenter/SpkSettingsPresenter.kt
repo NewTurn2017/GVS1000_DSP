@@ -50,8 +50,8 @@ class SpkSettingsPresenter(val view: SpkSettingsFragment, val mHandler: Handler)
     val MODEL_GVS500 = "GVS-500"
     val MODEL_GVS700 = "GVS-700"
 
-    val MODE_2WAY = "2-WAY"
-    val MODE_BRIDGE = "BRIDGE"
+    val MODE_2WAY = "STEREO"
+    val MODE_BRIDGE = "BTL"
     val NAME_MAIN = "Main"
     val NAME_SUB = "Sub"
 
