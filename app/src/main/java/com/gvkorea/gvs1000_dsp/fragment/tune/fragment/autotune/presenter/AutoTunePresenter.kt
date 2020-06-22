@@ -184,6 +184,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         m.what = DSPMessage.MSG_UI_TOUCH.value
         mHandler.sendMessage(m)
     }
+
     private fun buttonEnable() {
         view.parentFragment?.btn_calibration?.isEnabled = true
         view.parentFragment?.btn_calibration?.alpha = 1f
@@ -286,6 +287,8 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         msg("서버로부터 모델을 다운로드 중입니다...")
         curEQReset()
         average()
+
+        //open loop
 //        handler.postDelayed({
 //            val open = ANN_Open(view.activity?.assets!!, targetValues!!)
 //            val eqValues = open.getControlEQ_Open()
@@ -309,8 +312,19 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         mHandler.postDelayed({
             initialValues = FloatArray(31)
 
-            for(i in initialValues!!.indices){
+            for (i in initialValues!!.indices) {
                 initialValues!![i] = freqSum[i].toFloat()
+                if (i < 6) {
+                    targetValues!![i] = freqSum[i].toFloat() + 2
+                } else if (i < 9) {
+                    if (targetValues!![i] < freqSum[i].toFloat()) {
+                        targetValues!![i] = freqSum[i].toFloat() + 2
+                    }
+                }
+
+                if (i == 30) {
+                    targetValues!![i] = freqSum[i].toFloat() + 2
+                }
             }
             lineChart.drawGraph(freqSum, "현재 측정값(dB) 반복횟수: $tuningCounter 회", Color.RED)
         }, 2200)
@@ -328,27 +342,15 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 
     fun average() {
         measure(true)
-//        WaitingDialog(view.context!!).create("평균 측정 중입니다..", 1000)
         mHandler.postDelayed({
             measure(false)
         }, 1600)
         mHandler.postDelayed({
-//            for (i in freqSum.indices) {
-//                if (i < 6) {
-//                    targetValues!![i] = freqSum[i].toFloat()
-//                }
-//                if(i == 30){
-//                    targetValues!![i] = freqSum[i].toFloat()
-//                }
-//            }
-
-            if(initialValues != null){
+            if (initialValues != null) {
                 lineChart.drawGraph(freqSum, "현재 측정값(dB) 반복횟수: $tuningCounter 회", Color.RED)
                 barChart.initGraph(changeEQValues(curEQ))
                 updateTableList()
             }
-
-//            msg("측정 완료")
         }, 1800)
     }
 
@@ -407,7 +409,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 buttonEnable()
                 savePreset()
                 CVS_Save()
-            } else if (tuningCounter > 20) {
+            } else if (tuningCounter > 30) {
                 msg("튜닝이 완료되지 않았습니다. 다시 진행바랍니다.")
                 tuneStop()
                 mainButtonEnable()
@@ -609,7 +611,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         targetdBs[27] = target
         targetdBs[28] = target
         targetdBs[29] = target
-        targetdBs[30] = target
+        targetdBs[30] = target - 3
         return targetdBs
     }
 
@@ -700,7 +702,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         val data = splitArrays(tuningResultArray)
         val datafile = arrayOfNulls<String>(data.size)
 
-        for(i in data[0].indices){
+        for (i in data[0].indices) {
             for (j in 0..3) {
                 datafile[j] = data[j][i]
             }
@@ -715,7 +717,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
     private fun splitArrays(data: java.util.ArrayList<String>): ArrayList<List<String>> {
 
         val dataArray = ArrayList<List<String>>()
-        for( i in 0..3){
+        for (i in 0..3) {
             dataArray.add(data[i].split("\n"))
         }
         return dataArray
