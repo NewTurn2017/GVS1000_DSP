@@ -153,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:max="100"
+                android:max="110"
                 android:min="0"
                 android:layout_margin="2dp"
                 android:maxHeight="18dp"
