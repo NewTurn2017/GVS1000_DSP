@@ -49,7 +49,6 @@ class SpkSettingsPresenter(val view: SpkSettingsFragment, val mHandler: Handler)
     val MODEL_GVS400 = "GVS-400"
     val MODEL_GVS500 = "GVS-500"
     val MODEL_GVS700 = "GVS-700"
-
     val MODE_2WAY = "STEREO"
     val MODE_BRIDGE = "BTL"
     val NAME_MAIN = "Main"
@@ -57,9 +56,9 @@ class SpkSettingsPresenter(val view: SpkSettingsFragment, val mHandler: Handler)
 
 
     private val listModel = arrayListOf(
-        MODEL_GVA200, MODEL_GVA300, MODEL_GVA500,
-        MODEL_GVA700, MODEL_GVA900, MODEL_GVS200A,
-        MODEL_GVS500A, MODEL_GVS700A, MODEL_GVS200B,
+            MODEL_GVA200, MODEL_GVA300, MODEL_GVA500,
+            MODEL_GVA700, MODEL_GVA900, MODEL_GVS200A,
+            MODEL_GVS500A, MODEL_GVS700A, MODEL_GVS200B,
         MODEL_GVS200BA, MODEL_GVS400B, MODEL_GVS500B,
         MODEL_GVS500BA, MODEL_GVAS50, MODEL_GVS200,
         MODEL_GVS300, MODEL_GVS400, MODEL_GVS500, MODEL_GVS700
