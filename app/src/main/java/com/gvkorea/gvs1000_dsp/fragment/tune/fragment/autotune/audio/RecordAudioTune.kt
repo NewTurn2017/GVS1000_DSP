@@ -353,12 +353,8 @@ class RecordAudioTune(val view: View) :
                     avgStart = false
                     isMeasure = false
                 }
-
-
             }
-
         }
-
     }
 
     private fun calculate_SPL(rmsValues: DoubleArray): Double {
