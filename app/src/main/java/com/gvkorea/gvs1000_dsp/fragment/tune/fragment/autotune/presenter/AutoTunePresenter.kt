@@ -322,7 +322,6 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 //                        targetValues!![i] = freqSum[i].toFloat() + 2
 //                    }
 //                }
-
 //                if (i == 30) {
 //                    targetValues!![i] = freqSum[i].toFloat() + 2
 //                }
@@ -353,6 +352,20 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 updateTableList()
             }
         }, 1800)
+    }
+
+    fun averageRepeat() {
+        measure(true)
+        mHandler.postDelayed({
+            measure(false)
+        }, 5000)
+        mHandler.postDelayed({
+            if (initialValues != null) {
+                lineChart.drawGraph(freqSum, "현재 측정값(dB) 반복횟수: $tuningCounter 회", Color.RED)
+                barChart.initGraph(changeEQValues(curEQ))
+                updateTableList()
+            }
+        }, 5200)
     }
 
     private fun floatToInt(results: FloatArray): IntArray {

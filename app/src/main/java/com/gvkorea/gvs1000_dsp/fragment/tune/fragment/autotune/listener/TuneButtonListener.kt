@@ -12,6 +12,7 @@ class TuneButtonListener(val presenter: AutoTunePresenter): View.OnClickListener
             R.id.btn_showTable -> presenter.showTable()
             R.id.btn_showEQ -> presenter.showEQ()
             R.id.btn_tuneNoise -> presenter.tuneNoise()
+            R.id.btn_avgRepeat -> presenter.averageRepeat()
         }
     }
 }
