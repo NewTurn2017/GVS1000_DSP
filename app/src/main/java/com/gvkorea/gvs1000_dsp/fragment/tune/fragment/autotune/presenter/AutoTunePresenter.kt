@@ -315,13 +315,13 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 
             for (i in initialValues!!.indices) {
                 initialValues!![i] = freqSum[i].toFloat()
-                if (i < 6) {
-                    targetValues!![i] = freqSum[i].toFloat() + 2
-                } else if (i < 9) {
-                    if (targetValues!![i] < freqSum[i].toFloat()) {
-                        targetValues!![i] = freqSum[i].toFloat() + 2
-                    }
-                }
+//                if (i < 6) {
+//                    targetValues!![i] = freqSum[i].toFloat() + 2
+//                } else if (i < 9) {
+//                    if (targetValues!![i] < freqSum[i].toFloat()) {
+//                        targetValues!![i] = freqSum[i].toFloat() + 2
+//                    }
+//                }
 
 //                if (i == 30) {
 //                    targetValues!![i] = freqSum[i].toFloat() + 2
