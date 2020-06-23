@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import com.google.firebase.storage.StorageReference
-import com.gvkorea.gvs1000_dsp.MainActivity.Companion.pref
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.prefSetting
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.R
@@ -26,7 +25,6 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.isShowTable
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.lineChart
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.noiseVolume
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.storageRef
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.targetValues
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.targetdB
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.tuningCounter
@@ -66,7 +64,6 @@ import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudio
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.freqSum
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.isMeasure
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.audio.RecordAudioTune.Companion.spldB
-import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.evaluation.audio.RecordAudioRta
 import com.gvkorea.gvs1000_dsp.util.*
 import com.opencsv.CSVWriter
 import kotlinx.android.synthetic.main.dialog_target_volume.*
@@ -317,6 +314,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 initialValues!![i] = freqSum[i].toFloat()
 //                if (i < 6) {
 //                    targetValues!![i] = freqSum[i].toFloat() + 2
+//                }
 //                } else if (i < 9) {
 //                    if (targetValues!![i] < freqSum[i].toFloat()) {
 //                        targetValues!![i] = freqSum[i].toFloat() + 2
@@ -366,6 +364,10 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 updateTableList()
             }
         }, 5200)
+
+        mHandler.postDelayed({
+            CSV_Save()
+        }, 5400)
     }
 
     private fun floatToInt(results: FloatArray): IntArray {
@@ -422,7 +424,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                 mainButtonEnable()
                 buttonEnable()
                 savePreset()
-                CVS_Save()
+                CSV_Save()
             } else if (tuningCounter > 30) {
                 msg("튜닝이 완료되지 않았습니다. 다시 진행바랍니다.")
                 tuneStop()
@@ -685,7 +687,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
     }
 
 
-    private fun CVS_Save() {
+    private fun CSV_Save() {
         // 파일 생성
         if (writer == null) {
             val baseDir = android.os.Environment.getExternalStorageDirectory().absolutePath
@@ -751,11 +753,11 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 
     fun tuneNoise() {
         val gain = prefSetting.getNoiseVolumePref().toInt()
-        if(!isNoiseOn){
+        if (!isNoiseOn) {
             view.btn_tuneNoise.text = "NOISE OFF"
             noise(PINK, gain)
             isNoiseOn = true
-        }else{
+        } else {
             view.btn_tuneNoise.text = "NOISE ON"
             noise(NOISE_OFF, gain)
             isNoiseOn = false

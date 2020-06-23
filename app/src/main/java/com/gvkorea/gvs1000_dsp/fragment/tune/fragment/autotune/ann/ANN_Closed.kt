@@ -3,6 +3,7 @@ package com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.ann
 import android.content.res.AssetManager
 import com.gvkorea.gvs1000_dsp.fragment.tune.fragment.autotune.AutoTuneFragment.Companion.curModelPath
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
 class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: FloatArray, assets: AssetManager) {
@@ -44,7 +45,7 @@ class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: 
 
             if (i < 6) {
                 val delta = (targetValues[i] - curRMS[i]).toInt()
-                if (delta > 2) {
+                if (abs(delta) > 2) {
                     deltaEQ[i] = delta
                 } else {
                     deltaEQ[i] = 0
