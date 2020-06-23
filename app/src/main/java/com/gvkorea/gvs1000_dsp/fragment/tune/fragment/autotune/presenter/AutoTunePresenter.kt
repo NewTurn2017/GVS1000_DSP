@@ -323,9 +323,9 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
                     }
                 }
 
-                if (i == 30) {
-                    targetValues!![i] = freqSum[i].toFloat() + 2
-                }
+//                if (i == 30) {
+//                    targetValues!![i] = freqSum[i].toFloat() + 2
+//                }
             }
             lineChart.drawGraph(freqSum, "현재 측정값(dB) 반복횟수: $tuningCounter 회", Color.RED)
         }, 2200)
@@ -612,7 +612,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         targetdBs[27] = target
         targetdBs[28] = target
         targetdBs[29] = target
-        targetdBs[30] = target - 3
+        targetdBs[30] = target
         return targetdBs
     }
 
