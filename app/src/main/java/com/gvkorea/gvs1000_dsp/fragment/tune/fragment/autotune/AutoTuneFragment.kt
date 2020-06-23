@@ -57,6 +57,7 @@ class AutoTuneFragment(val mHandler: Handler) : Fragment() {
         btn_tune_stop.setOnClickListener(TuneButtonListener(presenter))
         btn_showTable.setOnClickListener(TuneButtonListener(presenter))
         btn_showEQ.setOnClickListener(TuneButtonListener(presenter))
+        btn_tuneNoise.setOnClickListener(TuneButtonListener(presenter))
         sp_TuneSpeakerList.onItemSelectedListener = TuneSpeakerItemSelectedListener(presenter)
 
     }

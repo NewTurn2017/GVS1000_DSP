@@ -131,6 +131,20 @@
                 app:qb_strokeColor="@android:color/holo_blue_dark"
                 app:qb_strokeWidth="5" />
 
+            <com.manojbhadane.QButton
+                android:id="@+id/btn_tuneNoise"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="NOISE ON"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/button_text_size"
+                app:qb_backgroundColor="@android:color/holo_blue_bright"
+                app:qb_radius="20"
+                app:qb_strokeColor="@android:color/holo_blue_dark"
+                app:qb_strokeWidth="5" />
+
         </LinearLayout>
 
         <LinearLayout

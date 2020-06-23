@@ -95,6 +95,7 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
 
     private var writer: CSVWriter? = null
     private var tuningResultArray = ArrayList<String>()
+    private var isNoiseOn = false
 
 
     private val hzArrays = arrayOf(
@@ -733,6 +734,17 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
             e.printStackTrace()
         }
 
+    }
+
+    fun tuneNoise() {
+        val gain = prefSetting.getNoiseVolumePref().toInt()
+        if(!isNoiseOn){
+            view.btn_tuneNoise.text = "NOISE OFF"
+            noise(PINK, gain)
+        }else{
+            view.btn_tuneNoise.text = "NOISE ON"
+            noise(NOISE_OFF, gain)
+        }
     }
 
 }
