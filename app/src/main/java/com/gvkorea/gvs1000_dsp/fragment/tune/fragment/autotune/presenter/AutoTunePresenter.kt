@@ -741,9 +741,11 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
         if(!isNoiseOn){
             view.btn_tuneNoise.text = "NOISE OFF"
             noise(PINK, gain)
+            isNoiseOn = true
         }else{
             view.btn_tuneNoise.text = "NOISE ON"
             noise(NOISE_OFF, gain)
+            isNoiseOn = false
         }
     }
 

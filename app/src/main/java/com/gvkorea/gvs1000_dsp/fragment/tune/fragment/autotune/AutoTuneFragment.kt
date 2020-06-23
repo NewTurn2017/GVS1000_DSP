@@ -67,8 +67,6 @@ class AutoTuneFragment(val mHandler: Handler) : Fragment() {
         init_barChart()
     }
 
-
-
     fun init_lineChart() {
         lineChart = ChartLayoutLineChartForTune(this.context!!, chart_tune_line)
         targetValues = presenter.setTarget(targetdB.toInt()-15)
