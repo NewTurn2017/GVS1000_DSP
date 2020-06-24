@@ -275,7 +275,6 @@ class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHan
             dialog.dismiss()
         }
         dialog.btn_dialog_tune_stop.setOnClickListener {
-
             dialog.dismiss()
         }
         dialog.show()

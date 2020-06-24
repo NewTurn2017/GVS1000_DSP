@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">GVS-1000</string>
+    <string name="app_name">GVS-2000</string>
     <string name="connect">접속</string>
     <string name="disconnect">해제</string>
-    <string name="app_description">GVS-1000</string>
+    <string name="app_description">GVS-2000</string>
     <string name="version">Version: v1.0.0</string>
     <string name="volumeControl">볼륨 제어</string>
     <string name="eqcontrol">EQ 제어</string>
