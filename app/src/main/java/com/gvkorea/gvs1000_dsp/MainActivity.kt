@@ -91,6 +91,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
                 }
                 DSPMessage.MSG_INFO.value -> {
                     presenter.ipInfoText(msg)
+
                 }
                 DSPMessage.MSG_QUIT.value -> {
                     presenter.appendTextQuit(msg)
@@ -664,8 +665,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
                         wifi_refresh()
                     }
                     onStart()
-
-
                 }
                 WifiManager.WIFI_STATE_DISABLED -> {
                     tv_ip_info.text = "WIFI 연결안됨"

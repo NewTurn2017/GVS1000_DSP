@@ -12,9 +12,7 @@ import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import com.gvkorea.gvs1000_dsp.MainActivity.Companion.spkList
 import com.gvkorea.gvs1000_dsp.R
-import com.gvkorea.gvs1000_dsp.fragment.volume.listener.MuteButtonListener
-import com.gvkorea.gvs1000_dsp.fragment.volume.listener.VolumeButtonListener
-import com.gvkorea.gvs1000_dsp.fragment.volume.listener.VolumeSeekBarChangeListener
+import com.gvkorea.gvs1000_dsp.fragment.volume.listener.*
 import com.gvkorea.gvs1000_dsp.fragment.volume.presenter.VolumePresenter
 import com.gvkorea.gvs1000_dsp.util.WaitingDialog
 import com.manojbhadane.QButton
@@ -52,8 +50,9 @@ class VolumeFragment(val handler: Handler) : Fragment() {
         btn_loadVolume.setOnClickListener(VolumeButtonListener(presenter))
         addVolumeSeekBarListener()
         addMuteButtonListener()
+        addVolumeUpButtonListener()
+        addVolumeDownButtonListener()
     }
-
 
     private fun initView() {
         val numOfSpeaker = spkList.size
@@ -136,6 +135,36 @@ class VolumeFragment(val handler: Handler) : Fragment() {
                 )!!
             )
             button?.setOnClickListener(MuteButtonListener(this, presenter))
+        }
+    }
+
+    private fun addVolumeUpButtonListener() {
+        val FIRST_ID = 1
+        val LAST_ID = 8
+        for (i in FIRST_ID..LAST_ID) {
+            val button = activity?.findViewById<QButton>(
+                    activity?.resources?.getIdentifier(
+                            "btn_spk${i}_up",
+                            "id",
+                            activity?.packageName
+                    )!!
+            )
+            button?.setOnClickListener(VolumeUpButtonListener(this, presenter))
+        }
+    }
+
+    private fun addVolumeDownButtonListener() {
+        val FIRST_ID = 1
+        val LAST_ID = 8
+        for (i in FIRST_ID..LAST_ID) {
+            val button = activity?.findViewById<QButton>(
+                    activity?.resources?.getIdentifier(
+                            "btn_spk${i}_down",
+                            "id",
+                            activity?.packageName
+                    )!!
+            )
+            button?.setOnClickListener(VolumeDownButtonListener(this, presenter))
         }
     }
 

@@ -14,6 +14,7 @@ import com.gvkorea.gvs1000_dsp.fragment.volume.VolumeFragment
 import com.gvkorea.gvs1000_dsp.util.DSPMessage
 import com.gvkorea.gvs1000_dsp.util.GVPacket
 import com.gvkorea.gvs1000_dsp.util.SpeakerInfo
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
 import com.manojbhadane.QButton
 import kotlinx.android.synthetic.main.fragment_volume.*
 import java.lang.Exception
@@ -44,6 +45,26 @@ class VolumePresenter(val view: VolumeFragment, val handler: Handler) {
         changeVolumeValue(progress, textView)
         sendVolumeControl(speakerInfo.socket, speakerInfo.channel, progress)
 
+    }
+
+    fun volumeUpControl(speakerInfo: SpeakerInfo, seekBar: VerticalSeekBar, textView: TextView) {
+        var curVolume = seekBar.progress
+        if (curVolume < 55) {
+            curVolume += 1
+            seekBar.progress = curVolume
+            changeVolumeValue(curVolume, textView)
+            sendVolumeControl(speakerInfo.socket, speakerInfo.channel, curVolume)
+        }
+    }
+
+    fun volumeDownControl(speakerInfo: SpeakerInfo, seekBar: VerticalSeekBar, textView: TextView) {
+        var curVolume = seekBar.progress
+        if (curVolume > 0) {
+            curVolume -= 1
+            seekBar.progress = curVolume
+            changeVolumeValue(curVolume, textView)
+            sendVolumeControl(speakerInfo.socket, speakerInfo.channel, curVolume)
+        }
     }
 
     private fun sendVolumeControl(

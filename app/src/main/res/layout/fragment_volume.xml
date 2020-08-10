@@ -92,6 +92,7 @@
                 android:background="@drawable/layout_border_text"
                 android:orientation="vertical">
 
+
                 <TextView
                     android:id="@+id/tv_spk1"
                     android:layout_width="match_parent"
@@ -101,6 +102,19 @@
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/button_text_size" />
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk1_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/sb_spk1_wb"
@@ -124,6 +138,19 @@
                         app:seekBarRotation="CW270" />
 
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk1_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
 
                 <com.manojbhadane.QButton
                     android:id="@+id/btn_spk1_mute"
@@ -168,6 +195,19 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/button_text_size" />
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk2_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
+
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/sb_spk2_wb"
                     android:layout_width="match_parent"
@@ -190,6 +230,19 @@
                         app:seekBarRotation="CW270" />
 
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk2_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
 
                 <com.manojbhadane.QButton
                     android:id="@+id/btn_spk2_mute"
@@ -234,6 +287,19 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/button_text_size" />
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk3_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
+
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/sb_spk3_wb"
                     android:layout_width="match_parent"
@@ -256,6 +322,19 @@
                         app:seekBarRotation="CW270" />
 
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk3_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
 
                 <com.manojbhadane.QButton
                     android:id="@+id/btn_spk3_mute"
@@ -300,6 +379,19 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/button_text_size" />
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk4_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
+
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/sb_spk4_wb"
                     android:layout_width="match_parent"
@@ -323,6 +415,18 @@
 
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk4_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
                 <com.manojbhadane.QButton
                     android:id="@+id/btn_spk4_mute"
                     android:layout_width="match_parent"
@@ -366,6 +470,19 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/button_text_size" />
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk5_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
+
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/sb_spk5_wb"
                     android:layout_width="match_parent"
@@ -389,6 +506,18 @@
 
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk5_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
                 <com.manojbhadane.QButton
                     android:id="@+id/btn_spk5_mute"
                     android:layout_width="match_parent"
@@ -432,6 +561,19 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/button_text_size" />
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk6_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
+
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/sb_spk6_wb"
                     android:layout_width="match_parent"
@@ -455,6 +597,19 @@
 
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk6_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
                 <com.manojbhadane.QButton
                     android:id="@+id/btn_spk6_mute"
                     android:layout_width="match_parent"
@@ -498,6 +653,19 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/button_text_size" />
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk7_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
+
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/sb_spk7_wb"
                     android:layout_width="match_parent"
@@ -521,6 +689,18 @@
 
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk7_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
                 <com.manojbhadane.QButton
                     android:id="@+id/btn_spk7_mute"
                     android:layout_width="match_parent"
@@ -564,6 +744,19 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/button_text_size" />
 
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk8_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
+
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/sb_spk8_wb"
                     android:layout_width="match_parent"
@@ -586,6 +779,19 @@
                         app:seekBarRotation="CW270" />
 
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                <com.manojbhadane.QButton
+                    android:id="@+id/btn_spk8_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="1dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/volume_step"
+                    app:qb_backgroundColor="@android:color/holo_orange_light"
+                    app:qb_radius="10"
+                    app:qb_strokeColor="@android:color/holo_orange_dark"
+                    app:qb_strokeWidth="5" />
 
                 <com.manojbhadane.QButton
                     android:id="@+id/btn_spk8_mute"

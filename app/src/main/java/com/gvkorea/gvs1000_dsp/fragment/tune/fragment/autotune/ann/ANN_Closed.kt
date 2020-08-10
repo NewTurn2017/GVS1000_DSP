@@ -13,7 +13,6 @@ class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: 
     //   private val MODEL_FILE_CLOSE = curModelPath
     private var inferenceInterface_close: TensorFlowInferenceInterface = TensorFlowInferenceInterface()
     private val INPUT_SHAPE_CLOSE = intArrayOf(1, 62)
-
     private val INPUT_NODE = "input"
     private val OUTPUT_NODE = "out"
 
@@ -25,7 +24,6 @@ class ANN_Closed(var curEQ: IntArray, var curRMS: FloatArray, var targetValues: 
 
         val results = FloatArray(31)
         val input = FloatArray(62)
-
 
         for (i in input.indices) {
             if (i < 31) {

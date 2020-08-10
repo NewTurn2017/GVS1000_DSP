@@ -20,7 +20,7 @@ class GVSubPacket(val view: Fragment, val mHandler: Handler) {
     val PINK = 2
     private lateinit var tx_buff: ByteArray
     private lateinit var outputStream: OutputStream
-    private lateinit var dataOutputStream: DataOutputStream
+    private var dataOutputStream: DataOutputStream? = null
 
 
 
@@ -45,8 +45,8 @@ class GVSubPacket(val view: Fragment, val mHandler: Handler) {
 
             Thread {
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -79,8 +79,8 @@ class GVSubPacket(val view: Fragment, val mHandler: Handler) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     msg("ID변경이 원할하지 않습니다. 다시한번 시도해주세요.")
                 }

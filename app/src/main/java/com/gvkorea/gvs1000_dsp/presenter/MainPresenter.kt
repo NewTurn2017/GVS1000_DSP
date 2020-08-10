@@ -462,6 +462,7 @@ class MainPresenter(val view: MainActivity, val handler: Handler) {
                     }
                 }
             }
+
             val filterLow = intToFilterType(Integer.parseInt(arr1, 16))
             val filterHigh = intToFilterType(Integer.parseInt(arr2, 16))
             val freqLowCutoff = hexStringToFloat(arr3)

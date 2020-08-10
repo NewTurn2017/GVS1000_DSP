@@ -13,14 +13,12 @@ class GVPacket(val view: Fragment) {
     val protocol = Protocol()
     val CMD_PARA2_CH1 = '1'
     val CMD_PARA2_CH2 = '2'
-    val CMD_PARA2_CHA = 'A'
-    private val WAITINTERVAL = 100L
     private val CHECKINTERVAL = 50L
     private val EQINTERVAL = 100L
     private val LISTINTERVAL = 20L
     private lateinit var tx_buff: ByteArray
     private lateinit var outputStream: OutputStream
-    private lateinit var dataOutputStream: DataOutputStream
+    private var dataOutputStream: DataOutputStream? = null
 
     fun SendPacket_LevelmeterOutput(socket: Socket?, channel: Char, switch: Int) {
         if (socket != null) {
@@ -35,8 +33,8 @@ class GVPacket(val view: Fragment) {
 
             Thread {
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -70,8 +68,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -109,8 +107,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -142,8 +140,8 @@ class GVPacket(val view: Fragment) {
 
             Thread {
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -177,8 +175,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -235,8 +233,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -269,8 +267,8 @@ class GVPacket(val view: Fragment) {
 
             Thread {
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -310,8 +308,8 @@ class GVPacket(val view: Fragment) {
 
             Thread {
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -348,8 +346,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -383,8 +381,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -418,8 +416,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -453,8 +451,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -488,8 +486,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -523,8 +521,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -558,8 +556,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -593,8 +591,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -640,8 +638,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -675,8 +673,8 @@ class GVPacket(val view: Fragment) {
             Thread {
 
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -709,8 +707,8 @@ class GVPacket(val view: Fragment) {
 
             Thread {
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -748,8 +746,8 @@ class GVPacket(val view: Fragment) {
 
             Thread {
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -782,8 +780,8 @@ class GVPacket(val view: Fragment) {
 
             Thread {
                 try {
-                    dataOutputStream.write(tx_buff, 0, tx_buff.size)
-                    dataOutputStream.flush()
+                    dataOutputStream?.write(tx_buff, 0, tx_buff.size)
+                    dataOutputStream?.flush()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

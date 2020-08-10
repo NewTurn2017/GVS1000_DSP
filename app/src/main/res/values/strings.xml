@@ -102,6 +102,8 @@
     <string name="waiting">잠시만 기다려 주세요…</string>
     <string name="measure_reverb">잔향 측정</string>
     <string name="append_graph">Append Graph</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 
 
     <string-array name="avgTime_array">
