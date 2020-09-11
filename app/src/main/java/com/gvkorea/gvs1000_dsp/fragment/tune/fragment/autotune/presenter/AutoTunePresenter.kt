@@ -78,7 +78,7 @@ import kotlin.math.roundToInt
 
 
 class AutoTunePresenter(val view: AutoTuneFragment, val helper: Helper, val mHandler: Handler) {
-
+//
     var curEQ = IntArray(31)
     val packet = GVPacket(view)
 
